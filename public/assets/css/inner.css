@@ -1,0 +1,304 @@
+#inner-header {
+  width: 100%;
+  background:#ccc;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  color: #ffffff;
+}
+#inner-header:before {
+  background:#fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  content: "";
+  display: block;
+}
+
+#inner-header .top-header #menu span::before, #header .top-header #menu span::after{
+	background:#ccc;
+}
+#inner-header .top-header #menu span{
+	background:#ccc;
+}
+#inner-header .top-header {
+  margin-top: 20px;
+}
+#inner-header .top-header #menu {
+  display: block;
+  width: 24px;
+  height: 24px;
+  /*border: 1px solid #ffffff;*/
+  padding: 12px;
+  cursor: pointer;
+  float: right;
+}
+#inner-header .top-header #menu span {
+  background-color: #ccc;
+  display: block;
+  font-size: 0px;
+  height: 3px;
+  margin-top: -1px;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+  width: 24px;
+}
+#inner-header .top-header #menu span:before,
+#inner-header .top-header #menu span:after {
+  background: #ccc;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+#inner-header .top-header #menu span:before {
+  -webkit-transform: translateY(-300%);
+  -moz-transform: translateY(-300%);
+  transform: translateY(-300%);
+}
+#inner-header .top-header #menu span:after {
+  -webkit-transform: translateY(300%);
+  -moz-transform: translateY(300%);
+  transform: translateY(300%);
+}
+#inner-header .top-header #menu:hover span,
+#inner-header .top-header #menu:hover span:after,
+#inner-header .top-header #menu:hover span:before {
+  background: #086DB4;
+}
+.search-form .form-group {
+  float: right !important;
+  transition: all 0.35s, border-radius 0s;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+.search-form .form-group input.form-control {
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+}
+.search-form .form-group input.form-control::-webkit-input-placeholder {
+  display: none;
+}
+.search-form .form-group input.form-control:-moz-placeholder {
+  /* Firefox 18- */
+  display: none;
+}
+.search-form .form-group input.form-control::-moz-placeholder {
+  /* Firefox 19+ */
+  display: none;
+}
+.search-form .form-group input.form-control:-ms-input-placeholder {
+  display: none;
+}
+.search-form .form-group:hover,
+.search-form .form-group.hover {
+  width: 100%;
+  border-radius: 4px 25px 25px 4px;
+}
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #3596e0;
+  left: initial;
+  font-size: 14px;
+}
+.form_wrapper {
+    background: #f6f6f6 none repeat scroll 0 0;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    box-shadow: 1px 1px 0 1px rgba(216, 216, 216, 0.69);
+    padding: 3px 10px 12px;
+}
+.form_wrapper h6 {
+    color: #222;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.25px;
+}
+.course-list-drop-query {
+    display: block;
+    position: relative;
+    z-index: 0;
+}
+.placeholder_wrap {
+    position: relative;
+}
+.course-list-drop-query input {
+    border: 1px solid #e7e7e7;
+    color: #777;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.25px;
+    margin-bottom: 5px;
+}
+.course-list-drop-query .placeholder_wrap input, .course-list-drop-query .placeholder_wrap textarea, .course-list-drop-query .support_coutry_code .country_code_span {
+    color: #333;
+}
+.placeholder_span {
+    color: #777;
+    font-size: 13px;
+    font-weight: 300;
+    left: 12px;
+    letter-spacing: 0.25px;
+    position: absolute;
+    top: 4px;
+}
+.support_coutry_code {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    height: 35px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.course-list-drop-query .dr_cun {
+    margin-bottom: 1px;
+}
+.expanded_form .select_wraper, .callback_wrapper .for_cun, .form_div_register .for_cun, .course-list-drop-query .dr_cun, .contact_dr_qry .select_wraper, .enroll_form .dr_cun, .webi_reg_form .select_wraper, .enroll_form .dr_cun {
+    border-right: 1px solid #e7e7e7;
+    float: left;
+    height: 33px;
+    margin-bottom: 20px;
+    width: 52px;
+}
+.course-list-drop-query .dr_cun .sel_cr, .contact_dr_qry .support_coutry_code .sel_cr, .webi_reg_form .support_coutry_code .sel_cr {
+    border-left: medium none;
+    border-top: medium none;
+}
+.course-list-drop-query .select_wraper .sel_cr {
+    padding-left: 7px;
+    width: 53px;
+}
+.course-list-drop-query .support_coutry_code .placeholder_wrap input {
+    color: #333;
+    max-width: 283px;
+    width: 283px;
+}
+.select_wraper .sel_cr {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #e7e7e7;
+    height: 35px;
+    position: relative;
+    width: 337px;
+    z-index: 1;
+}
+.select_wraper .caret {
+    position: absolute;
+    right: 5px;
+    top: 16px;
+}
+.caret {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid;
+    display: inline-block;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    width: 0;
+}
+.course-list-drop-query .support_coutry_code .placeholder_wrap {
+    float: left;
+    max-width: 166px;
+    width: auto;
+}
+.support_coutry_code .placeholder_wrap {
+    display: inline-block;
+    position: relative;
+    width: 256px;
+}
+.support_coutry_code .placeholder_wrap .country_code_span {
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    left: 5px;
+    padding-top: 4px;
+    position: relative;
+    vertical-align: middle;
+    z-index: 1;
+}
+.support_coutry_code {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    height: 35px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.support_coutry_code .placeholder_wrap input {
+    border: medium none;
+    height: 33px;
+    position: absolute;
+    width: 259px;
+}
+.list_query {
+    margin-bottom: 6px;
+}
+.placeholder_wrap {
+    position: relative;
+}
+.course-list-drop-query textarea {
+    border: 1px solid #e7e7e7;
+    position: relative;
+    resize: none;
+    top: -13px;
+}
+textarea.form-control {
+    height: auto;
+}
+.leadform_radio_btn a.selected_img::before {
+    background-position: -5px -270px;
+}
+.leadform_radio_btn a::before {
+    background: rgba(0, 0, 0, 0) url("../img/course_sprite_v10.png") no-repeat scroll 0 0;
+    content: "";
+    display: inline-block;
+    height: 17px;
+    margin-right: 5px;
+    vertical-align: middle;
+    width: 17px;
+}
+.leadform_radio_btn a.default_img::before {
+    background-position: -5px -253px;
+}
+.leadform_radio_btn a::before {
+    background: rgba(0, 0, 0, 0) url("../img/course_sprite_v10.png") no-repeat scroll 0 0;
+    content: "";
+    display: inline-block;
+    height: 17px;
+    margin-right: 5px;
+    vertical-align: middle;
+    width: 17px;
+}
+.remember_me.default_img::before {
+    background-position: -75px -283px;
+}
+.remember_me::before {
+    background: rgba(0, 0, 0, 0) url("../img/header_sprite_v11.png") no-repeat scroll 0 0;
+    content: "";
+    display: inline-block;
+    height: 15px;
+    margin-right: 3px;
+    width: 15px;
+}

@@ -1,0 +1,59 @@
+@extends('admin.layouts.master')
+@section('title', 'Page Title')
+@section('content')
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="x_title">
+                <h2>Course Information</h2>
+                <span class="pull-right"><a class="btn btn-primary" href="{{route('admin.courses')}}">Back</a></span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                    @if (Session::has('success_message'))
+                    <div class="alert alert-success">{{ Session::get('success_message')}}</div>
+                    @endif                        
+                        @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif                        
+                        <br />
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Title</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->title}}</span></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-description">Course Description</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span>{{$course->description}}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Course Image</label>                                
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <img src="{{asset('uploads/course')}}/{{$course->image_name}}" width="100px" height="100px" />
+                                </div>
+                            </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+@endsection
