@@ -44,4 +44,73 @@ class EnrollController extends BaseController
         }
     }
 
+    public function postTeachWithUs()
+    {
+        try {
+            
+            $message = '';            
+            $inputData = Input::all();
+            $enrollService = new EnrollService();
+            $validation = $enrollService->validateTeachWithUs($inputData);
+            if ($validation->fails()) {
+                $errors = $validation->messages();
+                
+                return Redirect::back()->withInput()->withErrors($errors);
+            }  
+            $saved = $enrollService->saveTeachWithUs($inputData);
+             if ($saved) {
+                 $message = 'Thank you for your interest. We will get back to you very soon!';
+                 
+                 return Redirect::route('teach-with-us')
+                        ->with('message', $message);
+             }
+        } catch (\Exception $exc) {
+            throw new \Exception($exc->getMessage());
+        }
+    }
+    
+    public function downloadResume($file)
+    {
+        try {
+            $filePath = 'uploads/resume/' . $file;
+            
+            return Response::download(public_path($filePath));
+        } catch (\Exception $exc) {
+            
+        }
+    }
+    
+    public function corporateTraining()
+    {
+        try {
+            return View::make('enroll.corporate-training');
+        } catch (\Exception $exc) {
+            throw new \Exception($exc->getMessage());
+        }        
+    }
+
+    public function postCorporateTraining()
+    {
+        try {
+            
+            $message = '';            
+            $inputData = Input::all();
+            $enrollService = new EnrollService();
+            $validation = $enrollService->validateCorporateTraining($inputData);
+            if ($validation->fails()) {
+                $errors = $validation->messages();
+
+                return Redirect::back()->withInput()->withErrors($errors);
+            }  
+            $saved = $enrollService->saveCorporateData($inputData);
+             if ($saved) {
+                 $message = 'Thank you for your interest. We will get back to you very soon!';
+                 
+                 return Redirect::route('corporate-training')
+                        ->with('message', $message);
+             }
+        } catch (\Exception $exc) {
+            throw new \Exception($exc->getMessage());
+        }
+    }    
 }

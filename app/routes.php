@@ -19,7 +19,11 @@ Route::get('/contact-us',array('as' => 'contact-us','uses' => 'HomeController@co
 Route::post('/post/contact',array('as' => 'post-contact-us','uses' => 'HomeController@postContactUs'));
 Route::post('/post/query',array('as' => 'post-query','uses' => 'HomeController@postQuery'));
 Route::post('/post/enroll',array('as' => 'post-enroll','uses' => 'EnrollController@save'));
+Route::get('/corporate-training',array('as' => 'corporate-training','uses' => 'EnrollController@corporateTraining'));
+Route::post('/post-corporate-training',array('as' => 'post-corporate-training','uses' => 'EnrollController@postCorporateTraining'));
 Route::get('/teach-with-us',array('as' => 'teach-with-us','uses' => 'EnrollController@teachWithUs'));
+Route::post('/teach-with-us',array('as' => 'post-teach-with-us','uses' => 'EnrollController@postTeachWithUs'));
+Route::get('/resume/{file}',array('as' => 'file.download','uses' => 'EnrollController@downloadResume'));
 
 Route::get('sign-up','App\Controllers\Admin\AuthController@register');
 Route::post('register',array('as' => 'admin.signup','uses' => 'App\Controllers\Admin\AuthController@postRegister'));
