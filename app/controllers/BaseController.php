@@ -1,6 +1,5 @@
 <?php
 
-use View;
 use App\Services\CourseService;
 
 class BaseController extends Controller {

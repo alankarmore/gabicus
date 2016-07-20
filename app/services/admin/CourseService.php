@@ -47,7 +47,7 @@ class CourseService
         try {
             $course = new Course();
             $course->category_id = trim($data['category']);
-            $course->is_popular = (int)trim($data['popular'])?1:0;
+            $course->is_popular = (!empty($data['popular']) && (int)trim($data['popular']))?1:0;
             $course->title = trim($data['title']);
             $course->description = trim(nl2br($data['description']));
             $course->slug = strtolower(str_replace(" ","-",$course->title));
@@ -72,7 +72,7 @@ class CourseService
     {
         try {
             $course = $this->getCourse($id);
-            $course->is_popular = (int)trim($data['popular'])?1:0;
+            $course->is_popular = (!empty($data['popular']) && (int)trim($data['popular']))?1:0;
             $course->category_id = trim($data['category']);
             $course->title = trim($data['title']);
             $course->description = trim(nl2br($data['description']));

@@ -1,6 +1,5 @@
 <?php
 
-use Input;
 use App\Services\EnrollService;
 
 class EnrollController extends BaseController
