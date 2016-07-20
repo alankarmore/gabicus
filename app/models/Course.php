@@ -12,4 +12,8 @@ class Course extends \Eloquent
      */
     protected $table = 'courses';
 
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
 }

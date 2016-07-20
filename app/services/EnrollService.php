@@ -53,9 +53,9 @@ class EnrollService
             $enroll->qualification = $data['qualification'];
             $enroll->age = $data['age'];
             $enroll->location = $data['location'];
-            $enroll->contact_number = ($data['contact_number']) ? 1 : 0;
-            $enroll->itexperience = ($data['itexperience']) ? 1 : 0;
-            $enroll->training_courses = ($data['training_courses']) ? 1 : 0;
+            $enroll->contact_number = $data['contact_number'];
+            $enroll->itexperience = ($data['itexperience']);
+            $enroll->training_courses = ($data['training_courses']);
             $enroll->message = $data['message'];
             if($data['resume']) {
                 $extension = $data['resume']->guessExtension();
@@ -87,7 +87,7 @@ class EnrollService
             $corporateTraining->email = $data['email'];
             $corporateTraining->team_members = $data['team_members'];
             $corporateTraining->location = $data['location'];
-            $corporateTraining->contact_number = ($data['contact_number']) ? 1 : 0;
+            $corporateTraining->contact_number = ($data['contact_number']) ? $data['contact_number'] : "";
             $corporateTraining->courses_required = $data['courses_required'];
             if ($corporateTraining->save()) {
                 $data['team_members'] = ($data['team_members'])?$data['team_members']:'Not specified';

@@ -53,7 +53,15 @@ Route::group(array('before' => 'authAdmin') , function() {
    Route::post('alumni/update/{id}',array('as' => 'admin.alumnies.update','uses' => 'App\Controllers\Admin\AlumniController@update')); 
    Route::get('alumni/delete/{id}',array('as' => 'admin.alumnies.delete','uses' => 'App\Controllers\Admin\AlumniController@destroy')); 
    Route::get('alumni/show/{id}',array('as' => 'admin.alumnies.show','uses' => 'App\Controllers\Admin\AlumniController@show')); 
+   
+   Route::get('enrollment/',array('as' => 'admin.enroll','uses' => 'App\Controllers\Admin\EnrollController@index')); 
+   Route::get('enrollment/show/{id}',array('as' => 'admin.enroll.show','uses' => 'App\Controllers\Admin\EnrollController@show')); 
+  
+   Route::get('corporatetraining/',array('as' => 'admin.corporatetraining','uses' => 'App\Controllers\Admin\CorporateTrainingController@index')); 
+   Route::get('corporatetraining/show/{id}',array('as' => 'admin.corporatetraining.show','uses' => 'App\Controllers\Admin\CorporateTrainingController@show')); 
 
+   Route::get('teachwithus/',array('as' => 'admin.teachwithus','uses' => 'App\Controllers\Admin\TeachWithUsController@index')); 
+   Route::get('teachwithus/show/{id}',array('as' => 'admin.teachwithus.show','uses' => 'App\Controllers\Admin\TeachWithUsController@show')); 
 
    Route::get('logout',array('as' => 'admin.logout','uses' => 'App\Controllers\Admin\AuthController@logout')); 
 });

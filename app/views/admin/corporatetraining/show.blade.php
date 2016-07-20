@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
-@section('title', 'Page Title')
+@section('title', 'Corporate Training Request Details')
 @section('content')
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
             <div class="x_title">
-                <h2>Course Information</h2>
-                <span class="pull-right"><a class="btn btn-primary" href="{{route('admin.courses')}}">Back</a></span>
+                <h2>Corporate Training Request Details</h2>
+                <span class="pull-right"><a class="btn btn-primary" href="{{route('admin.corporatetraining')}}">Back</a></span>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -32,31 +32,30 @@
                         @endif                        
                         <br />
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Is Popular</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span>@if($course->is_popular) Yes @else No @endif</span></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Category</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->category->category_name}}</span></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Title</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->title}}</span></div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Name</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$corporateTraining->name}}</span></div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-description">Course Description</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <span>{{$course->description}}</span>
-                                </div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Email</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$corporateTraining->email}}</span></div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group">
-                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Course Image</label>                                
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <img src="{{asset('uploads/course')}}/{{$course->image_name}}" width="100px" height="100px" />
-                                </div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Location</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{ucfirst($corporateTraining->location)}}</span></div>
                             </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Contact Number</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$corporateTraining->contact_number}}</span></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Courses Required</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$corporateTraining->courses_required}}</span></div>
+                            </div>
+                            <div class="clearfix"></div>
                     </div>                    
                 </div>
             </div>

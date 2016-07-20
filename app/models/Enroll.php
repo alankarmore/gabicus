@@ -11,5 +11,9 @@ class Enroll extends \Eloquent
      * @var string
      */
     protected $table = 'enrollments';
-
+    
+    public function courseInfo()
+    {
+        return $this->belongsTo('App\Models\Course','course','id');
+    }
 }

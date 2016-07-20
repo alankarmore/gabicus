@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use Validator;
+use App\Models\Category;
 use App\Models\Course;
 
 class CourseService
@@ -11,6 +12,11 @@ class CourseService
     public function __construct()
     {
         ;
+    }
+    
+    public function getCategories()
+    {
+        return Category::all();
     }
 
     /**
@@ -40,6 +46,8 @@ class CourseService
     {
         try {
             $course = new Course();
+            $course->category_id = trim($data['category']);
+            $course->is_popular = (int)trim($data['popular'])?1:0;
             $course->title = trim($data['title']);
             $course->description = trim(nl2br($data['description']));
             $course->slug = strtolower(str_replace(" ","-",$course->title));
@@ -64,6 +72,8 @@ class CourseService
     {
         try {
             $course = $this->getCourse($id);
+            $course->is_popular = (int)trim($data['popular'])?1:0;
+            $course->category_id = trim($data['category']);
             $course->title = trim($data['title']);
             $course->description = trim(nl2br($data['description']));
             $course->slug = strtolower(str_replace(" ","-",$course->title));
@@ -110,6 +120,7 @@ class CourseService
     {
         try {
             $rules = array(
+                'category' => 'required',
                 'title' => 'required|max:150|unique:courses',
                 'description' => 'required',
                 'course_image' => 'required|mimes:jpg,jpeg,png,bmp',

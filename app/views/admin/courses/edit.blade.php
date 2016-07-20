@@ -30,6 +30,26 @@
                         <br />
                         <form id="addCourse" data-parsley-validate class="form-horizontal form-label-left" action="{{route('admin.courses.update',['id' => $course->id])}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
+                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Marked As Popular<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="checkbox" name="popular" id="popular" value="1" @if($course->is_popular == 1) checked="checked" @endif />
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Course Category<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="category" id="category" class="form-control col-md-7 col-xs-12">
+                                        <option value="">Select Category</option>
+                                        @foreach($categories as $category)
+                                        <option value="{{$category->id}}" @if($course->category_id == $category->id) selected="selected" @endif >{{$category->category_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="red">{{ $errors->first('category') }}</span>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
                                 <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Title<span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">

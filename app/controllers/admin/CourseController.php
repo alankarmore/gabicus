@@ -39,7 +39,9 @@ class CourseController extends \BaseController
      */
     public function create()
     {
-        return View::make('admin.courses.create');
+        $categoriese = $this->service->getCategories();
+        
+        return View::make('admin.courses.create',['categories' => $categoriese]);
     }
 
     /**
@@ -98,8 +100,9 @@ class CourseController extends \BaseController
     {
         try {
             $course = $this->service->getCourse($id);
+            $categories = $this->service->getCategories();
             if ($course) {
-                return View::make('admin.courses.edit', ['course' => $course]);
+                return View::make('admin.courses.edit', ['course' => $course, 'categories' => $categories]);
             }
 
             return Redirect::back()->withInput()->withErrors('Something went wrong while saving the course');

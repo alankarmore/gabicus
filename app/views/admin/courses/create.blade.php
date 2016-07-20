@@ -16,22 +16,34 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_content">
-                        @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif                        
                         <br />
                         <form id="addCourse" data-parsley-validate class="form-horizontal form-label-left" action="{{route('admin.courses.save')}}" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Marked As Popular<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="checkbox" name="popular" id="popular" value="1" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Course Category<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="category" id="category" class="form-control col-md-7 col-xs-12">
+                                        <option value="">Select Category</option>
+                                        @foreach($categories as $category)
+                                        <option value="{{$category->id}}" @if(Input::old('category') && Input::old('category') == $category->id) selected="selected" @endif >{{$category->category_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="red">{{ $errors->first('category') }}</span>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Course Title<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="title" id="title"  class="form-control col-md-7 col-xs-12">
+                                    <input type="text" name="title" id="title"  class="form-control col-md-7 col-xs-12" value="{{Input::old('title')? Input::old('title'): '' }}">
+                                    <span class="red">{{ $errors->first('title') }}</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -108,14 +120,16 @@
                                         </div>
                                     </div>
                                     <div id="editor" class="editor-wrapper"></div>
-                                    <textarea name="description" id="description"  style="display:none;" class="form-control col-md-7 col-xs-12"></textarea>
+                                    <textarea name="description" id="description"  style="display:none;" class="form-control col-md-7 col-xs-12">{{Input::old('description')? Input::old('description'): '' }}</textarea>
                                 </div>
+                                <span class="red">{{ $errors->first('description') }}</span>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Course Image<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" name="course_image" id="course_image"  class="">
+                                    <span class="red">{{ $errors->first('course_image') }}</span>
                                 </div>                            
                             </div>                            
                             <div class="ln_solid"></div>
@@ -201,7 +215,8 @@ $('#editor').wysiwyg({
 window.prettyPrint;
 prettyPrint();
 });
-
+var desc = "{{ Input::old('description') ? Input::old('description'): ' ' }}";
+$("#editor").html(desc);
 $("#addCourse").submit(function(){
     $("#description").val($("#editor").html());
     $("#addCourse").submit();

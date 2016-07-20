@@ -40,6 +40,21 @@
                             <li><a href="{{route('admin.alumnies.create')}}">Add Alumni</a></li>
                         </ul>
                     </li>
+                    <li><a><i class="fa fa-table"></i> Enrollment<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('admin.enroll')}}">All Enrollments</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-table"></i> Corporate Training<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('admin.corporatetraining')}}">Corporate Training</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-table"></i> Teach With US<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('admin.teachwithus')}}">Teach With Us</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
