@@ -22,14 +22,22 @@ class CorporateTrainingController extends \BaseController
     public function index()
     {
         try {
-            $corporateTrainings = $this->service->getAllRecords();
-
-            return View::make('admin.corporatetraining.index', array('corporateTrainings' => $corporateTrainings));
+            return View::make('admin.corporatetraining.index');
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
 
+    /**
+     * get all courses
+     * 
+     * @return json
+     */
+    public function getData()
+    {
+        return $this->service->getAllRecords();
+    }
+    
     /**
      * Display the specified resource.
      *
@@ -40,7 +48,7 @@ class CorporateTrainingController extends \BaseController
     {
         try {
             $corporateTraining = $this->service->getRecordDetails($id);
-            if ($teachwithus) {
+            if ($corporateTraining) {
                 return View::make('admin.corporatetraining.show', ['corporateTraining' => $corporateTraining]);
             }
 

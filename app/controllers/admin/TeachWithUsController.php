@@ -22,14 +22,22 @@ class TeachWithUsController extends \BaseController
     public function index()
     {
         try {
-            $teachwithus = $this->service->getAllRecords();
-
-            return View::make('admin.teachwithus.index', array('teachwithus' => $teachwithus));
+          return View::make('admin.teachwithus.index');
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
 
+    /**
+     * get all courses
+     * 
+     * @return json
+     */
+    public function getData()
+    {
+        return $this->service->getAllRecords();
+    }
+    
     /**
      * Display the specified resource.
      *

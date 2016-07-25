@@ -2,6 +2,8 @@
 
 namespace App\Services\Admin;
 
+use URL;
+use Input;
 use Validator;
 use App\Models\Category;
 use App\Models\Course;
@@ -27,7 +29,32 @@ class CourseService
     public function getAllCourses()
     {
         try {
-            return Course::all();
+        $response = array('total' => 0,'rows' => '');
+        $allCourses = Course::select(\DB::raw('COUNT(*) as cnt'))->first();
+        $response['total'] = $allCourses->cnt;
+        $query = Course::select('courses.id', 'title', 'description','categories.category_name')
+                         ->join('categories','courses.category_id','=','categories.id');
+        if(!empty(Input::get('search'))) {
+            $query->where('courses.title', 'LIKE', '%' . Input::get('search') . '%');
+        }
+        
+        $courses = $query->orderBy(Input::get('sort'), Input::get('order'))
+                       ->skip(Input::get('offset'))->take(Input::get('limit'))
+                       ->get();
+        if(!empty(Input::get('search'))) {
+            $response['total'] = $courses->count();
+        }
+        
+        foreach($courses as $course) {
+            $course->description = ($course->description && strlen($course->description) > 150) ? substr($course->description, 0, 150) : $course->description;
+            $course->action = '<a href="'.URL::route('admin.courses.show',array('id' => $course->id)).'" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                            <a href="'.URL::route('admin.courses.edit',array('id' => $course->id)).'" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                            <a href="'.URL::route('admin.courses.delete',array('id' => $course->id)).'" title="delete"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+            
+            $response['rows'][] = $course;
+        }
+        
+        return json_encode($response);
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }

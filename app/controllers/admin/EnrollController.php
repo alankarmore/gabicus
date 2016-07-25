@@ -22,14 +22,22 @@ class EnrollController extends \BaseController
     public function index()
     {
         try {
-            $enrollments = $this->service->getAllEnrollments();
-
-            return View::make('admin.enroll.index', array('enrollments' => $enrollments));
+            return View::make('admin.enroll.index');
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
 
+    /**
+     * get all courses
+     * 
+     * @return json
+     */
+    public function getData()
+    {
+        return $this->service->getAllEnrollments();
+    }
+    
     /**
      * Display the specified resource.
      *

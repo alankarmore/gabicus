@@ -24,14 +24,22 @@ class CategoryController extends \BaseController
     public function index()
     {
         try {
-            $categories = $this->service->getAllCategories();
-
-            return View::make('admin.categories.index', array('categories' => $categories));
+            return View::make('admin.categories.index');
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
 
+    /**
+     * get all courses
+     * 
+     * @return json
+     */
+    public function getData()
+    {
+        return $this->service->getAllCategories();
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

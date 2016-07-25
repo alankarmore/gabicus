@@ -2,6 +2,8 @@
 
 namespace App\Services\Admin;
 
+use URL;
+use Input;
 use Validator;
 use App\Models\Alumni;
 
@@ -21,7 +23,29 @@ class AlumniService
     public function getAllAlumnies()
     {
         try {
-            return Alumni::all();
+            $response = array('total' => 0, 'rows' => '');
+            $allAluminies = Alumni::select(\DB::raw('COUNT(*) as cnt'))->first();
+            $response['total'] = $allAluminies->cnt;
+            $query = Alumni::select('id', 'person_name','description');
+            if (!empty(Input::get('search'))) {
+                $query->where('person_name', 'LIKE', '%' . Input::get('search') . '%');
+            }
+
+            $aluminies = $query->orderBy(Input::get('sort'), Input::get('order'))
+                    ->skip(Input::get('offset'))->take(Input::get('limit'))
+                    ->get();
+            if (!empty(Input::get('search'))) {
+                $response['total'] = $aluminies->count();
+            }
+            
+            foreach ($aluminies as $alumini) {
+                $alumini->description = (strlen($alumini->description) > 150) ? substr($alumini->description, 0, 130) : $alumini->description;
+                $alumini->action = '<a href="' . URL::route('admin.alumnies.edit', array('id' => $alumini->id)) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                    <a href="' . URL::route('admin.alumnies.delete', array('id' => $alumini->id)) . '" title="delete"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+                $response['rows'][] = $alumini;
+            }
+
+            return json_encode($response);
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }

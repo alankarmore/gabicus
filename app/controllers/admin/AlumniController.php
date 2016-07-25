@@ -24,13 +24,21 @@ class AlumniController extends \BaseController
     public function index()
     {
         try {
-            $alumnies = $this->service->getAllAlumnies();
-
-            return View::make('admin.alumnies.index', array('alumnies' => $alumnies));
+            return View::make('admin.alumnies.index');
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
+    
+    /**
+     * get all courses
+     * 
+     * @return json
+     */
+    public function getData()
+    {
+        return $this->service->getAllAlumnies();
+    }    
 
     /**
      * Show the form for creating a new resource.

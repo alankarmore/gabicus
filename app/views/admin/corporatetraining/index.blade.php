@@ -7,44 +7,25 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Corporate Trainings</h2>
-                    <span class="pull-right"><a class="btn btn-primary" href="{{route('admin.courses.create')}}">Create Course</a></span>
+                    <h2>List of all corporate training's list .</h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">List of all corporate training's list .</p>
                     @if (Session::has('success_message'))
                     <div class="alert alert-success">{{ Session::get('success_message')}}</div>
                     @endif
-                    <table id="datatable" class="table table-striped table-bordered">
+                    <table id="corporateTraining" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Team Count</th>
-                                <th>Location</th>
-                                <th>Contact Number</th>
-                                <th>Courses Required</th>
-                                <th>Action</th>
+                                <th data-field="name" data-sortable="true">Name</th>
+                                <th data-field="email" data-sortable="true">Email</th>
+                                <th data-field="team_members" data-sortable="true">Team Count</th>
+                                <th data-field="location" data-sortable="true">Location</th>
+                                <th data-field="contact_number" data-sortable="true">Contact Number</th>
+                                <th data-field="courses_required" data-sortable="true">Courses Required</th>
+                                <th data-field="action" data-sortable="false">Action</th>                                         
                             </tr>
                         </thead>
-                        <tbody>
-                           @if($corporateTrainings)
-                           @foreach($corporateTrainings as $corporateTraining)
-                            <tr>
-                                <td>{{ucfirst($corporateTraining->name)}}</td>
-                                <td>{{$corporateTraining->email}}</td>
-                                <td>{{$corporateTraining->team_members}}</td>
-                                <td>{{ucfirst($corporateTraining->location)}}</td>
-                                <td>{{$corporateTraining->contact_number}}</td>
-                                <td>{{substr(strip_tags($corporateTraining->courses_required),0,100)}}@if(strlen($corporateTraining->courses_required) > 100)...@endif</td>
-                                <td><a href="{{route('admin.enroll.show',['id' => $corporateTraining->id])}}">Show</a></td>
-                            </tr>
-                           @endforeach
-                           @else
-                           <tr><td colspan="2">No records found</td></tr>
-                           @endif
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -54,13 +35,13 @@
 <!-- /page content -->
 
 @section('page-script')
-<link href="{{asset('admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
-<script src="{{asset('admin/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<link href="{{asset('admin/css/bootstrap-table.css')}}" rel="stylesheet">
+<script src="{{asset('admin/js/bootstrap-table.js')}}"></script>
 <script type="text/javascript">
-$(function () {
-    $('#datatable').dataTable();
-});
+    $(function(){
+        var route = "{{route('admin.corporatetraining')}}";
+        generateTable('corporateTraining',route,'id','desc');
+    });
 </script>
 @endsection
 @endsection

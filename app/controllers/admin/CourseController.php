@@ -24,14 +24,22 @@ class CourseController extends \BaseController
     public function index()
     {
         try {
-            $courses = $this->service->getAllCourses();
-
-            return View::make('admin.courses.index', array('courses' => $courses));
+            return View::make('admin.courses.index');
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
-
+    
+    /**
+     * get all courses
+     * 
+     * @return json
+     */
+    public function getData()
+    {
+        return $this->service->getAllCourses();
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

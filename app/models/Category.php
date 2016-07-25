@@ -11,5 +11,9 @@ class Category extends \Eloquent
      * @var string
      */
     protected $table = 'categories';
-
+    
+    public function courses()
+    {
+        return $this->hasMany('App\Models\Course','category_id');
+    }
 }

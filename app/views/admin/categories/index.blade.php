@@ -7,36 +7,21 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Categories</h2>
+                    <h2>List of all available categories</h2>
                     <span class="pull-right"><a class="btn btn-primary" href="{{route('admin.categories.create')}}">Create Category</a></span>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">List of all available categories.</p>
                     @if (Session::has('success_message'))
                     <div class="alert alert-success">{{ Session::get('success_message')}}</div>
                     @endif                    
-                    <table id="datatable" class="table table-striped table-bordered">
+                    <table id="categoryTable">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Action</th>
+                                <th data-field="category_name" data-sortable="true">Category Name</th>
+                                <th data-field="action" data-sortable="false">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                           @if($categories)
-                           @foreach($categories as $category)
-                            <tr>
-                                <td>{{ucfirst($category->category_name)}}</td>
-                                <td><a href="{{route('admin.categories.edit',['id' => $category->id])}}">Edit</a> | 
-                                    <a href="{{route('admin.categories.delete',['id' => $category->id])}}"
-                                       onclick="javascript:return confirm('Are you sure ?')">Delete</a></td>
-                            </tr>
-                           @endforeach
-                           @else
-                           <tr><td colspan="2"><a href="{{route('admin.categories.create')}}">Click</a> to add first category</td></tr>
-                           @endif
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -44,15 +29,14 @@
     </div>
 </div>
 <!-- /page content -->
-
 @section('page-script')
-<link href="{{asset('admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
-<script src="{{asset('admin/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<link href="{{asset('admin/css/bootstrap-table.css')}}" rel="stylesheet">
+<script src="{{asset('admin/js/bootstrap-table.js')}}"></script>
 <script type="text/javascript">
-$(function () {
-    $('#datatable').dataTable();
-});
+    $(function(){
+        var route = "{{route('admin.categories')}}";
+        generateTable('categoryTable',route,'category_name','asc');
+    });
 </script>
 @endsection
 @endsection

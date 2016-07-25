@@ -32,6 +32,7 @@ Route::get('sign-in',array('as' => 'login', 'uses' => 'App\Controllers\Admin\Aut
 
 Route::group(array('before' => 'authAdmin') , function() {
    Route::get('categories',array('as' => 'admin.categories','uses' => 'App\Controllers\Admin\CategoryController@index')); 
+   Route::post('categories',array('as' => 'admin.categories','uses' => 'App\Controllers\Admin\CategoryController@getData')); 
    Route::get('categories/create',array('as' => 'admin.categories.create','uses' => 'App\Controllers\Admin\CategoryController@create')); 
    Route::post('categories/save',array('as' => 'save-category','uses' => 'App\Controllers\Admin\CategoryController@store')); 
    Route::get('categories/edit/{id}',array('as' => 'admin.categories.edit','uses' => 'App\Controllers\Admin\CategoryController@edit')); 
@@ -39,6 +40,7 @@ Route::group(array('before' => 'authAdmin') , function() {
    Route::get('categories/delete/{id}',array('as' => 'admin.categories.delete','uses' => 'App\Controllers\Admin\CategoryController@destroy')); 
    
    Route::get('courses',array('as' => 'admin.courses','uses' => 'App\Controllers\Admin\CourseController@index')); 
+   Route::post('courses',array('as' => 'admin.course.list','uses' => 'App\Controllers\Admin\CourseController@getData')); 
    Route::get('courses/create',array('as' => 'admin.courses.create','uses' => 'App\Controllers\Admin\CourseController@create')); 
    Route::post('courses/save',array('as' => 'admin.courses.save','uses' => 'App\Controllers\Admin\CourseController@store'));  
    Route::get('courses/edit/{id}',array('as' => 'admin.courses.edit','uses' => 'App\Controllers\Admin\CourseController@edit')); 
@@ -47,6 +49,7 @@ Route::group(array('before' => 'authAdmin') , function() {
    Route::get('courses/show/{id}',array('as' => 'admin.courses.show','uses' => 'App\Controllers\Admin\CourseController@show')); 
 
    Route::get('alumni',array('as' => 'admin.alumnies','uses' => 'App\Controllers\Admin\AlumniController@index')); 
+   Route::post('alumni',array('as' => 'admin.alumnies','uses' => 'App\Controllers\Admin\AlumniController@getData')); 
    Route::get('alumni/create',array('as' => 'admin.alumnies.create','uses' => 'App\Controllers\Admin\AlumniController@create')); 
    Route::post('alumni/save',array('as' => 'admin.alumnies.save','uses' => 'App\Controllers\Admin\AlumniController@store'));  
    Route::get('alumni/edit/{id}',array('as' => 'admin.alumnies.edit','uses' => 'App\Controllers\Admin\AlumniController@edit')); 
@@ -55,12 +58,15 @@ Route::group(array('before' => 'authAdmin') , function() {
    Route::get('alumni/show/{id}',array('as' => 'admin.alumnies.show','uses' => 'App\Controllers\Admin\AlumniController@show')); 
    
    Route::get('enrollment/',array('as' => 'admin.enroll','uses' => 'App\Controllers\Admin\EnrollController@index')); 
+   Route::post('enrollment/',array('as' => 'admin.enroll','uses' => 'App\Controllers\Admin\EnrollController@getData')); 
    Route::get('enrollment/show/{id}',array('as' => 'admin.enroll.show','uses' => 'App\Controllers\Admin\EnrollController@show')); 
   
    Route::get('corporatetraining/',array('as' => 'admin.corporatetraining','uses' => 'App\Controllers\Admin\CorporateTrainingController@index')); 
+   Route::post('corporatetraining/',array('as' => 'admin.corporatetraining','uses' => 'App\Controllers\Admin\CorporateTrainingController@getData')); 
    Route::get('corporatetraining/show/{id}',array('as' => 'admin.corporatetraining.show','uses' => 'App\Controllers\Admin\CorporateTrainingController@show')); 
 
    Route::get('teachwithus/',array('as' => 'admin.teachwithus','uses' => 'App\Controllers\Admin\TeachWithUsController@index')); 
+   Route::post('teachwithus/',array('as' => 'admin.teachwithus','uses' => 'App\Controllers\Admin\TeachWithUsController@getData')); 
    Route::get('teachwithus/show/{id}',array('as' => 'admin.teachwithus.show','uses' => 'App\Controllers\Admin\TeachWithUsController@show')); 
 
    Route::get('logout',array('as' => 'admin.logout','uses' => 'App\Controllers\Admin\AuthController@logout')); 
