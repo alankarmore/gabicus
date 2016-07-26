@@ -46,7 +46,7 @@ class CourseService
         }
         
         foreach($courses as $course) {
-            $course->description = ($course->description && strlen($course->description) > 150) ? substr($course->description, 0, 150) : $course->description;
+            $course->description = ($course->description && strlen($course->description) > 100) ? substr($course->description, 0, 100).'...' : $course->description;
             $course->action = '<a href="'.URL::route('admin.courses.show',array('id' => $course->id)).'" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                             <a href="'.URL::route('admin.courses.edit',array('id' => $course->id)).'" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                             <a href="'.URL::route('admin.courses.delete',array('id' => $course->id)).'" title="delete"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
@@ -76,7 +76,9 @@ class CourseService
             $course->category_id = trim($data['category']);
             $course->is_popular = (!empty($data['popular']) && (int)trim($data['popular']))?1:0;
             $course->title = trim($data['title']);
-            $course->description = trim(nl2br($data['description']));
+            $course->description = trim($data['description']);
+            $course->location = trim($data['location']);
+            $course->fees = trim($data['fees']);
             $course->slug = strtolower(str_replace(" ","-",$course->title));
             if($data['course_image']) {
                 $extension = $data['course_image']->guessExtension();
@@ -102,7 +104,9 @@ class CourseService
             $course->is_popular = (!empty($data['popular']) && (int)trim($data['popular']))?1:0;
             $course->category_id = trim($data['category']);
             $course->title = trim($data['title']);
-            $course->description = trim(nl2br($data['description']));
+            $course->description = trim($data['description']);
+            $course->location = trim($data['location']);
+            $course->fees = trim($data['fees']);
             $course->slug = strtolower(str_replace(" ","-",$course->title));
             if($data['course_image']) {
                 $extension = $data['course_image']->guessExtension();
@@ -149,6 +153,8 @@ class CourseService
             $rules = array(
                 'category' => 'required',
                 'title' => 'required|max:150|unique:courses',
+                'location' => 'required|max:200',
+                'fees' => 'required|numeric',
                 'description' => 'required',
                 'course_image' => 'required|mimes:jpg,jpeg,png,bmp',
                 );

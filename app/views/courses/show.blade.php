@@ -24,7 +24,7 @@
                 <div class="wrap-breadcrumb clearfix">
                     <ol class="breadcrumb">
                         <li><a href="javascript:void(0);"><i class="icon">&#xf015;</i></a></li>
-                        <li class="active">MS CRM</li>
+                        <li class="active">{{ucwords($course->title)}}</li>
                     </ol>
                 </div>
             </div>
@@ -37,7 +37,7 @@
     <div class="container">
         <div class="pull-left"><a href="javascript:void(0);" class="enroll-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Enroll Now</a></div>
         <div class="pull-right">
-            <img src="{{asset('assets/img/banner5.png')}}" /></div>
+            <img src="{{asset('uploads/course')}}/{{$course->image_name}}" /></div>
     </div>
 </div>
 

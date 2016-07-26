@@ -39,4 +39,23 @@ class CourseService
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
+    
+    /**
+     * Get pouplar courses 
+     * 
+     * @param integer $limit
+     * @return App\Models\Course
+     * @throws \Exception
+     */
+    public function getPopularCourses($limit = 5)
+    {
+        try {
+            return Course::where('is_popular','=',\DB::raw(1))
+                           ->orderBy('id','DESC') 
+                           ->take($limit)
+                            ->get();
+        } catch (\Exception $ex) {
+            throw new \Exception($ex->getMessage(), $ex->getCode());
+        }        
+    }
 }

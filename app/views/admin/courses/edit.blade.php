@@ -53,7 +53,21 @@
                                 <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Title<span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" name="title" id="title"  class="form-control col-md-7 col-xs-12" value="{{$course->title}}" />
+                                    <input type="text" name="title" id="title" class="form-control col-md-7 col-xs-12" value="{{$course->title}}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Location<span class="required">*</span>
+                                </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" name="location" id="location" class="form-control col-md-7 col-xs-12" value="{{$course->location}}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Fees<span class="required">*</span>
+                                </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" name="fees" id="fees"  class="form-control col-md-7 col-xs-12" value="{{$course->fees}}" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -169,7 +183,7 @@
 <script src="{{asset('admin/vendors/google-code-prettify/src/prettify.js')}}"></script>
 <script>
 $(document).ready(function () {
-var courseDescription = @if($course->description) '{{$course->description}}' @else '' @endif; 
+var courseDescription = @if($course->description) `{{$course->description}}` @else '' @endif; 
 $("#editor").html(courseDescription);
 function initToolbarBootstrapBindings() {
     var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',

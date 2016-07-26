@@ -43,6 +43,14 @@
                                 <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Title</label>
                                 <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->title}}</span></div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Location</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->location}}</span></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Fees</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span> &#x20a8; {{$course->fees}}/-</span></div>
+                            </div>
                             <div class="clearfix"></div>
                             <div class="form-group">
                                 <label class="col-md-3 col-sm-3 col-xs-12" for="course-description">Course Description</label>

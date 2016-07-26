@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ContactUs;
+use App\Services\CourseService;
 use App\Services\ContactService;
 
 class HomeController extends BaseController
@@ -17,10 +18,13 @@ class HomeController extends BaseController
       |	Route::get('/', 'HomeController@showWelcome');
       |
      */
-
+    
     public function index()
     {
-        return View::make('index');
+        $courseService = new CourseService();
+        $popularCourses = $courseService->getPopularCourses();
+        
+        return View::make('index',array('popularCourses' => $popularCourses));
     }
 
     public function aboutus()

@@ -137,9 +137,13 @@
 
                 <div class="col-md-6 grid-right wow fadeInRight animated" data-wow-delay="1.6s">
                     <div class="col-md-12">
+                        @foreach($popularCourses as $course)
+                            <div class="col-md-4"><a href="{{route('courses.show',array('name' => $course->slug))}}">{{ucfirst($course->title)}}</a></div> 
+                        @endforeach
                         <div class="col-md-4"><a href="{{route('/')}}"><img src="{{asset('assets/img/course1.jpg')}}" alt=""></a></div> 
                         <div class="col-md-4"><a href="{{route('/')}}"><img src="{{asset('assets/img/course2.jpg')}}" alt=""></a></div> 
-                        <div class="col-md-4"><a href="{{route('/')}}"><img src="{{asset('assets/img/course3.jpg')}}" alt=""></a></div></div>
+                        <div class="col-md-4"><a href="{{route('/')}}"><img src="{{asset('assets/img/course3.jpg')}}" alt=""></a></div>
+                    </div>
                     <div class="clear"></div>
                     <div class="col-md-12 margin-top20">
                         <div class="col-md-6 text-right"><a href="{{route('/')}}"><img src="{{asset('assets/img/course4.jpg')}}" alt=""></a></div> 
