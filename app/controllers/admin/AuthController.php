@@ -86,7 +86,7 @@ class AuthController extends \BaseController
         try {
             Auth::logout();
             
-            return Redirect::to('admin/sign-in');
+            return Redirect::route('login');
         } catch (\Exception $ex) {
             echo $ex->getMessage();die;
             throw new \Exception($ex->getMessage(), $ex->getCode());
