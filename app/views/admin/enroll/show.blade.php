@@ -68,4 +68,9 @@
     </div>
 </div>
 <!-- /page content -->
+@section('page-script')
+<script>
+    activeParentMenu('enorll'); 
+</script>
+@endsection
 @endsection

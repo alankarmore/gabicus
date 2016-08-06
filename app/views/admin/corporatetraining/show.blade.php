@@ -62,5 +62,9 @@
         </div>
     </div>
 </div>
-<!-- /page content -->
+@section('page-script')
+<script>
+    activeParentMenu('corporatetraining'); 
+</script>
+@endsection
 @endsection

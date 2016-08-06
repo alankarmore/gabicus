@@ -34,14 +34,15 @@ class CourseService
         $response['total'] = $allCourses->cnt;
         $query = Course::select('courses.id', 'title', 'description','categories.category_name')
                          ->join('categories','courses.category_id','=','categories.id');
-        if(!empty(Input::get('search'))) {
+        $search = Input::get('search');
+        if(!empty($search)) {
             $query->where('courses.title', 'LIKE', '%' . Input::get('search') . '%');
         }
         
         $courses = $query->orderBy(Input::get('sort'), Input::get('order'))
                        ->skip(Input::get('offset'))->take(Input::get('limit'))
                        ->get();
-        if(!empty(Input::get('search'))) {
+        if(!empty($search)) {
             $response['total'] = $courses->count();
         }
         

@@ -70,4 +70,9 @@
         </div>
     </div>
 </div>
+@section('page-script')
+<script>
+    activeParentMenu('alumnies');
+</script>
+@endsection
 @endsection

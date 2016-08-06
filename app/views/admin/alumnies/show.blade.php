@@ -55,5 +55,9 @@
         </div>
     </div>
 </div>
-<!-- /page content -->
+@section('page-script')
+<script>
+    activeParentMenu('alumnies'); 
+</script>
+@endsection
 @endsection

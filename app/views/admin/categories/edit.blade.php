@@ -49,4 +49,9 @@
     </div>
 </div>
 <!-- /page content -->
+@section('page-script')
+<script>
+    activeParentMenu('categories');
+</script>
+@endsection
 @endsection

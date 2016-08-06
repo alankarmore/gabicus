@@ -27,14 +27,15 @@ class CategoryService
             $allCategories = Category::select(\DB::raw('COUNT(*) as cnt'))->first();
             $response['total'] = $allCategories->cnt;
             $query = Category::select('id', 'category_name');
-            if (!empty(Input::get('search'))) {
+            $search = Input::get('search');
+            if (!empty($search)) {
                 $query->where('category_name', 'LIKE', '%' . Input::get('search') . '%');
             }
 
             $categories = $query->orderBy(Input::get('sort'), Input::get('order'))
                     ->skip(Input::get('offset'))->take(Input::get('limit'))
                     ->get();
-            if (!empty(Input::get('search'))) {
+            if (!empty($search)) {
                 $response['total'] = $categories->count();
             }
 

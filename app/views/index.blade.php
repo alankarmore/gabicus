@@ -38,7 +38,7 @@
                             <h2 class="wow fadeInDown animated" data-wow-delay=".6s">Niche Courses for Select Professionals</h2>
                             <div id="custom-search-input">
                                 <div class="input-group col-md-6 wow fadeInLeft animated">
-                                    <input type="text" class="form-control input-lg" placeholder="Search for Courses" />
+                                    <input type="text" class="form-control input-lg" placeholder="Search for Courses" id="search-courses"/>
                                     <span class="input-group-btn">
                                         <button class="btn btn-info btn-lg" type="button">
                                             <i class="glyphicon glyphicon-search"></i>

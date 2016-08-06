@@ -21,7 +21,8 @@ class EnrollService
             $allEnroll = Enroll::select(\DB::raw('COUNT(*) as cnt'))->first();
             $response['total'] = $allEnroll->cnt;
             $query = Enroll::select('enrollments.id', 'name','email','qualification','age','experience','courses.title');
-            if (!empty(Input::get('search'))) {
+            $search = Input::get('search');
+            if (!empty($search)) {
                 $query->where('name', 'LIKE', '%' . Input::get('search') . '%');
             }
 
@@ -29,7 +30,7 @@ class EnrollService
                                 ->orderBy(Input::get('sort'), Input::get('order'))
                                 ->skip(Input::get('offset'))->take(Input::get('limit'))
                                 ->get();
-            if (!empty(Input::get('search'))) {
+            if (!empty($search)) {
                 $response['total'] = $enrollments->count();
             }
 

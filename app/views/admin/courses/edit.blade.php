@@ -251,6 +251,7 @@ $("#addCourse").submit(function(){
     $("#description").val($("#editor").html());
     $("#addCourse").submit();
 });
+ activeParentMenu('courses');
 </script>
 <!-- /bootstrap-wysiwyg -->
 @endsection

@@ -21,14 +21,15 @@ class CorporateTrainingService
             $allTrainings=  CorporateTraining::select(\DB::raw('COUNT(*) as cnt'))->first();
             $response['total'] = $allTrainings->cnt;
             $query = CorporateTraining::select('id', 'name','email','team_members','location','contact_number','courses_required');
-            if (!empty(Input::get('search'))) {
+            $search = Input::get('search');
+            if (!empty($search)) {
                 $query->where('name', 'LIKE', '%' . Input::get('search') . '%');
             }
 
             $trainings = $query->orderBy(Input::get('sort'), Input::get('order'))
                     ->skip(Input::get('offset'))->take(Input::get('limit'))
                     ->get();
-            if (!empty(Input::get('search'))) {
+            if (!empty($search)) {
                 $response['total'] = $trainings->count();
             }
 

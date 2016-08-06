@@ -87,4 +87,9 @@
     </div>
 </div>
 <!-- /page content -->
+@section('page-script')
+<script>
+    activeParentMenu('teachwithus'); 
+</script>
+@endsection
 @endsection

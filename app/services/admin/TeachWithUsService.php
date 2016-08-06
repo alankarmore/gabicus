@@ -22,14 +22,15 @@ class TeachWithUsService
             $allInquiries = TeachWithUs::select(\DB::raw('COUNT(*) as cnt'))->first();
             $response['total'] = $allInquiries->cnt;
             $query = TeachWithUs::select('id','name','email','qualification','age','message','location','contact_number','itexperience','training_courses','resume');
-            if (!empty(Input::get('search'))) {
+            $search = Input::get('search');
+            if (!empty($search)) {
                 $query->where('name', 'LIKE', '%' . Input::get('search') . '%');
             }
 
             $inquiries = $query->orderBy(Input::get('sort'), Input::get('order'))
                                 ->skip(Input::get('offset'))->take(Input::get('limit'))
                                 ->get();
-            if (!empty(Input::get('search'))) {
+            if (!empty($search)) {
                 $response['total'] = $inquiries->count();
             }
 

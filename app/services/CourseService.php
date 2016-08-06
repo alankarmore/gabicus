@@ -58,4 +58,27 @@ class CourseService
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }        
     }
+    
+    public function getCourses($phrase)
+    {
+        try {
+            $response = array();
+            $courses = Course::select('courses.id','courses.title','courses.slug')
+                           ->where('courses.title', 'LIKE', '%' . $phrase . '%')
+                           ->orderBy('courses.title','ASC') 
+                           ->get();
+            if(!empty($courses) && $courses->count() > 0) {
+                foreach($courses as $course) {
+                    $temp = array();
+                    $temp['text'] = ucfirst($course->title);
+                    $temp['link'] = route('courses.show',$course->slug);
+                    $response[] = $temp;
+                }
+            }
+            
+            return $response;
+        } catch (\Exception $ex) {
+            throw new \Exception($ex->getMessage(), $ex->getCode());
+        }        
+    }
 }

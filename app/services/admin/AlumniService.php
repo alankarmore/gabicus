@@ -27,14 +27,15 @@ class AlumniService
             $allAluminies = Alumni::select(\DB::raw('COUNT(*) as cnt'))->first();
             $response['total'] = $allAluminies->cnt;
             $query = Alumni::select('id', 'person_name','description');
-            if (!empty(Input::get('search'))) {
+            $search = Input::get('search');
+            if (!empty($search)) {
                 $query->where('person_name', 'LIKE', '%' . Input::get('search') . '%');
             }
 
             $aluminies = $query->orderBy(Input::get('sort'), Input::get('order'))
                     ->skip(Input::get('offset'))->take(Input::get('limit'))
                     ->get();
-            if (!empty(Input::get('search'))) {
+            if (!empty($search)) {
                 $response['total'] = $aluminies->count();
             }
             

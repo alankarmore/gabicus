@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
-@section('title', 'Page Title')
+@section('title', 'Menu Description')
 @section('content')
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
             <div class="x_title">
-                <h2>Course Information</h2>
-                <span class="pull-right"><a class="btn btn-primary" href="{{route('admin.courses')}}">Back</a></span>
+                <h2>Menu Information</h2>
+                <span class="pull-right"><a class="btn btn-primary" href="{{route('admin.menu.list')}}">Back</a></span>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -32,37 +32,36 @@
                         @endif                        
                         <br />
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Is Popular</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span>@if($course->is_popular) Yes @else No @endif</span></div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Include In</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{(!empty($menu->includedIn) && $menu->includedIn->title)?$menu->includedIn->title:'Nothing'}}</span></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Category</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->category->category_name}}</span></div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Title</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$menu->title}}</span></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Course Title</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->title}}</span></div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Description</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$menu->description}}</span></div>
+                            </div>
+                            @if(!empty($menu->include_in))
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Meta Title</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$menu->meta_title}}</span></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Location</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$course->location}}</span></div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Meta Keywords</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$menu->meta_keywords}}</span></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Fees</label>
-                                <div class="col-md-12 col-sm-12 col-xs-12"><span> &#x20a8; {{$course->fees}}/-</span></div>
+                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-title">Meta Description</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12"><span>{{$menu->meta_description}}</span></div>
                             </div>
+                            @endif
                             <div class="clearfix"></div>
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-3 col-xs-12" for="course-description">Course Description</label>
+                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Image</label>                                
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <span>{{$course->description}}</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="form-group">
-                                <label class="col-md-12 col-sm-12 col-xs-12" for="course-title">Course Image</label>                                
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <img src="{{asset('uploads/course')}}/{{$course->image_name}}" width="100px" height="100px" />
+                                    <img src="{{asset('uploads/menu')}}/{{$menu->image_name}}" width="100px" height="100px" />
                                 </div>
                             </div>
                     </div>                    
@@ -74,7 +73,7 @@
 <!-- /page content -->
 @section('page-script')
 <script>
-    activeParentMenu('courses'); 
+    activeParentMenu('menus'); 
 </script>
 @endsection
 @endsection
