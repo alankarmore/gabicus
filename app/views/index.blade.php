@@ -2,7 +2,7 @@
 @section('title', 'Gabicus India')
 @section('content')
         <!-- Header Section Start -->
-        <div id="header">
+        <div id="header" class="banner-container">
             <div class="container">
                 <div class="col-md-12 top-header">
                     <div class="logo-menu">
@@ -135,7 +135,7 @@
                      <a class="btn btn-primary btn-effect margin-top20" href="javascript:void(0);">SEE COURSES</a>-->
                 </div>
 
-                <div class="col-md-6 grid-right wow fadeInRight animated" data-wow-delay="1.6s">
+                <!--<div class="col-md-6 grid-right wow fadeInRight animated" data-wow-delay="1.6s">
                     <div class="col-md-12">
                         @foreach($popularCourses as $course)
                             <div class="col-md-4"><a href="{{route('courses.show',array('name' => $course->slug))}}">{{ucfirst($course->title)}}</a></div> 
@@ -148,7 +148,19 @@
                     <div class="col-md-12 margin-top20">
                         <div class="col-md-6 text-right"><a href="{{route('/')}}"><img src="{{asset('assets/img/course4.jpg')}}" alt=""></a></div> 
                         <div align="left" class="col-md-6 text-left"><a href="{{route('/')}}"><img src="{{asset('assets/img/course5.jpg')}}" alt=""></a></div></div>
-                </div>
+                </div>-->
+				
+				<div class="col-md-6 grid-right wow fadeInRight animated" data-wow-delay="1.6s">
+					<ul class="courses">
+						<li><a href="#" class="blue-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
+						<li><a href="#" class="peacockblue-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
+						<li><a href="#" class="purple-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
+						<li><a href="#" class="yellow-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
+						<li><a href="#" class="green-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
+						<li><a href="#" class="red-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
+					</ul>
+				  </div>
+				
             </div>
         </div>
     </section>

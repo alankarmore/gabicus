@@ -14,6 +14,10 @@
     <script src="{{asset('admin/vendors/nprogress/nprogress.js')}}"></script>
     <script src="{{asset('admin/vendors/iCheck/icheck.min.js')}}"></script>
     <script src="{{asset('admin/js/build/js/custom.min.js')}}"></script>    
+    <script src="{{asset('admin/fileupload/jquery.ui.widget.js')}}"></script>
+    <script src="{{asset('admin/fileupload/jquery.iframe-transport.js')}}"></script>
+    <script src="{{asset('admin/fileupload/jquery.fileupload.js')}}"></script>    
+    <script src="{{asset('admin/js/common.js')}}"></script>
     @yield('page-script')
 </body>
 </html>    

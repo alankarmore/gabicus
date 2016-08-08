@@ -34,14 +34,15 @@ class ContactInquiryService
         $allMenus = ContactUs::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allMenus->cnt;
         $query = ContactUs::select('id', 'name','email', 'subject','message');
-        if (!empty(Input::get('search'))) {
+        $search = Input::get('search');
+        if (!empty($search)) {
             $query->where('email', 'LIKE', '%' . Input::get('search') . '%');
         }
 
         $inquiries = $query->orderBy(Input::get('sort'), Input::get('order'))
                 ->skip(Input::get('offset'))->take(Input::get('limit'))
                 ->get();
-        if (!empty(Input::get('search'))) {
+        if (!empty($search)) {
             $response['total'] = $inquiries->count();
         }
 

@@ -25,11 +25,14 @@ Route::post('/post-corporate-training', array('as' => 'post-corporate-training',
 Route::get('/teach-with-us', array('as' => 'teach-with-us', 'uses' => 'EnrollController@teachWithUs'));
 Route::post('/teach-with-us', array('as' => 'post-teach-with-us', 'uses' => 'EnrollController@postTeachWithUs'));
 Route::get('/resume/{file}', array('as' => 'file.download', 'uses' => 'EnrollController@downloadResume'));
+Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => '\BaseController@getImage'));
 
 Route::get('admin/sign-up', 'App\Controllers\Admin\AuthController@register');
 Route::post('register', array('as' => 'admin.signup', 'uses' => 'App\Controllers\Admin\AuthController@postRegister'));
 Route::post('login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@postLogin'));
 Route::get('admin/sign-in', array('as' => 'login', 'uses' => 'App\Controllers\Admin\AuthController@login'));
+Route::post('file/temp/upload', array('as' => 'file.temp.upload', 'uses' => '\BaseController@uploadToTemp'));
+Route::post('file/temp/remove', array('as' => 'file.temp.remove', 'uses' => '\BaseController@removeTempImage'));
 
 Route::group(array('before' => 'authAdmin', 'prefix' => 'admin'), function() {
     Route::get('menu/list', ['as' => 'admin.menu.list', 'uses' => 'App\Controllers\Admin\CMSMenuController@index']);

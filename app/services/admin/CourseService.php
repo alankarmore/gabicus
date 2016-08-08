@@ -5,6 +5,7 @@ namespace App\Services\Admin;
 use URL;
 use Input;
 use Validator;
+use App\Helpers\FileHelper;
 use App\Models\Category;
 use App\Models\Course;
 
@@ -47,7 +48,7 @@ class CourseService
         }
         
         foreach($courses as $course) {
-            $course->description = ($course->description && strlen($course->description) > 100) ? substr($course->description, 0, 100).'...' : $course->description;
+            $course->description = ($course->description && strlen($course->description) > 100) ? strip_tags(substr($course->description, 0, 100)).'...' : strip_tags($course->description);
             $course->action = '<a href="'.URL::route('admin.courses.show',array('id' => $course->id)).'" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                             <a href="'.URL::route('admin.courses.edit',array('id' => $course->id)).'" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                             <a href="'.URL::route('admin.courses.delete',array('id' => $course->id)).'" title="delete"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
@@ -70,58 +71,41 @@ class CourseService
         }        
     }
     
-    public function save($data)
+    public function saveOrUpdateDetails($data,$id = null)
     {
         try {
             $course = new Course();
-            $course->category_id = trim($data['category']);
-            $course->is_popular = (!empty($data['popular']) && (int)trim($data['popular']))?1:0;
-            $course->title = trim($data['title']);
-            $course->description = trim($data['description']);
-            $course->location = trim($data['location']);
-            $course->fees = trim($data['fees']);
-            $course->slug = strtolower(str_replace(" ","-",$course->title));
-            if($data['course_image']) {
-                $extension = $data['course_image']->guessExtension();
-                $newFileName = time().".".$extension;
-                $data['course_image']->move(public_path('uploads/course/'),$newFileName);
-                $course->image_name = $newFileName;
+            if(!empty($id)) {
+                $course = $this->getCourse($id);
+                $course->updated_at = date("Y-m-d H:i:s");                
             }
             
-            $course->created_at = date("Y-m-d H:i:s");
-            $course->updated_at = date("Y-m-d H:i:s");
-            if($course->save()) {
-                return $course;
-            }
-        } catch (\Exception $ex) {
-            throw new \Exception($ex->getMessage(), $ex->getCode());
-        }
-    }
-    
-    public function update($id,$data)
-    {
-        try {
-            $course = $this->getCourse($id);
-            $course->is_popular = (!empty($data['popular']) && (int)trim($data['popular']))?1:0;
             $course->category_id = trim($data['category']);
+            $course->is_popular = (!empty($data['popular']) && (int)trim($data['popular']))?1:0;
             $course->title = trim($data['title']);
             $course->description = trim($data['description']);
             $course->location = trim($data['location']);
             $course->fees = trim($data['fees']);
             $course->slug = strtolower(str_replace(" ","-",$course->title));
-            if($data['course_image']) {
-                $extension = $data['course_image']->guessExtension();
-                $newFileName = time().".".$extension;
-                $data['course_image']->move(public_path('uploads/course/'),$newFileName);
-                if($course->image_name && file_exists(public_path('uploads/course/').$course->image_name)) {
-                    unlink(public_path('uploads/course/').$course->image_name);
+            $file = trim(Input::get('fileName'));
+            if (isset($file) && !empty($file)) {
+                if (!empty($id)) {
+                    $previousPath = public_path('uploads/course/' . $course->image_name);
+                    if (file_exists($previousPath)) {
+                        @unlink($previousPath);
+                    }
                 }
-                
-                $course->image_name = $newFileName;
-            }
+
+                $fileHelper = new FileHelper();
+                $tempPath = public_path('uploads/temp/' . $file);
+                if (file_exists($tempPath)) {
+                    $destination = public_path('uploads/course/' . $file);
+                    $fileHelper->moveFile($tempPath, $destination);
+                    $course->image_name = $file;
+                }
+            } 
             
             $course->created_at = date("Y-m-d H:i:s");
-            $course->updated_at = date("Y-m-d H:i:s");
             if($course->save()) {
                 return $course;
             }
@@ -157,12 +141,12 @@ class CourseService
                 'location' => 'required|max:200',
                 'fees' => 'required|numeric',
                 'description' => 'required',
-                'course_image' => 'required|mimes:jpg,jpeg,png,bmp',
+                'image' => 'required|mimes:jpg,jpeg,png,bmp',
                 );
             
             if($id) {
                 $rules['title'] = 'required|max:150|unique:courses,title,'.$id;
-                $rules['course_image'] = 'mimes:jpg,jpeg,png,bmp';
+                $rules['image'] = 'mimes:jpg,jpeg,png,bmp';
             }
 
             return Validator::make($data, $rules);

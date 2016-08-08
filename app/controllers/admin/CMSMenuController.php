@@ -123,7 +123,7 @@ class CMSMenuController extends \BaseController
         $menu = $this->service->saveOrUpdateDetails($id);
         if ($menu) {
             Session::flash('success_message', 'Menu updated!');
-            return Redirect::route('admin.menu.edit', ['menu' => $menu]);
+            return Redirect::route('admin.menu.edit', ['menu' => $menu->id]);
         }
 
         return back()->withInput();

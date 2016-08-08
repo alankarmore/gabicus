@@ -26,7 +26,7 @@
                         </div>
                         @endif                        
                         <br />
-                        <form role="form" name="frmMenu" id='frmMenu' action="{{route('admin.menu.update',array('id' => $menu->id))}}" method="POST">
+                        <form role="form" name="frmMenu" id='frmMenu' action="{{route('admin.menu.update',array('id' => $menu->id))}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Include this in</label>
                                 <select name="include_in" id="include_in" class="form-control">
@@ -58,12 +58,15 @@
                             </div>                            
                             <div class="form-group  meta">
                                 <label>Previous Image</label><br/>
-                                <img src="{{asset('uploads/menu/')}}{{$menu->image_name}}" width="100px" height="100px" title="{{$menu->title}}"/>
+                                <img src="{{asset('uploads/menu')}}/{{$menu->image}}" width="100px" height="100px" title="{{$menu->title}}"/>
                             </div>
                             <div class="form-group  meta">
                                 <label>Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="" />
                             </div>
+                            <div id="uploadwrapper"></div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <a href="{{route('admin.menu.list')}}" class="btn btn-default">Cancel</a>
@@ -81,6 +84,9 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>tinymce.init({ selector:'#description' });</script>
 <script src="{{asset('admin/js/menu.js')}}"></script>
+<script type="text/javascript" src="{{asset('admin/fileupload/jquery.ui.widget.js')}}"></script>
+<script type="text/javascript" src="{{asset('admin/fileupload/jquery.iframe-transport.js')}}"></script>
+<script type="text/javascript" src="{{asset('admin/fileupload/jquery.fileupload.js')}}"></script>
 <script>
        activeParentMenu('menus');
        var parentMenus = '{{$parentMenus->count()}}';

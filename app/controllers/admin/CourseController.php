@@ -66,7 +66,7 @@ class CourseController extends \BaseController
                 return Redirect::back()->withInput()->withErrors($validation->messages());
             }
 
-            $course = $this->service->save($inputData);
+            $course = $this->service->saveOrUpdateDetails($inputData);
             if ($course) {
                 Session::flash('success_message','Course has been added successfuly');
                 return Redirect::route('admin.courses.show',array('id' => $course->id));
@@ -134,7 +134,7 @@ class CourseController extends \BaseController
                 return Redirect::back()->withInput()->withErrors($validation->messages());
             }
 
-            $course = $this->service->update($id, $inputData);
+            $course = $this->service->saveOrUpdateDetails($inputData,$id);
             if ($course) {
                 Session::flash('success_message','Course has been updated successfuly');
                 return Redirect::route('admin.courses.show',array('id' => $course->id));

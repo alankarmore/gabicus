@@ -138,7 +138,7 @@ img {
 }
 /* Navbar End */
 /* Header Section Start */
-#header {
+.banner-container {
   width: 100%;
   background: url(../img/backgrounds/banner.jpg);
   background-size: cover;
@@ -1267,6 +1267,61 @@ img.pull-left {
 	/* Firefox 3.6+ */ background: -moz-linear-gradient(top, #086eb5, #0e87dc); 
 	/* IE 10 */ background: -ms-linear-gradient(top, #086eb5, #0e87dc); 
 	/* Opera 11.10+ */ background: -o-linear-gradient(top, #086eb5, #0e87dc);
+}
+ul.courses li{
+	width:160px;
+	height:160px;
+	display:inline-block;
+	list-style:none;
+	margin: 10px 10px;
+}
+ul.courses li a{
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 14px;
+	padding-top: 45px;
+}
+ul.courses li a img{
+	margin-bottom: 10px;
+}
+a.blue-box{
+	background: #3b99d7;
+	display: block;
+	width:100%;
+	height:100%;
+}
+a.peacockblue-box{
+	background: #26cbbd;
+	display: block;
+	width:100%;
+	height:100%;
+}
+a.purple-box{
+	background: #ad33c5;
+	display: block;
+	width:100%;
+	height:100%;
+}
+a.yellow-box{
+	background: #f6c640;
+	display: block;
+	width:100%;
+	height:100%;
+}
+a.green-box{
+	background: #92d438;
+	display: block;
+	width:100%;
+	height:100%;
+}
+a.red-box{
+	background: #fd5f42;
+	display: block;
+	width:100%;
+	height:100%;
 }
 
 

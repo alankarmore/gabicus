@@ -59,7 +59,10 @@
                             <div class="form-group  meta">
                                 <label>Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="" />
                             </div>
+                            <div id="uploadwrapper"></div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <a href="{{route('admin.menu.list')}}" class="btn btn-default">Cancel</a>
@@ -77,9 +80,9 @@
 @section('page-script')
 <script src="{{asset('admin/js/menu.js')}}"></script>
 <script>
-        var parentMenus = '{{$parentMenus->count()}}';
-        var selected = {{Input::old('include_in') ? Input::old('include_in') : 0}};
-        hideElements(selected);
+    var parentMenus = '{{$parentMenus->count()}}';
+    var selected = {{Input::old('include_in') ? Input::old('include_in') : 0}};
+    hideElements(selected);
 </script>
 @endsection
 @endsection

@@ -37,7 +37,7 @@
     <div class="container">
         <div class="pull-left"><a href="javascript:void(0);" class="enroll-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Enroll Now</a></div>
         <div class="pull-right">
-            <img src="{{asset('uploads/course')}}/{{$course->image_name}}" /></div>
+            <img src="{{route('getimage',array('folder'=> 'course','file' => $course->image_name,'width' => 565,'height' => 180))}}" /></div>
     </div>
 </div>
 

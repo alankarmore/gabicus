@@ -13,7 +13,7 @@ class CMSMenu extends Model
 
     public function includedIn()
     {
-        return $this->belongsTo(self::class, 'include_in');
+        return $this->belongsTo('\App\Models\CMSMenu', 'include_in');
     }
 
 }

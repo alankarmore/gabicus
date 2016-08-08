@@ -6,6 +6,7 @@ use URL;
 use Input;
 use Validator;
 use App\Models\CMSMenu;
+use App\Helpers\FileHelper;
 
 class CMSMenuService
 {
@@ -33,15 +34,16 @@ class CMSMenuService
         $response = array('total' => 0, 'rows' => '');
         $allMenus = CMSMenu::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allMenus->cnt;
+        $search = Input::get('search');
         $query = CMSMenu::select('id', 'title', 'description', 'status', 'meta_title', 'meta_description', 'meta_keyword');
-        if (!empty(Input::get('search'))) {
+        if (!empty($search)) {
             $query->where('title', 'LIKE', '%' . Input::get('search') . '%');
         }
 
         $menus = $query->orderBy(Input::get('sort'), Input::get('order'))
                 ->skip(Input::get('offset'))->take(Input::get('limit'))
                 ->get();
-        if (!empty(Input::get('search'))) {
+        if (!empty($search)) {
             $response['total'] = $menus->count();
         }
 
@@ -100,7 +102,25 @@ class CMSMenuService
         $menu->meta_title = trim(Input::get('meta_title'));
         $menu->meta_keyword = trim(Input::get('meta_keyword'));
         $menu->meta_description = trim(Input::get('meta_description'));
-        $menu->image = 'test.png';
+        
+        $file = trim(Input::get('fileName'));
+        if(isset($file) && !empty($file)) {
+            if(!empty($id)) {
+                $previousPath = public_path('uploads/course/' . $menu->image);
+                if(file_exists($previousPath)) {
+                    @unlink($previousPath);
+                }
+            }
+            
+            $fileHelper = new FileHelper();
+            $tempPath = public_path('uploads/temp/' . $file);
+            if(file_exists($tempPath)) {
+                $destination = public_path('uploads/course/' . $file);
+                $fileHelper->moveFile($tempPath, $destination);                
+                $menu->image = $file;
+            }
+        }
+        
         $menu->save();
 
         return $menu;
@@ -127,7 +147,7 @@ class CMSMenuService
         try {
             $rules = array('title' => 'required|max:150',
                 'description' => 'required',
-                'image' => 'required|mimes:jpeg,jpg,png');
+                'image' => 'mimes:jpeg,jpg,png');
 
             if ($data['include_in'] <= 0) {
                 $rules['meta_title'] = 'sometimes|required|max:255';
@@ -136,11 +156,7 @@ class CMSMenuService
             } else {
                 unset($rules['image']);
             }
-
-            if (!empty($id)) {
-                $rules['image'] = 'mimes:jpeg,jpg,png';
-            }
-
+            
             $messages = array(
                 'title.required' => 'Menu title is missing',
                 'title.max' => 'Menu title must not be greater than 150 characters',
