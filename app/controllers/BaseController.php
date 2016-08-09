@@ -92,6 +92,7 @@ class BaseController extends Controller
         $filePath = public_path('uploads/' . $folder . "/" . $file);
         $fileInfo = pathinfo($filePath);
         $cacheImageName = md5($width.$height.$fileInfo['filename']).".".$fileInfo['extension'];
+        echo $cacheImageName;die;
         $cacheImagePath = public_path('uploads/imagecache/').$cacheImageName;
         if(!file_exists($cacheImagePath)) {
             if (file_exists($filePath)) {

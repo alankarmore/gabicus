@@ -14,12 +14,13 @@
                             <a href="{{route('teach-with-us')}}" class="margin-right10">Teach With Us</a> <span class="margin-right10">| </span>
                             <a href="{{route('corporate-training')}}" class="margin-right10">Corporate Training</a> <span class="margin-right10"> </span>                        
                             <div id="menu" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body">
-                                <span>menu</span>
+                                <span>Menu</span>
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-nav">
-                        <!-- navigation start -->
+                    @include('partials.sidebar')
+<!--                    <div class="sidebar-nav">
+                         navigation start 
                         <div class="navmenu navmenu-default navmenu-fixed-right offcanvas" style="" id="navigation">
                             <a href="">
                                 <img class="logo" src="{{asset('assets/img/logo.png')}}" alt="logo"></a>
@@ -29,8 +30,8 @@
                             @endforeach
                             </ul>
                         </div>
-                        <!-- navigation End -->
-                    </div>
+                         navigation End 
+                    </div>-->
                 </div>            <div class="row">
                     <div class="col-md-12">
                         <div class="banner text-center">

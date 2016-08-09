@@ -1,5 +1,6 @@
 <?php
 
+use Cache;
 use App\Models\ContactUs;
 use App\Services\CourseService;
 use App\Services\ContactService;
@@ -24,7 +25,13 @@ class HomeController extends BaseController
         $courseService = new CourseService();
         $popularCourses = $courseService->getPopularCourses();
         
-        return View::make('index',array('popularCourses' => $popularCourses));
+        if(!Cache::has('courses')) {
+            $categoryCourses = $courseService->getCoursesAccordingToCategory();
+        } else {
+            $categoryCourses = Cache::get('courses');
+        }
+        
+        return View::make('index',array('popularCourses' => $popularCourses,'categoryCourses' => $categoryCourses));
     }
     
     public function getCourses()

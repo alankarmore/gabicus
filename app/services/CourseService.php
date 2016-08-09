@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Course;
+use App\Models\Category;
 
 class CourseService
 {
@@ -57,6 +58,22 @@ class CourseService
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }        
+    }
+    
+    public function getCoursesAccordingToCategory()
+    {
+        $categories = Category::all();
+        $response = array();
+        foreach($categories as $category) {
+            $categoryCourses = Course::select('id','title','slug')
+                                ->where('category_id','=',$category->id)
+                                ->get();
+            if(!empty($categoryCourses) && $categoryCourses->count() > 0) {
+               $response[$category->category_name] = $categoryCourses; 
+            }
+        }
+        
+        return $response;
     }
     
     public function getCourses($phrase)
