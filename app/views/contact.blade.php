@@ -24,7 +24,7 @@
                 <div class="col-xs-12">
                     <div class="wrap-breadcrumb clearfix">
                         <ol class="breadcrumb">
-                            <li><a href="javascript:void(0);"><i class="icon">&#xf015;</i></a></li>
+                            <li><a href="{{route('/')}}"><i class="icon">&#xf015;</i></a></li>
                             <li class="active">Contact Us</li>
                         </ol>
                     </div>

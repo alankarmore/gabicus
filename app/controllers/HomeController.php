@@ -1,6 +1,6 @@
 <?php
 
-use Cache;
+
 use App\Models\CMSMenu;
 use App\Models\ContactUs;
 use App\Services\CourseService;

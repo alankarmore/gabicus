@@ -15,8 +15,24 @@
                     @include('partials.sidebar')         
                 </div>
             </div>
-        </div>    
+        </div>
     <!-- Header Section End -->
+    <div class="section-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="wrap-breadcrumb clearfix">
+                        <ol class="breadcrumb">
+                            <li><a href="{{route('/')}}"><i class="icon">&#xf015;</i></a></li>
+                            <li class="active">ABOUT US</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
 
     <main class="main-content">
             <section class="about rtd">

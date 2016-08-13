@@ -22,7 +22,7 @@
             <div class="col-xs-12">
                 <div class="wrap-breadcrumb clearfix">
                     <ol class="breadcrumb">
-                        <li><a href="javascript:void(0);"><i class="icon">&#xf015;</i></a></li>
+                        <li><a href="{{route('/')}}"><i class="icon">&#xf015;</i></a></li>
                         <li class="active">{{ucwords($course->title)}}</li>
                     </ol>
                 </div>
@@ -37,7 +37,7 @@
         <div class="pull-left">
             <div class="col-sm-10" style="margin-top: 15px;">
                 <span class="pull-left"><i class="glyphicon glyphicon-globe"></i></span>:<span><b>{{ucfirst($course->location)}}</b></span>
-                <span style="margin-left: 15px;">&#8377;</span>:<span><b>{{ucfirst($course->fees)}}</b></span>
+                <span style="margin-left: 15px;">&#8377;</span>:<span><b>{{ucfirst($course->fees)}}/-</b></span>
             </div>
             <a href="javascript:void(0);" class="enroll-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Enroll Now</a>
         </div>
