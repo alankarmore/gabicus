@@ -62,11 +62,12 @@ class CourseService
     
     public function getCoursesAccordingToCategory()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('category_name','ASC')->get();
         $response = array();
         foreach($categories as $category) {
             $categoryCourses = Course::select('id','title','slug')
                                 ->where('category_id','=',$category->id)
+                                ->orderBy('title','ASC')
                                 ->get();
             if(!empty($categoryCourses) && $categoryCourses->count() > 0) {
                $response[$category->category_name] = $categoryCourses; 

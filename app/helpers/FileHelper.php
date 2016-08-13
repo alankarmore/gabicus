@@ -58,7 +58,8 @@ class FileHelper
      * @var string
      */
     public $newNameForFile = null;
-    protected static $userDirs = array('image', 'audio', 'video', 'thumbnail');
+
+    public $course = array('small' => array('568X180'));
 
     /**
      * Setting instance of uploaded file
@@ -140,7 +141,7 @@ class FileHelper
         $widthHeight = $imageDimensions[0] . 'X' . $imageDimensions[1];
 
         $widthAuto = $this->sourceFilepath . 'thumb_width_auto_' . $imageDimensions[0] . '_' . $this->sourceFilename;
-        $thumb = $this->sourceFilepath . 'thumb_' . $widthHeight . '_' . $this->sourceFilename;
+        $thumb = $this->destinationPath . $this->sourceFilename;
         $command = '/usr/bin/convert ' . $sourceImage . ' -resize ' . $imageDimensions[0] . ' x ' . $widthAuto;
         if ($key == 'small') {
             $command = '/usr/bin/convert ' . $sourceImage . ' -resize x' . $imageDimensions[1] . ' ' . $widthAuto;
@@ -148,6 +149,7 @@ class FileHelper
         exec($command);
 
         $newImageSize = getimagesize($widthAuto);
+
         if ($key == 'small') {
             if ($newImageSize[0] >= $imageDimensions[0]) {
                 $ratio = round(($newImageSize[0] - $imageDimensions[0]) / 2);
@@ -170,7 +172,7 @@ class FileHelper
 
         unlink($widthAuto);
 
-        return 'thumb_' . $widthHeight . '_' . $this->sourceFilename;
+        return $this->sourceFilename;
     }
 
     /**
@@ -195,13 +197,10 @@ class FileHelper
                 $imageDimensions = explode("X", $value);
                 if ($originalImageSize[0] >= $imageDimensions[0] || $originalImageSize[1] >= $imageDimensions[1]) {
                     $thumbnail = $this->_cropImage($imageDimensions, $key);
-                    $fileName = null;
                     if (!empty($thumbnail)) {
-                        $fileName = $this->destinationPath . $thumbnail;
-                        rename($this->sourceFilepath . $thumbnail, $fileName);
+                        return $thumbnail;
                     } else {
-                        $fileName = $this->sourceFilepath . 'thumb_' . $value . '_' . $this->sourceFilename;
-                        copy($sourceImage, $fileName);
+                        copy($sourceImage, $this->destinationPath . $this->sourceFilename);
                     }
                 } else {
                     copy($sourceImage, $this->destinationPath . $this->sourceFilename);
@@ -209,7 +208,8 @@ class FileHelper
             }
         }
 
-        rename($sourceImage, $this->destinationPath . $this->sourceFilename);
+        return $this->sourceFilename;
+        //rename($sourceImage, $this->destinationPath . $this->sourceFilename);
     }
 
     /**

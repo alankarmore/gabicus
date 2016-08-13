@@ -82,7 +82,7 @@
 <!-- /page content -->
 @section('page-script')
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'#description' });</script>
+<script>tinymce.init({ selector:'#description',  plugins: "code"});</script>
 <script src="{{asset('admin/js/menu.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/fileupload/jquery.ui.widget.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/fileupload/jquery.iframe-transport.js')}}"></script>

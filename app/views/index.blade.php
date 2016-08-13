@@ -19,20 +19,8 @@
                         </div>
                     </div>
                     @include('partials.sidebar')
-<!--                    <div class="sidebar-nav">
-                         navigation start 
-                        <div class="navmenu navmenu-default navmenu-fixed-right offcanvas" style="" id="navigation">
-                            <a href="">
-                                <img class="logo" src="{{asset('assets/img/logo.png')}}" alt="logo"></a>
-                            <ul class="nav navmenu-nav">
-                            @foreach($courses as $course)
-                                <li><a href="{{route('courses.show',array('name' => $course->slug))}}">{{ucfirst($course->title)}}</a></li>
-                            @endforeach
-                            </ul>
-                        </div>
-                         navigation End 
-                    </div>-->
-                </div>            <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="banner text-center">
                             <!-- <h1 class="wow fadeInDown animated" data-wow-delay=".8s">BEST   LEARNING</h1>-->
@@ -153,12 +141,18 @@
 				
 				<div class="col-md-6 grid-right wow fadeInRight animated" data-wow-delay="1.6s">
 					<ul class="courses">
-						<li><a href="#" class="blue-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
+                        <?php $classes = array('blue-box','peacockblue-box','purple-box','yellow-box','green-box','red-box'); ?>
+                        @foreach($popularCourses as $key => $course)
+                            <li><a href="{{route('courses.show',array('name' => $course->slug))}}" class="{{$classes[$key]}}"><br>{{ucfirst($course->title)}}</a></li>
+                        @endforeach
+{{--
+						<li><a href="#" class="blue-box"><img src="" alt=""><br> Test</a></li>
 						<li><a href="#" class="peacockblue-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
 						<li><a href="#" class="purple-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
 						<li><a href="#" class="yellow-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
 						<li><a href="#" class="green-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
 						<li><a href="#" class="red-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
+--}}
 					</ul>
 				  </div>
 				

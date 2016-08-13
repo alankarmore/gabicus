@@ -10,13 +10,11 @@ class CourseController extends BaseController
         try {
             $courseService = new CourseService();
             $course = $courseService->getCourseDetailsBySlug($name);
-            
-            if (!Cache::has('courses')) {
-                $categoryCourses = $courseService->getCoursesAccordingToCategory();
-            } else {
-                $categoryCourses = Cache::get('courses');
+            if(!empty($course) && $course->id) {
+                return View::make('courses.show',array('course' => $course));
             }
-            return View::make('courses.show',array('course' => $course,'categoryCourses' => $categoryCourses));
+
+            return Redirect::to("/");
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage());
         }

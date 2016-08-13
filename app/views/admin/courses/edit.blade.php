@@ -111,7 +111,7 @@
 <!-- /page content -->
 @section('page-script')
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'#description',  plugins: "code" });</script>
+<script>tinymce.init({ selector:'#description',  plugins: "code"});</script>
 <script>
  activeParentMenu('courses');
 </script>

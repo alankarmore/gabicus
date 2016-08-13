@@ -1,6 +1,7 @@
 <?php
 
 use Cache;
+use App\Models\CMSMenu;
 use App\Models\ContactUs;
 use App\Services\CourseService;
 use App\Services\ContactService;
@@ -24,14 +25,8 @@ class HomeController extends BaseController
     {
         $courseService = new CourseService();
         $popularCourses = $courseService->getPopularCourses();
-        
-        if(!Cache::has('courses')) {
-            $categoryCourses = $courseService->getCoursesAccordingToCategory();
-        } else {
-            $categoryCourses = Cache::get('courses');
-        }
-        
-        return View::make('index',array('popularCourses' => $popularCourses,'categoryCourses' => $categoryCourses));
+
+        return View::make('index',array('popularCourses' => $popularCourses));
     }
     
     public function getCourses()
@@ -45,12 +40,14 @@ class HomeController extends BaseController
 
     public function aboutus()
     {
-        return View::make('about');
+        $menu = $this->getMenuDetails(CMSMenu::MENU_ABOUT_US);
+        return View::make('about',array('menu' => $menu));
     }
 
     public function services()
     {
-        return View::make('services');
+        $menu = $this->getMenuDetails(CMSMenu::MENU_SERVICES);
+        return View::make('services',array('menu' => $menu));
     }
 
     public function contactUs()
@@ -114,6 +111,11 @@ class HomeController extends BaseController
         @header('Content-type', 'application/json');
         echo json_encode($errorMessage);
         exit(0);
+    }
+
+    public function getMenuDetails($id)
+    {
+        return CMSMenu::find($id);
     }
 
 }

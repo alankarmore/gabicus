@@ -73,7 +73,7 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" name="image" id="image"  class="">
-                                    <span class="red">{{ $errors->first('course_image') }}</span>
+                                    <span class="red">{{ $errors->first('image') }}</span>
                                     <input type="hidden" name="mediatype" id="mediatype" value="image" />
                                     <input type="hidden" name="fileName" id="fileName" value="" />
                                 </div>                          

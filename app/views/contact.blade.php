@@ -3,7 +3,7 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/inner.css')}}" />
     <!-- Header Section Start -->
-    <div id="inner-header">
+    <div id="header">
         <div class="container">
             <div class="col-md-12 top-header">
                 <div class="logo-menu">

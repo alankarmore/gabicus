@@ -1,7 +1,8 @@
 <div class="sidebar-nav">
     <!-- navigation start -->
-    @if(count($categoryCourses) > 0) 
+
     <div class="navmenu navmenu-default navmenu-fixed-right offcanvas" style="" id="navigation">
+        @if(count($categoryCourses) > 0)
         <ul id="accordion" class="accordion">
             @foreach($categoryCourses as $category => $courses)
             <li>
@@ -13,8 +14,11 @@
                 </ul>
             </li>
             @endforeach
-        </ul>  
+        </ul>
+        @else
+            <ul><li>No Courses Found</li></ul>
+        @endif
     </div>
-    @endif
+
     <!-- navigation End -->
 </div>

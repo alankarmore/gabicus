@@ -79,6 +79,8 @@
 <!-- /page content -->
 @section('page-script')
 <script src="{{asset('admin/js/menu.js')}}"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'#description',  plugins: "code"});</script>
 <script>
     var parentMenus = '{{$parentMenus->count()}}';
     var selected = {{Input::old('include_in') ? Input::old('include_in') : 0}};
