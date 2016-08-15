@@ -100,130 +100,129 @@ class BaseController extends Controller
         $fileInfo = pathinfo($filePath);
         $cacheImageName = md5($width.$height.$fileInfo['filename']).".".$fileInfo['extension'];
         $cacheImagePath = public_path('uploads/imagecache/').$cacheImageName;
-            if(!file_exists($cacheImagePath)) {
-                if (extension_loaded('imagick')) {
-                    if (file_exists($filePath)) {
-                        $fileHelper = new FileHelper();
-                        $fileHelper->sourceFilename = $file;
-                        $fileHelper->sourceFilepath = public_path('uploads/' . $folder . '/');
-                        $fileHelper->destinationPath = public_path('uploads/imagecache/');
-                        ;
-                        $fileName = $fileHelper->resizeImage('course');
-                        $fileCachePath = public_path('uploads/imagecache/').$fileName;
-                        if(file_exists($fileCachePath)) {
-                            $imageInfo = pathinfo($fileCachePath);
-                            $cacheImageName = md5($width.$height.$imageInfo['filename']).".".$imageInfo['extension'];
-                            $cacheImagePath = public_path('uploads/imagecache/').$cacheImageName;
-                            rename($fileCachePath,$cacheImagePath);
-                        }
-                    } else {
-                        exit;
-                    }
+            if(!file_exists($cacheImagePath) && file_exists($filePath)) {
+                list($source_width, $source_height, $source_type) = getimagesize($filePath);
+                if($source_width >= $width && $source_height >= $height) {
+                    copy($filePath,$cacheImagePath);
                 } else {
-                    //get image size
-                    if(file_exists($filePath)) {
-                        copy($filePath,public_path('uploads/imagecache/').$file);
-                    }
-                    $filePath = public_path('uploads/imagecache/').$file;
-                    //Get the original image dimensions + type
-                    list($source_width, $source_height, $source_type) = getimagesize($filePath);
-
-                    //Figure out if we need to create a new JPG, PNG or GIF
-                    $ext = strtolower($fileInfo['extension']);
-                    if ($ext == "jpg" || $ext == "jpeg") {
-                        $source_gdim=imagecreatefromjpeg($filePath);
-                    } elseif ($ext == "png") {
-                        $source_gdim=imagecreatefrompng($filePath);
-                    } elseif ($ext == "gif") {
-                        $source_gdim=imagecreatefromgif($filePath);
-                    } else {
-                        //Invalid file type? Return.
-                        return;
-                    }
-
-                    //If a width is supplied, but height is false, then we need to resize by width instead of cropping
-                    if ($width && !$height) {
-                        $ratio = $width / $source_width;
-                        $temp_width = $width;
-                        $temp_height = $source_height * $ratio;
-
-                        $desired_gdim = imagecreatetruecolor($temp_width, $temp_height);
-                        imagecopyresampled(
-                            $desired_gdim,
-                            $source_gdim,
-                            0, 0,
-                            0, 0,
-                            $temp_width, $temp_height,
-                            $source_width, $source_height
-                        );
-                    } else {
-                        $source_aspect_ratio = $source_width / $source_height;
-                        $desired_aspect_ratio = $width / $height;
-
-                        if ($source_aspect_ratio > $desired_aspect_ratio) {
-                            /*
-                             * Triggered when source image is wider
-                             */
-                            $temp_height = $height;
-                            $temp_width = ( int ) ($height * $source_aspect_ratio);
+                    if (extension_loaded('imagick')) {
+                        if (file_exists($filePath)) {
+                            $fileHelper = new FileHelper();
+                            $fileHelper->sourceFilename = $file;
+                            $fileHelper->sourceFilepath = public_path('uploads/' . $folder . '/');
+                            $fileHelper->destinationPath = public_path('uploads/imagecache/');
+                            ;
+                            $fileName = $fileHelper->resizeImage('course');
+                            $fileCachePath = public_path('uploads/imagecache/').$fileName;
+                            if(file_exists($fileCachePath)) {
+                                $imageInfo = pathinfo($fileCachePath);
+                                rename($fileCachePath,$cacheImagePath);
+                            }
                         } else {
-                            /*
-                             * Triggered otherwise (i.e. source image is similar or taller)
-                             */
+                            exit;
+                        }
+                    } else {
+                        //get image size
+                        if(file_exists($filePath)) {
+                            copy($filePath,public_path('uploads/imagecache/').$file);
+                        }
+                        $filePath = public_path('uploads/imagecache/').$file;
+                        //Get the original image dimensions + type
+                        //Figure out if we need to create a new JPG, PNG or GIF
+                        $ext = strtolower($fileInfo['extension']);
+                        if ($ext == "jpg" || $ext == "jpeg") {
+                            $source_gdim=imagecreatefromjpeg($filePath);
+                        } elseif ($ext == "png") {
+                            $source_gdim=imagecreatefrompng($filePath);
+                        } elseif ($ext == "gif") {
+                            $source_gdim=imagecreatefromgif($filePath);
+                        } else {
+                            //Invalid file type? Return.
+                            return;
+                        }
+
+                        //If a width is supplied, but height is false, then we need to resize by width instead of cropping
+                        if ($width && !$height) {
+                            $ratio = $width / $source_width;
                             $temp_width = $width;
-                            $temp_height = ( int ) ($width / $source_aspect_ratio);
+                            $temp_height = $source_height * $ratio;
+
+                            $desired_gdim = imagecreatetruecolor($temp_width, $temp_height);
+                            imagecopyresampled(
+                                $desired_gdim,
+                                $source_gdim,
+                                0, 0,
+                                0, 0,
+                                $temp_width, $temp_height,
+                                $source_width, $source_height
+                            );
+                        } else {
+                            $source_aspect_ratio = $source_width / $source_height;
+                            $desired_aspect_ratio = $width / $height;
+
+                            if ($source_aspect_ratio > $desired_aspect_ratio) {
+                                /*
+                                 * Triggered when source image is wider
+                                 */
+                                $temp_height = $height;
+                                $temp_width = ( int ) ($height * $source_aspect_ratio);
+                            } else {
+                                /*
+                                 * Triggered otherwise (i.e. source image is similar or taller)
+                                 */
+                                $temp_width = $width;
+                                $temp_height = ( int ) ($width / $source_aspect_ratio);
+                            }
+
+                            /*
+                             * Resize the image into a temporary GD image
+                             */
+
+                            $temp_gdim = imagecreatetruecolor($temp_width, $temp_height);
+                            imagecopyresampled(
+                                $temp_gdim,
+                                $source_gdim,
+                                0, 0,
+                                0, 0,
+                                $temp_width, $temp_height,
+                                $source_width, $source_height
+                            );
+
+                            /*
+                             * Copy cropped region from temporary image into the desired GD image
+                             */
+
+                            $x0 = ($temp_width - $width) / 2;
+                            $y0 = ($temp_height - $height) / 2;
+                            $desired_gdim = imagecreatetruecolor($width, $height);
+                            imagecopy(
+                                $desired_gdim,
+                                $temp_gdim,
+                                0, 0,
+                                $x0, $y0,
+                                $width, $height
+                            );
                         }
 
                         /*
-                         * Resize the image into a temporary GD image
+                         * Render the image
+                         * Alternatively, you can save the image in file-system or database
                          */
+                        $destination = public_path('uploads/imagecache/').$cacheImageName;
+                        if ($ext == "jpg" || $ext == "jpeg") {
+                            ImageJpeg($desired_gdim,$destination,100);
+                        } elseif ($ext == "png") {
+                            ImagePng($desired_gdim,$destination);
+                        } elseif ($ext == "gif") {
+                            ImageGif($desired_gdim,$destination);
+                        } else {
+                            return;
+                        }
 
-                        $temp_gdim = imagecreatetruecolor($temp_width, $temp_height);
-                        imagecopyresampled(
-                            $temp_gdim,
-                            $source_gdim,
-                            0, 0,
-                            0, 0,
-                            $temp_width, $temp_height,
-                            $source_width, $source_height
-                        );
-
-                        /*
-                         * Copy cropped region from temporary image into the desired GD image
-                         */
-
-                        $x0 = ($temp_width - $width) / 2;
-                        $y0 = ($temp_height - $height) / 2;
-                        $desired_gdim = imagecreatetruecolor($width, $height);
-                        imagecopy(
-                            $desired_gdim,
-                            $temp_gdim,
-                            0, 0,
-                            $x0, $y0,
-                            $width, $height
-                        );
+                        ImageDestroy ($desired_gdim);
                     }
-
-                    /*
-                     * Render the image
-                     * Alternatively, you can save the image in file-system or database
-                     */
-
-                    $cacheImageName = md5($width.$height.$fileInfo['filename']).".".$fileInfo['extension'];
-                    $destination = public_path('uploads/imagecache/').$cacheImageName;
-                    if ($ext == "jpg" || $ext == "jpeg") {
-                        ImageJpeg($desired_gdim,$destination,100);
-                    } elseif ($ext == "png") {
-                        ImagePng($desired_gdim,$destination);
-                    } elseif ($ext == "gif") {
-                        ImageGif($desired_gdim,$destination);
-                    } else {
-                        return;
-                    }
-
-                    ImageDestroy ($desired_gdim);
                 }
-        }
+            }
 
         $fp = fopen($cacheImagePath, 'rb');
         header("Content-Type: image/".$fileInfo['extension']);
