@@ -110,7 +110,7 @@ class EnrollService
             Mail::send($templateName, $viewParams, function($message) use($subject) {
                 //$message->to('vikas.sharma@gabicusindia.com','Vikas Sharma') 
                 $message->to('alankar.more@gmail.com', 'Alankar More')
-                        ->to('mulay.yogesh@gabicusindia.com', 'Yogesh Mulay')
+                        //->to('mulay.yogesh@gabicusindia.com', 'Yogesh Mulay')
                         ->subject($subject);
             });
         } catch (\Exception $e) {

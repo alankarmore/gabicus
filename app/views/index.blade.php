@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Gabicus India')
+@section('title', "$metaTitle")
 @section('content')
         <!-- Header Section Start -->
         <div id="header" class="banner-container">
@@ -29,9 +29,11 @@
                                 <div class="input-group col-md-6 wow fadeInLeft animated">
                                     <input type="text" class="form-control input-lg" placeholder="Search for Courses" id="search-courses"/>
                                     <span class="input-group-btn">
+{{--
                                         <button class="btn btn-info btn-lg" type="button">
                                             <i class="glyphicon glyphicon-search"></i>
                                         </button>
+--}}
                                     </span>
                                 </div>
                             </div>
@@ -124,35 +126,20 @@
                      <a class="btn btn-primary btn-effect margin-top20" href="javascript:void(0);">SEE COURSES</a>-->
                 </div>
 
-                <!--<div class="col-md-6 grid-right wow fadeInRight animated" data-wow-delay="1.6s">
-                    <div class="col-md-12">
-                        @foreach($popularCourses as $course)
-                            <div class="col-md-4"><a href="{{route('courses.show',array('name' => $course->slug))}}">{{ucfirst($course->title)}}</a></div> 
-                        @endforeach
-                        <div class="col-md-4"><a href="{{route('/')}}"><img src="{{asset('assets/img/course1.jpg')}}" alt=""></a></div> 
-                        <div class="col-md-4"><a href="{{route('/')}}"><img src="{{asset('assets/img/course2.jpg')}}" alt=""></a></div> 
-                        <div class="col-md-4"><a href="{{route('/')}}"><img src="{{asset('assets/img/course3.jpg')}}" alt=""></a></div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="col-md-12 margin-top20">
-                        <div class="col-md-6 text-right"><a href="{{route('/')}}"><img src="{{asset('assets/img/course4.jpg')}}" alt=""></a></div> 
-                        <div align="left" class="col-md-6 text-left"><a href="{{route('/')}}"><img src="{{asset('assets/img/course5.jpg')}}" alt=""></a></div></div>
-                </div>-->
-				
 				<div class="col-md-6 grid-right wow fadeInRight animated" data-wow-delay="1.6s">
 					<ul class="courses">
                         <?php $classes = array('blue-box','peacockblue-box','purple-box','yellow-box','green-box','red-box'); ?>
                         @foreach($popularCourses as $key => $course)
-                            <li><a href="{{route('courses.show',array('name' => $course->slug))}}" class="{{$classes[$key]}}"><br>{{ucfirst($course->title)}}</a></li>
+                            <li>
+                                <div class="box">
+                                    <a href=" {{route('courses.show',array('name' => $course->slug))}} " class="{{$classes[$key]}}"><br>{{ucfirst($course->title)}}
+                                        <div class="overbox">
+                                            <div class="title overtext">Read More About {{ucfirst($course->title)}}</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
                         @endforeach
-{{--
-						<li><a href="#" class="blue-box"><img src="" alt=""><br> Test</a></li>
-						<li><a href="#" class="peacockblue-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
-						<li><a href="#" class="purple-box"><img src="assets/img/icon5.png" alt=""><br> Test</a></li>
-						<li><a href="#" class="yellow-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
-						<li><a href="#" class="green-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
-						<li><a href="#" class="red-box"><img src="assets/img/icon5.png" alt=""><br>  Test</a></li>
---}}
 					</ul>
 				  </div>
 				

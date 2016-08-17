@@ -42,7 +42,7 @@ _gaq.push(['_trackPageview']);
 
 </script>
 <!-- All JS plugin Triggers -->
-<script src="{{asset('assets/js/main.js')}}"></script>
+{{--<script src="{{asset('assets/js/main.js')}}"></script>--}}
 <!-- Smooth scroll -->
 <script src="{{asset('assets/js/smooth-scroll.js')}}"></script>
 <!--  -->

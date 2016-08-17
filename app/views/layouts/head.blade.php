@@ -1,8 +1,9 @@
 <head>
     <meta charset="utf-8">
+    <title>@yield('title',"$metaTitle")</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title','Gabicus India')</title>
-
+    <meta name="keywords" content="{{$metaKeyword}}">
+    <meta name="description" content="{{$metaDescription}}">
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/jasny-bootstrap.min.css')}}">

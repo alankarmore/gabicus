@@ -87,6 +87,7 @@ Route::group(array('before' => 'authAdmin', 'prefix' => 'admin'), function() {
     Route::get('inquiry/show/{id}', ['as' => 'admin.inquiry.show', 'uses' => 'App\Controllers\Admin\ContactInquiryController@show']);
     Route::get('inquiry/destroy/{id}', ['as' => 'admin.inquiry.destroy', 'uses' => 'App\Controllers\Admin\ContactInquiryController@destroy']);
 
-   
+    Route::get('seo', ['as' => 'admin.seo', 'uses' => 'App\Controllers\Admin\SEOManagementController@edit']);
+    Route::post('seo/update/{id}', ['as' => 'admin.seo.update', 'uses' => 'App\Controllers\Admin\SEOManagementController@update']);
     Route::get('logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@logout'));
 });

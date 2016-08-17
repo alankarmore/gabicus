@@ -72,8 +72,9 @@ class ContactService
         try{
             $viewParams = array('data' => $data);
             Mail::send('emails.contact',$viewParams,function($message) {
-                    $message->to('vikas.sharma@gabicusindia.com','Vikas Sharma')
-                            ->to('mulay.yogesh@gabicusindia.com', 'Yogesh Mulay')
+                    //$message->to('vikas.sharma@gabicusindia.com','Vikas Sharma')
+                    //        ->to('mulay.yogesh@gabicusindia.com', 'Yogesh Mulay')
+                $message->to('alankar.more@gmail.com', 'Alankar More')
                             ->subject('New Request from user via Contact Us form');
             });
         }catch(\Exception $e) {

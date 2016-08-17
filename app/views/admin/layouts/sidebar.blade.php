@@ -63,6 +63,7 @@
                         </ul>
                     </li>
                     <li><a href="{{route('admin.inquiries.list')}}"><i class="fa fa-table"></i>Inquiries<span class="fa fa-chevron-right"></span></a>
+                    <li><a href="{{route('admin.seo')}}"><i class="fa fa-table"></i>SEO Management<span class="fa fa-chevron-right"></span></a>
                 </ul>
             </div>
         </div>

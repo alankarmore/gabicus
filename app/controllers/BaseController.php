@@ -2,6 +2,7 @@
 
 use App\Helpers\FileHelper;
 use App\Services\CourseService;
+use App\Services\Admin\SEOService;
 
 class BaseController extends Controller
 {
@@ -31,7 +32,14 @@ class BaseController extends Controller
             $categoryCourses = Cache::get('courses');
         }
 
-        View::share(array('courses' => $courses,'categoryCourses' => $categoryCourses));
+        $seoService = new SEOService();
+        $seoDetails = $seoService->getSEOInformation();
+        $metaTitle = !empty($seoDetails)?$seoDetails->meta_title: "Gabicus India";
+        $metaKeyword = !empty($seoDetails)?$seoDetails->meta_keyword: "Teaching courses, Cloud computing, Oracle courses";
+        $metaDescription = !empty($seoDetails)?$seoDetails->meta_description: "Beast teachers in India to teach latest courses";
+
+        View::share(array('courses' => $courses,'categoryCourses' => $categoryCourses,
+            'metaTitle' => $metaTitle,'metaKeyword' => $metaKeyword,'metaDescription' => $metaDescription));
     }
 
     public function uploadToTemp()
