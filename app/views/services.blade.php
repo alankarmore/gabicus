@@ -2,7 +2,7 @@
 @section('title', 'Services')
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/inner.css')}}" />
-    <div id="header">
+    <div id="header" class="position-relative">
         <div class="container">
             <div class="col-md-12 top-header">
                 <div class="logo-menu">

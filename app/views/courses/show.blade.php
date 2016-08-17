@@ -3,7 +3,7 @@
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/inner.css')}}">
 <!-- Header Section Start -->
-    <div id="header" class="container">
+    <div id="header" class="container position-relative">
         <div class="col-md-12 top-header">
             <div class="logo-menu">
                 <div class="logo pull-left wow fadeInDown animated" data-wow-delay=".2s">

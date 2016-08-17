@@ -1408,6 +1408,14 @@ a.red-box{
     color: #FFF;
 }
 
+.position-relative{
+	position:relative !important;
+}
+.easy-autocomplete-container ul {
+    top: 45px !important;
+}
+
+
 @media only screen and (max-width: 768px) {
 
     .margin-right30{

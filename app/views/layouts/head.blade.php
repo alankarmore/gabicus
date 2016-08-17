@@ -18,7 +18,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
     <!-- Extras -->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/extras/animate.css')}}">
+    <!--<link rel="stylesheet" type="text/css" href="{{asset('assets/extras/animate.css')}}">-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/extras/lightbox.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/extras/owl/owl.carousel.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/extras/owl/owl.theme.css')}}">

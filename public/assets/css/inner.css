@@ -1,4 +1,4 @@
-#inner-header {
+/*.position-relative {
   width: 100%;
   background:#ccc;
   background-size: cover;
@@ -6,7 +6,7 @@
   position: relative;
   color: #ffffff;
 }
-#inner-header:before {
+.position-relative:before {
   background:#fff;
   position: absolute;
   width: 100%;
@@ -15,18 +15,18 @@
   bottom: 0px;
   content: "";
   display: block;
-}
+}*/
 
-#inner-header .top-header #menu span::before, #header .top-header #menu span::after{
-	background:#ccc;
+.position-relative .top-header #menu span::before, #header .top-header #menu span::after{
+	background:#ccc !important;
 }
-#inner-header .top-header #menu span{
-	background:#ccc;
+.position-relative .top-header #menu span{
+	background:#ccc !important;
 }
-#inner-header .top-header {
+.position-relative .top-header {
   margin-top: 20px;
 }
-#inner-header .top-header #menu {
+.position-relative .top-header #menu {
   display: block;
   width: 24px;
   height: 24px;
@@ -35,7 +35,7 @@
   cursor: pointer;
   float: right;
 }
-#inner-header .top-header #menu span {
+.position-relative .top-header #menu span {
   background-color: #ccc;
   display: block;
   font-size: 0px;
@@ -46,8 +46,8 @@
   transform: translateX(-50%);
   width: 24px;
 }
-#inner-header .top-header #menu span:before,
-#inner-header .top-header #menu span:after {
+.position-relative .top-header #menu span:before,
+.position-relative .top-header #menu span:after {
   background: #ccc;
   content: "";
   height: 100%;
@@ -58,20 +58,20 @@
   transition: all 0.3s ease;
   width: 100%;
 }
-#inner-header .top-header #menu span:before {
+.position-relative .top-header #menu span:before {
   -webkit-transform: translateY(-300%);
   -moz-transform: translateY(-300%);
   transform: translateY(-300%);
 }
-#inner-header .top-header #menu span:after {
+.position-relative .top-header #menu span:after {
   -webkit-transform: translateY(300%);
   -moz-transform: translateY(300%);
   transform: translateY(300%);
 }
-#inner-header .top-header #menu:hover span,
-#inner-header .top-header #menu:hover span:after,
-#inner-header .top-header #menu:hover span:before {
-  background: #086DB4;
+.position-relative .top-header #menu:hover span,
+.position-relative .top-header #menu:hover span:after,
+.position-relative .top-header #menu:hover span:before {
+  background: #086DB4 !important;
 }
 .search-form .form-group {
   float: right !important;

@@ -51,8 +51,8 @@ _gaq.push(['_trackPageview']);
 <script src="{{asset('assets/js/jquery.counterup.min.js')}}"></script>
 <!-- waypoints -->
 <script src="{{asset('assets/js/waypoints.min.js')}}"></script>
-<!-- circle progress -->
-<script src="{{asset('assets/js/circle-progress.js')}}"></script>
+<!-- circle progress
+<script src="{{asset('assets/js/circle-progress.js')}}"></script> -->
 <!-- owl carousel -->
 <script src="{{asset('assets/js/owl.carousel.js')}}"></script>
 <!-- lightbox -->
