@@ -33,7 +33,7 @@ class EnrollService
                 $data['course_title'] = $course->title;
                 $data['experience'] = ($data['experience']) ? $data['experience'] : 'Non';
                 $viewParams = array('data' => $data);
-                $this->sendMail($viewParams, 'emails.enroll','New Request from user via Contact Us form');
+                $this->sendMail($viewParams, 'emails.enroll','New Request from user via Enrollment form');
                 $this->sendMailToCustomer($data);
                 $response = true;
 
@@ -61,21 +61,21 @@ class EnrollService
                 $extension = $data['resume']->guessExtension();
                 $newFileName = time().".".$extension;
                 $data['resume']->move(public_path('uploads/resume/'),$newFileName);
-                $enroll->resume = $newFileName;            
-                $data['fileName'] = $newFileName;            
+                $enroll->resume = $newFileName;
+                $data['fileName'] = $newFileName;
             }
-            
+
             if ($enroll->save()) {
                 $viewParams = array('data' => $data);
                 $this->sendMail($viewParams, 'emails.teachwithus','New Request from user via teach with Us form');
                 $this->sendMailToCustomer($data);
-                
+
                 return true;
             }
         } catch (\Exception $exc) {
             throw new \Exception($exc->getMessage());
         }
-        
+
         return false;
     }
 
@@ -94,13 +94,13 @@ class EnrollService
                 $viewParams = array('data' => $data);
                 $this->sendMail($viewParams, 'emails.corporatetraining','New Request from user via corporate training form');
                 $this->sendMailToCustomer($data);
-                
+
                 return true;
             }
         } catch (\Exception $exc) {
             throw new \Exception($exc->getMessage());
         }
-        
+
         return false;
     }
 
@@ -108,10 +108,9 @@ class EnrollService
     {
         try {
             Mail::send($templateName, $viewParams, function($message) use($subject) {
-                //$message->to('vikas.sharma@gabicusindia.com','Vikas Sharma') 
-                $message->to('alankar.more@gmail.com', 'Alankar More')
-                        //->to('mulay.yogesh@gabicusindia.com', 'Yogesh Mulay')
-                        ->subject($subject);
+                $message->to('vikas.sharma@gabicusindia.com','Vikas Sharma')
+                    ->to('mulay.yogesh@gabicusindia.com', 'Yogesh Mulay')
+                    ->subject($subject);
             });
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
@@ -125,7 +124,7 @@ class EnrollService
             $viewParams = array('data' => $data);
             Mail::send('emails.customer', $viewParams, function($message) use($data) {
                 $message->to($data['email'], ucwords($data['name']))
-                        ->subject('No Reply: Thank you to reach us');
+                    ->subject('No Reply: Thank you to reach us');
             });
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
@@ -198,7 +197,7 @@ class EnrollService
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
-    
+
     public function validateCorporateTraining($data, $id = null)
     {
         try {

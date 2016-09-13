@@ -12,7 +12,7 @@
                     <div class="input-group">
                         <span class="input-group-addon" class="errorMessage"><i class="fa fa-envelope-o"></i></span>
                         <input type="email" name="email" id="email" class="form-control" placeholder="Email">
-                        
+ 
                     </div>
                     <span id="error-email" style="color:white;"></span>
                     <div class="input-group">
@@ -32,18 +32,19 @@
                 <div class="address">
                     <h2>Contact Info</h2>
                     <ul class="contact-info">
-                        <li><i class="fa fa-mobile"></i>+91-11-22457716</li>
+                        <li>Gabicus Edutech India Pvt. Ltd.<br/>509, Stellar Spaces, <br/>Opp Zensar Tech, Kharadi, <br/>Pune - 411014 </li>
+                        <li><i class="fa fa-mobile"></i>+91-20-65324555</li>
                         <!--<li><i class="fa fa-skype"></i>gabicus.xyz</li>-->
                         <li><i class="fa fa-envelope-o"></i>info@gabicusindia.com</li>
+
+
                     </ul>
 
-                    <h2>Follow Me</h2>
+                    <h2>Follow Us</h2>
                     <ul class="social-icon">
                         <li><a href="http://www.facebook.com" target='_blank'><i class="fa fa-facebook"></i></a></li>
                         <li><a href="http://www.twitter.com" target='_blank'><i class="fa fa-twitter"></i></a></li>
                         <li><a href="http://www.linkedin.com" target='_blank'><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="http://www.plus.google.com" target='_blank'><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="http://www.youtube.com" target='_blank'><i class="fa fa-youtube"></i></a></li>
                     </ul>
                 </div>
             </div>
