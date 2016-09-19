@@ -20,6 +20,7 @@ class AddColumnsToUsersTable extends Migration {
 			$table->string('city',255)->after('state')->nullable();
 			$table->string('phone_no',255)->after('city')->nullable();
 			$table->string('mobile_no',255)->after('phone_no')->nullable();
+			$table->string('user_type',255)->after('mobile_no')->nullable();
 		});
 	}
 
@@ -38,6 +39,7 @@ class AddColumnsToUsersTable extends Migration {
 			$table->dropColumn('state');
 			$table->dropColumn('birth_date');
 			$table->dropColumn('gender');
+			$table->dropColumn('user_type');
 		});
 	}
 

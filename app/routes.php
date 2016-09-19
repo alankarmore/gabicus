@@ -91,3 +91,9 @@ Route::group(array('before' => 'authAdmin', 'prefix' => 'admin'), function() {
     Route::post('seo/update/{id}', ['as' => 'admin.seo.update', 'uses' => 'App\Controllers\Admin\SEOManagementController@update']);
     Route::get('logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@logout'));
 });
+
+Route::group(array('prefix' => 'user'), function()
+{
+    Route::get('sign-up', array('as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@index'));
+    Route::post('sign-up', array('as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@create'));
+});
