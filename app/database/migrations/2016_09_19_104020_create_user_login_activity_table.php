@@ -16,8 +16,8 @@ class CreateUserLoginActivityTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id');
-			$table->dateTime('created_at')->nullable();
-			$table->dateTime('updated_at')->nullable();
+			$table->timestamp('created_at')->nullable();
+			$table->timestamp('updated_at')->nullable();
 		});
 	}
 
