@@ -97,3 +97,11 @@ Route::group(array('prefix' => 'user'), function()
     Route::get('sign-up', array('as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@index'));
     Route::post('sign-up', array('as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@create'));
 });
+
+Route::group(array('prefix' => 'password'), function(){
+    Route::get('forgot', array('uses' => 'RemindersController@getRemind'));
+    Route::post('forgot', array('uses' => 'RemindersController@postRemind'));
+    Route::get('reset/{token}', array('uses' => 'RemindersController@getReset'));
+    Route::post('reset', array('uses' => 'RemindersController@postReset'));
+});
+
