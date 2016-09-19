@@ -240,4 +240,9 @@ class BaseController extends Controller
         
     }
 
+    public function trimData($data){
+        $trimmedArray=array_map('trim',$data);
+        return $trimmedArray;
+    }
+
 }
