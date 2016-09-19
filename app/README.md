@@ -9,9 +9,6 @@
     2. develop
  ```
  - always pull code from develop for local development.
- - create .env file in root directory and copy all content from .env.example to .env file and
-   make changes according to requirement like database and other required passwords according
-   to your local environment.
  - Install composer [It's dependency manager for php]
 
 ```{r, engine='sh', count_lines}
@@ -20,7 +17,6 @@
     $ sudo mv composer.phar /usr/local/bin/composer
 ```
  - Then goto root path of project directory and run following command
- - Create .env file in root directory and copy the contents from .env.example to .env
 
 ```{r, engine='sh', count_lines}
     $ composer install
