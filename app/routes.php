@@ -94,8 +94,18 @@ Route::group(array('before' => 'authAdmin', 'prefix' => 'admin'), function() {
 
 Route::group(array('prefix' => 'user'), function()
 {
-    Route::get('sign-up', array('as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@index'));
-    Route::post('sign-up', array('as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@create'));
+    Route::get('sign-up', array('before'=>'guest','as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@index'));
+    Route::post('sign-up', array('before'=>'guest','as' => 'user.signup', 'uses' => 'App\Controllers\User\RegistrationController@create'));
+    Route::get('confirm/{token}', array('before'=>'guest','as' => 'user.confirm', 'uses' => 'App\Controllers\User\RegistrationController@confirm'));
+    Route::get('sign-in', array('before'=>'guest','as' => 'user.signin', 'uses' => 'App\Controllers\Auth\AuthController@show'));
+    Route::post('sign-in', array('as' => 'user.login', 'uses' => 'App\Controllers\Auth\AuthController@login'));
+    Route::get('logout', array('before'=>'auth','as' => 'user.signup', 'uses' => 'App\Controllers\Auth\AuthController@logout'));
+    /* User Profile */
+    Route::group(array('prefix' => 'profile'), function(){
+        Route::get('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@edit'));
+        Route::post('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@update'));
+        Route::post('password', array('before'=>'auth|authUser','as' => 'user.password', 'uses' => 'App\Controllers\User\ProfileController@passwordUpdate'));
+    });
 });
 
 Route::group(array('prefix' => 'password'), function(){

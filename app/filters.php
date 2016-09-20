@@ -10,7 +10,7 @@
   | application. Here you may also register your custom route filters.
   |
  */
-
+use App\Models\Role;
 App::before(function($request) {
     //
 });
@@ -36,7 +36,7 @@ Route::filter('auth', function() {
         if (Request::ajax()) {
             return Response::make('Unauthorized', 401);
         } else {
-            return Redirect::guest('login');
+            return Redirect::guest('user/sign-in');
         }
     }
 });
@@ -89,5 +89,15 @@ Route::filter('authAdmin', function() {
         Session::flush();
 
         return Redirect::to('/admin/sign-in');
+    }
+});
+
+Route::filter('authUser', function() {
+    $role = Role::where('name','user')->first();
+    $user = Auth::user();
+    if (!$user->role->role_id==$role->id) {
+        Auth::logout();
+        Session::flush();
+        return Redirect::to('/user/sign-in');
     }
 });

@@ -13,4 +13,8 @@ class Student extends \Eloquent
     protected $table = 'students';
 
     protected $fillable = array('college_name','education','year','location','user_id');
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

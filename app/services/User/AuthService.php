@@ -5,6 +5,7 @@ namespace App\Services\User;
 use Auth;
 use Carbon\Carbon;
 use Hash;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 use App\Models\User;
 use App\Models\Student;
@@ -12,23 +13,22 @@ use App\Models\Employee;
 use App\Models\Role;
 use App\Models\UserRoleAssociation;
 
+
 class AuthService
 {
-
-    public function __construct()
-    {
-        ;
-    }
 
     public function register($data)
     {
         try {
-            //dd($data);
             $timeStamp = Carbon::now();
             $data['remember_token'] = $data['_token'].strtotime($timeStamp);
             $data['password'] = Hash::make($data['password']);
             $data['created_at'] = $timeStamp;
             $data['updated_at'] = $timeStamp;
+            Mail::send('emails.user.welcome', $data, function($message) use ($data)
+            {
+                $message->to($data['email'], $data['first_name']." ".$data['last_name'])->subject('Welcome!');
+            });
             $user = User::create($data);
 
             if($data['user_type']=='student'){
