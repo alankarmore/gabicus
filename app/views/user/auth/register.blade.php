@@ -3,15 +3,7 @@
 <div>
     <div class="login_wrapper">
         <div id="" class="form">
-                @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+            @include('partials.error')
             <section class="login_content">
                 <form action="{{url('user/sign-up')}}" method="POST">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
@@ -115,7 +107,7 @@
         </div>
     </div>
 </div>
-@stop
+@endsection
 @section('js')
     <script type="application/javascript">
         $('#user_type').change(function(){
@@ -168,4 +160,4 @@
             }
         });
     </script>
-@stop
+@endsection

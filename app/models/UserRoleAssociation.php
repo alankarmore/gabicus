@@ -13,4 +13,8 @@ class UserRoleAssociation extends \Eloquent
     protected $table = 'user_role_associations';
 
     protected $fillable = array('user_id','role_id');
+
+    public function user(){
+        return $this->belongsTo('User');
+    }
 }

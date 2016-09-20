@@ -7,6 +7,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
+
 class User extends \Eloquent implements UserInterface, RemindableInterface
 {
 
@@ -25,8 +26,18 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
      *
      * @var array
      */
-    protected $hidden = array('password', 'remember_token');
+    protected $hidden = array('password');
 
     protected $fillable = array('remember_token','first_name', 'last_name','email','password','gender','birth_date','state','city','phone_no','mobile_no','user_type');
 
+
+    public function role(){
+        return $this->hasOne('App\Models\UserRoleAssociation','user_id');
+    }
+    public function student(){
+        return $this->hasOne('App\Models\Student','user_id');
+    }
+    public function employee(){
+        return $this->hasOne('App\Models\Employee','user_id');
+    }
 }

@@ -13,4 +13,8 @@ class Employee extends \Eloquent
     protected $table = 'employees';
 
     protected $fillable = array('company_name','designation','specialization','location','user_id','total_it_experience','total_experience');
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

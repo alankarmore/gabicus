@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers\User;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
@@ -34,7 +35,7 @@ class RegistrationController extends \BaseController {
 
 			$registered = $this->service->register($inputData);
 			if ($registered) {
-				return Redirect::to('admin/sign-in');
+				return Redirect::to('user/sign-in')->with('success','Account registered successfully, please check email to confirm your email');
 			}
 
 			return Redirect::back()->withInput()->withErrors('Something went wrong while registration');
@@ -43,64 +44,28 @@ class RegistrationController extends \BaseController {
 		}
 	}
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
+	public function confirm($token){
+		try {
+			$user = User::where('remember_token', $token)->first();
+			if ($user == null) { // no record found
+				$status = 'error';
+				$message= "Sorry!! No User found";
+			}else {
+				if ($user->is_active) { // already confirmed
+					$status = 'success';
+					$message="Your account already confirmed";
+				} else {
+					User::where('remember_token', $token)->update(array(
+						'is_active' => TRUE
+					));
+					$status = 'success';
+					$message="Your account is confirmed, you can now login to your account";
+				}
+			}
+			return Redirect::to("user/sign-in")->with($status,$message);
+		} catch (\Exception $ex) {
+			throw new \Exception($ex->getMessage(), $ex->getCode());
+		}
 	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 
 }
