@@ -37,39 +37,53 @@
                 @endforeach
             @endif
         </ul>
-        @if(!$user->id==$forum->user_id)
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div>
-                        <div class="login_wrapper">
-                            <div id="" class="form">
-                                <section class="login_content">
-                                    <form action="{{url('forum/comment/'.Route::current()->getParameter('id'))}}" method="POST" role="form">
-                                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                                        <h1>Add Comment</h1>
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="answers" rows="5" placeholder="Description" required=""></textarea>
-                                        </div>
-                                        <div>
-                                            <button class="btn btn-primary submit" type="submit">Add</button>
-                                        </div>
+        @if(!Auth::guest())
+            @if(!$user->id==$forum->user_id)
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div>
+                            <div class="login_wrapper">
+                                <div id="" class="form">
+                                    <section class="login_content">
+                                        <form action="{{url('forum/comment/'.Route::current()->getParameter('id'))}}" method="POST" role="form">
+                                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                            <h1>Add Comment</h1>
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="answers" rows="5" placeholder="Description" required=""></textarea>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-primary submit" type="submit">Add</button>
+                                            </div>
 
-                                        <div class="clearfix"></div>
+                                            <div class="clearfix"></div>
 
-                                    </form>
-                                </section>
+                                        </form>
+                                    </section>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-4">
+                        <div>
+                            <div class="login_wrapper">
+                                <div class="media-body media well">
+                                    <p>You can't comment on your own forum</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         @else
             <div class="row">
                 <div class="col-md-8 col-md-offset-4">
                     <div>
                         <div class="login_wrapper">
                             <div class="media-body media well">
-                                <p>You can't comment on your own forum</p>
+                                <p>Please <a href="/user/sign-in" >login </a>to comment on this forum</p>
                             </div>
                         </div>
                     </div>
