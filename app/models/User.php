@@ -40,4 +40,12 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
     public function employee(){
         return $this->hasOne('App\Models\Employee','user_id');
     }
+
+    public function forum(){
+        return $this->hasMany('App\Models\Forum','user_id');
+    }
+
+    public function forumAnswer(){
+        return $this->hasMany('App\Models\User','user_id');
+    }
 }

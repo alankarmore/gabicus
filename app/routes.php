@@ -114,4 +114,11 @@ Route::group(array('prefix' => 'password'), function(){
     Route::get('reset/{token}', array('uses' => 'RemindersController@getReset'));
     Route::post('reset', array('uses' => 'RemindersController@postReset'));
 });
+Route::group(array('prefix' => 'forum'), function(){
+    Route::get('create', array('before'=>'auth|authUser','as' => 'user.forum.create','uses' => 'App\Controllers\User\ForumController@index'));
+    Route::post('create', array('before'=>'auth|authUser','as' => 'user.forum.create','uses' => 'App\Controllers\User\ForumController@create'));
+    Route::get('lists', array('as' => 'user.forum.create','uses' => 'App\Controllers\User\ForumController@lists'));
+    Route::get('view/{id}', array('as' => 'user.forum.show','uses' => 'App\Controllers\User\ForumController@view'));
+    Route::post('comment/{id}', array('as' => 'user.forum.comment','uses' => 'App\Controllers\User\ForumController@comment'));
+});
 
