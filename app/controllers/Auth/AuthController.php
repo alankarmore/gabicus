@@ -3,6 +3,7 @@ namespace App\Controllers\Auth;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserRoleAssociation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -30,13 +31,19 @@ class AuthController extends \BaseController
 		try {
 			$data = Input::all();
 			$user = User::where('email', $data['email'])->first();
-			$role = Role::where('name','user')->first();
 			if ($user == NULL || empty($user)) {
 				$message="The email address is invalid";
 			}elseif($user->is_active == 0){
 				$message="Please verify your email id first";
-			}elseif($role->id==$user->role->role_id && Auth::attempt(['email' => $data['email'],'password' => $data['password']])){
-				return Redirect::to('user/profile/edit');
+			}elseif(Auth::attempt(['email' => $data['email'],'password' => $data['password']])){
+				$user = Auth::user();
+				if('recruiter'==$user->user_type){
+					return Redirect::to('recruiter/dashboard');
+				}elseif('student' == $user->user_type || 'employee' == $user->user_type || 'none' == $user->user_type){
+					return Redirect::to('user/profile/edit');
+				}else{
+					return Redirect::to('/');
+				}
 			}else{
 				$message="The email address or password is invalid";
 			}

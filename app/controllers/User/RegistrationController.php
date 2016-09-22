@@ -35,7 +35,7 @@ class RegistrationController extends \BaseController {
 
 			$registered = $this->service->register($inputData);
 			if ($registered) {
-				return Redirect::to('user/sign-in')->with('success','Account registered successfully, please check email to confirm your email');
+				return Redirect::route('user.signin')->with('success','Account registered successfully, please check email to confirm your email');
 			}
 
 			return Redirect::back()->withInput()->withErrors('Something went wrong while registration');
@@ -62,7 +62,7 @@ class RegistrationController extends \BaseController {
 					$message="Your account is confirmed, you can now login to your account";
 				}
 			}
-			return Redirect::to("user/sign-in")->with($status,$message);
+			return Redirect::route("user.signin")->with($status,$message);
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}

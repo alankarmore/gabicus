@@ -99,7 +99,7 @@ Route::group(array('prefix' => 'user'), function()
     Route::get('confirm/{token}', array('before'=>'guest','as' => 'user.confirm', 'uses' => 'App\Controllers\User\RegistrationController@confirm'));
     Route::get('sign-in', array('before'=>'guest','as' => 'user.signin', 'uses' => 'App\Controllers\Auth\AuthController@show'));
     Route::post('sign-in', array('as' => 'user.login', 'uses' => 'App\Controllers\Auth\AuthController@login'));
-    Route::get('logout', array('before'=>'auth','as' => 'user.signup', 'uses' => 'App\Controllers\Auth\AuthController@logout'));
+    Route::get('logout', array('before'=>'auth','as' => 'user.logout', 'uses' => 'App\Controllers\Auth\AuthController@logout'));
     /* User Profile */
     Route::group(array('prefix' => 'profile'), function(){
         Route::get('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@edit'));
@@ -115,10 +115,19 @@ Route::group(array('prefix' => 'password'), function(){
     Route::post('reset', array('uses' => 'RemindersController@postReset'));
 });
 Route::group(array('prefix' => 'forum'), function(){
-    Route::get('create', array('before'=>'auth|authUser','as' => 'user.forum.create','uses' => 'App\Controllers\User\ForumController@index'));
-    Route::post('create', array('before'=>'auth|authUser','as' => 'user.forum.create','uses' => 'App\Controllers\User\ForumController@create'));
-    Route::get('lists', array('as' => 'user.forum.create','uses' => 'App\Controllers\User\ForumController@lists'));
-    Route::get('view/{id}', array('as' => 'user.forum.show','uses' => 'App\Controllers\User\ForumController@view'));
-    Route::post('comment/{id}', array('as' => 'user.forum.comment','uses' => 'App\Controllers\User\ForumController@comment'));
+    Route::get('create', array('before'=>'auth|authUser','as' => 'forum.create','uses' => 'App\Controllers\User\ForumController@index'));
+    Route::post('create', array('before'=>'auth|authUser','as' => 'forum.create','uses' => 'App\Controllers\User\ForumController@create'));
+    Route::get('lists', array('as' => 'forum.list','uses' => 'App\Controllers\User\ForumController@lists'));
+    Route::get('view/{id}', array('as' => 'forum.view','uses' => 'App\Controllers\User\ForumController@view'));
+    Route::post('comment/{id}', array('as' => 'forum.comment','uses' => 'App\Controllers\User\ForumController@comment'));
+});
+
+Route::group(array('prefix' => 'recruiter'), function(){
+    Route::get('dashboard', array('before'=>'auth',function(){
+        $metaTitle = 'Recruiter Dashboard';
+        $metaKeyword = 'recruiter';
+        $metaDescription = 'Recruiter Dashboard';
+        return View::make('recruiter.dashboard',compact('metaTitle','metaKeyword','metaDescription'));
+    }));
 });
 

@@ -21,7 +21,7 @@
 
                     <div class="separator">
                         <p class="change_link">Not a member ?
-                            <a href="{{url('user/sign-up')}}" class="to_register"> Create Account </a>
+                            <a href="{{route('user.signup')}}" class="to_register"> Create Account </a>
                         </p>
 
                         <div class="clearfix"></div>

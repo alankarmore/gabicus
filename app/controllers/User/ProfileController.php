@@ -45,7 +45,7 @@ class ProfileController extends \BaseController {
 			}
 			$update = $this->service->update($this->user);
 			if ($update) {
-				return Redirect::to('user/profile/edit')->with('success','Profile updated successfully!');
+				return Redirect::route('user.profile.edit')->with('success','Profile updated successfully!');
 			}
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
@@ -65,7 +65,7 @@ class ProfileController extends \BaseController {
 			}
 			$update = $this->service->passwordUpdate($this->user,$data['password']);
 			if ($update) {
-				return Redirect::to('user/profile/edit')->with('success','Password updated successfully!');
+				return Redirect::route('user.profile.edit')->with('success','Password updated successfully!');
 			}
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
