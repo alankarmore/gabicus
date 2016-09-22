@@ -46,6 +46,7 @@
                             <option value="">Select Profession</option>
                             <option value="student">Student</option>
                             <option value="employee">Employee</option>
+                            <option value="recruiter">Recruiter</option>
                             <option value="none">None of the above</option>
                         </select>
                     </div>
@@ -91,7 +92,7 @@
 
                     <div class="separator">
                         <p class="change_link">Already a member ?
-                            <a href="{{url('user/sign-in')}}" class="to_register"> Log in </a>
+                            <a href="{{route('user.signin')}}" class="to_register"> Log in </a>
                         </p>
 
                         <div class="clearfix"></div>

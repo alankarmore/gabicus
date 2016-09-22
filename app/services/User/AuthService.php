@@ -31,18 +31,21 @@ class AuthService
             });
             $user = User::create($data);
 
-            if($data['user_type']=='student'){
+            if('student'==$data['user_type']){
                 $data['location'] = $data['student_location'];
                 $data['user_id'] = $user->id;
                 Student::create($data);
             }
-            if($data['user_type']=='employee'){
+            if('employee'==$data['user_type']){
                 $data['location'] = $data['employee_location'];
                 $data['user_id'] = $user->id;
                 Employee::create($data);
             }
-
-            $role = Role::where('name','user')->first();
+            if('recruiter'==$data['user_type']){
+                $role = Role::where('name','recruiter')->first();
+            }else{
+                $role = Role::where('name','user')->first();
+            }
             $userRoleAssociationData = array(
                 'user_id' => $user->id,
                 'role_id' => $role->id,

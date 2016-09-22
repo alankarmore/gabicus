@@ -9,17 +9,19 @@
         {{--<div class="float-right"><a href="about.html" class="margin-right10">About us</a> | <a href="#" class="margin-left10 margin-right10">Services</a> | <a href="#" class="margin-left10 margin-right10">Contact us</a> | </div>--}}
         {{--<div class="float-right"><a href="javascript:void(0);" class="margin-left10 margin-right10">Submit a query</a></div>--}}
         <div class="float-right">
-            <span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Forum <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/forum/create">Create</a></li>
-                    <li><a href="/forum/lists">List</a></li>
-                </ul>
-            </span> |
             @if(Auth::guest())
-                <a href="/user/sign-in" class="margin-right10"> Login</a> | <a href="/user/sign-up" class="margin-left10 margin-right10">SignUp</a>
+                <a href="{{route('user.signin')}}" class="margin-right10"> Login</a> | <a href="{{route('user.signup')}}" class="margin-left10 margin-right10">SignUp</a>
             @else
-                <a href="/user/logout" class="margin-right10"> Logout</a> |
-                <a href="/user/profile/edit" class="margin-left10 margin-right10">Profile</a> |
+                @if('recruiter'!==Auth::user()->user_type)
+                <span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Forum <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('forum.create')}}">Create</a></li>
+                        <li><a href="{{route('forum.list')}}">List</a></li>
+                    </ul>
+                </span> |
+                <a href="{{route('user.profile.edit')}}" class="margin-left10 margin-right10">Profile</a> |
+                @endif
+                <a href="{{route('user.logout')}}" class="margin-right10"> Logout</a>
             @endif
         </div>
     </div>
