@@ -37,9 +37,9 @@ class ForumController extends \BaseController {
 			}
 			$result = $this->service->create($this->user,$data);
 			if ($result) {
-				return Redirect::to('forum/create')->with('success','Question added to forum successfully!');
+				return Redirect::route('forum.create')->with('success','Question added to forum successfully!');
 			}
-			return Redirect::to('forum/create')->with('error','Something went wrong!');
+			return Redirect::route('forum.create')->with('error','Something went wrong!');
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}

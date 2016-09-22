@@ -123,7 +123,7 @@ Route::group(array('prefix' => 'forum'), function(){
 });
 
 Route::group(array('prefix' => 'recruiter'), function(){
-    Route::get('dashboard', array('before'=>'auth','as' => 'forum.create',function(){
+    Route::get('dashboard', array('before'=>'auth',function(){
         $metaTitle = 'Recruiter Dashboard';
         $metaKeyword = 'recruiter';
         $metaDescription = 'Recruiter Dashboard';
