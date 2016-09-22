@@ -17,7 +17,10 @@ class RegistrationController extends \BaseController {
 	public function index()
 	{
 		try {
-			return View::make('user.auth.register');
+			$metaTitle = 'User Registration';
+			$metaKeyword = 'user, registration';
+			$metaDescription = 'User Registration';
+			return View::make('user.auth.register',compact('metaTitle','metaKeyword','metaDescription'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}

@@ -17,7 +17,7 @@ class ProfileService
     public function update($user)
     {
         try {
-            $userData = Input::only('first_name','last_name','birth_date','state','city','phone_no','mobile_no');
+            $userData = Input::only('first_name','last_name','birth_date','state','city','phone_no','mobile_no','gender','birth_date');
             User::where('id',$user->id)->update($userData);
 
             if($user->user_type=='student'){
