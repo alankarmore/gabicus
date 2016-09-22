@@ -20,7 +20,10 @@ class AuthController extends \BaseController
 	public function show()
 	{
 		try {
-			return View::make('user.auth.login');
+			$metaTitle = 'User Login';
+			$metaKeyword = 'user, login';
+			$metaDescription = 'User Login';
+			return View::make('user.auth.login',compact('metaTitle','metaKeyword','metaDescription'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}
