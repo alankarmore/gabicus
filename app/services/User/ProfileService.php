@@ -61,7 +61,7 @@ class ProfileService
                 if($for=='student'){
                     $rules['college_name'] = 'required|max:50';
                     $rules['education'] = 'required|max:50';
-                    $rules['year'] = 'required|regex:/^\d{10}$/';
+                    $rules['year'] = 'required|regex:/^\d{4}$/';
                     $rules['location'] = 'required|max:50';
                 }
                 if($for=='employee'){
