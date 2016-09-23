@@ -61,7 +61,7 @@ class ProfileService
                 if($for=='student'){
                     $rules['college_name'] = 'required|max:50';
                     $rules['education'] = 'required|max:50';
-                    $rules['year'] = 'required|integer|max:4';
+                    $rules['year'] = 'required|regex:/^\d{10}$/';
                     $rules['location'] = 'required|max:50';
                 }
                 if($for=='employee'){
@@ -81,6 +81,7 @@ class ProfileService
             $messages = array(
                 'phone_no.regex' => 'Phone number should be number and in between 8 to 12 digits',
                 'mobile_no.regex' => 'Mobile number should be number and it should be 10 digits',
+                'year.regex' => 'Year should be number and it should be 4 digits',
             );
             return Validator::make($data, $rules,$messages);
         } catch (\Exception $ex) {

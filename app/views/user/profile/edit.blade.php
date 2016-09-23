@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Year:</label>
-                                        <input type="text" name="year" id="year" class="form-control" required="required" placeholder="Year (for eg: 1st,2nd)" value="{{$user->student->year}}"/>
+                                        <input type="text" name="year" id="year" class="form-control" required="required" placeholder="Year (for eg: 2013)" value="{{$user->student->year}}"/>
                                     </div>
                                     <div class="form-group">
                                         <label>Location:</label>
