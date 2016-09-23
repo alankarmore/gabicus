@@ -1,5 +1,8 @@
 @extends('layouts.main')
 @section('title', "$metaTitle")
+@section('page-css')
+    <link href="{{asset('assets/plugins/datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
@@ -12,11 +15,11 @@
                             <form action="{{route('user.profile.edit')}}" method="POST" role="form">
                                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                 <h1>Edit Profile</h1>
-                                <div class="form-group">
-                                    <label>First Name:</label>
-                                    <input type='file' id="user_image" />
-                                    <img id="user_image_preview" src="#" alt="your image" />
-                                </div>
+                                {{--<div class="form-group">--}}
+                                    {{--<label>Profile Image:</label>--}}
+                                    {{--<input type='file' id="user_image" />--}}
+                                    {{--<img id="user_image_preview" src="#" alt="your image" />--}}
+                                {{--</div>--}}
                                 <div class="form-group">
                                     <label>First Name:</label>
                                     <input type="text" name="first_name" class="form-control" placeholder="First Name" required="" value="{{$user->first_name}}"/>
@@ -38,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Birthdate:</label>
-                                    <input type="date" name="birth_date" id="birth_date" class="form-control" required="required" value="{{$user->birth_date}}"/>
+                                    <input name="birth_date" data-autoclose="true" id="birth_date" class="form-control" required="required" value="{{$user->birth_date}}" data-provide="datepicker" readonly="readonly" data-date-format="yyyy-mm-dd"/>
                                 </div>
                                 <div class="form-group">
                                     <label>State:</label>
@@ -148,6 +151,7 @@
 </div>
 @endsection
 @section('page-script')
+    <script src="{{asset('assets/plugins/datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script type="application/javascript">
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -163,5 +167,8 @@
         $("#user_image").change(function(){
             readURL(this);
         });
+    </script>
+    <script>
+        $('.datepicker').datepicker();
     </script>
 @endsection

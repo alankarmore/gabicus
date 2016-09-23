@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('layouts.head')
+@yield('page-css')
 <body>
 @include('layouts.header')
     @yield('content')
