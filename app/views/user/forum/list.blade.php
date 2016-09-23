@@ -14,7 +14,6 @@
                 <th>
                     <h3>Question</h3>
                 </th>
-                <th class="cell-stat text-center hidden-xs hidden-sm">Views</th>
                 <th class="cell-stat text-center hidden-xs hidden-sm">Comments</th>
                 <th class="cell-stat-2x hidden-xs hidden-sm">Post By</th>
             </tr>
@@ -24,9 +23,10 @@
                 <tr>
                     <td class="text-center">Category</td>
                     <td>
-                        <h4><a href="/forum/view/{{$forum->id}}">@if(strlen($forum->question) > 80){{ substr($forum->question,0,80)}}...@else {{ $forum->question }} @endif</a><br><small>@if(strlen($forum->description) > 80){{ substr($forum->description,0,80)}}...@else {{ $forum->description }} @endif</small></h4>
+                        <h4><a href="/forum/view/{{$forum->id}}">@if(strlen($forum->question) > 80){{ substr($forum->question,0,80)}}...@else {{ $forum->question }} @endif</a>
+                        <br><small>@if(strlen($forum->description) > 80){{ substr($forum->description,0,100)}}@else {{ $forum->description }} @endif</small></h4>
+                        <h4><small>@if(strlen($forum->description) > 80){{ substr($forum->description,100,200)}}...@else {{ $forum->description }} @endif</small></h4>
                     </td>
-                    <td class="text-center hidden-xs hidden-sm"><a href="#">{{$forum->views}}</a></td>
                     <td class="text-center hidden-xs hidden-sm"><a href="#">{{$forum->answers->count()}}</a></td>
                     <td class="hidden-xs hidden-sm">by <a href="javascript:void(0)">{{ucwords($forum->user->first_name." ".$forum->user->last_name)}}</a><br><small><i class="fa fa-clock-o"></i> {{$forum->created_at->toDayDateTimeString()}}</small></td>
                 </tr>

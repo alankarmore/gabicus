@@ -2,7 +2,7 @@
 @section('title', "$metaTitle")
 @section('content')
     <div class="container">
-        <h1 class="page-header"><i class="fa fa-pencil"></i> {{$forum->question}} <a class="btn btn-default" href="/forum/lists"><i class="fa fa-backward"></i> Back to topics</a></h1>
+        <h1 class="page-header"><i class="fa fa-pencil"></i> {{$forum->question}} <a class="btn btn-default" href="{{ URL::previous() }}"><i class="fa fa-backward"></i> Back to topics</a></h1>
         <p class="lead">{{$forum->description}}</p>
         @include('partials.error')
         <ul class="media-list forum">
@@ -38,7 +38,7 @@
             @endif
         </ul>
         @if(!Auth::guest())
-            @if(!$user->id==$forum->user_id)
+            @if($user->id!=$forum->user_id)
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div>
@@ -53,6 +53,7 @@
                                             </div>
                                             <div>
                                                 <button class="btn btn-primary submit" type="submit">Add</button>
+                                                <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
                                             </div>
 
                                             <div class="clearfix"></div>

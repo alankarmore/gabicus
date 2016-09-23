@@ -16,6 +16,19 @@ class ProfileController extends \BaseController {
 		$this->user = Auth::user();
 	}
 
+	public function view()
+	{
+		try {
+			$metaTitle = 'User Profile View';
+			$metaKeyword = 'user, profile, view';
+			$metaDescription = 'User Profile View';
+			$user = $this->user;
+			return View::make('user.profile.view')->with(compact('metaTitle','metaKeyword','metaDescription','user'));
+		} catch (\Exception $ex) {
+			throw new \Exception($ex->getMessage(), $ex->getCode());
+		}
+	}
+
 	public function edit()
 	{
 		try {

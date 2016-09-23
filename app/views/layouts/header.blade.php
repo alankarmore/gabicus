@@ -19,7 +19,7 @@
                         <li><a href="{{route('forum.list')}}">List</a></li>
                     </ul>
                 </span> |
-                <a href="{{route('user.profile.edit')}}" class="margin-left10 margin-right10">Profile</a> |
+                <a href="{{route('user.profile.view')}}" class="margin-left10 margin-right10">Profile</a> |
                 @endif
                 <a href="{{route('user.logout')}}" class="margin-right10"> Logout</a>
             @endif

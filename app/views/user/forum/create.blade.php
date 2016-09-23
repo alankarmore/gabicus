@@ -20,6 +20,7 @@
                                     </div>
                                     <div>
                                         <button class="btn btn-primary submit" type="submit">Create</button>
+                                        <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
                                     </div>
 
                                     <div class="clearfix"></div>
