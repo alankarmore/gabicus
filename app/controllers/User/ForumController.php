@@ -61,8 +61,6 @@ class ForumController extends \BaseController {
 	public function view($id){
 		try {
 			$forum = Forum::findOrFail($id);
-			$views = $forum->views+1;
-			Forum::where('id',$id)->update(array('views'=>$views));
 			$metaTitle = "$forum->question";
 			$metaKeyword = 'forum, details';
 			$metaDescription = "$forum->description";

@@ -50,35 +50,39 @@ class ProfileService
         try {
             if($type=='profile'){
                 $rules = array(
-                    'first_name' => 'required|max:150',
-                    'last_name' => 'required|max:150',
+                    'first_name' => 'required|max:30',
+                    'last_name' => 'required|max:30',
                     'birth_date' => 'required',
                     'state' => 'required|max:150',
                     'city' => 'required|max:150',
-                    'phone_no' => 'integer',
-                    'mobile_no' => 'required|integer'
+                    'phone_no' => 'regex:/^\d{8,12}$/',
+                    'mobile_no' => 'required|regex:/^\d{10}$/'
                 );
                 if($for=='student'){
-                    $rules['college_name'] = 'required|max:150';
-                    $rules['education'] = 'required|max:150';
-                    $rules['year'] = 'required|max:10';
-                    $rules['location'] = 'required|max:150';
+                    $rules['college_name'] = 'required|max:50';
+                    $rules['education'] = 'required|max:50';
+                    $rules['year'] = 'required|integer|max:4';
+                    $rules['location'] = 'required|max:50';
                 }
                 if($for=='employee'){
-                    $rules['company_name'] = 'required|max:150';
-                    $rules['designation'] = 'required|max:150';
-                    $rules['specialization'] = 'required|max:10';
-                    $rules['total_it_experience'] = 'required|max:150';
-                    $rules['total_experience'] = 'required|max:150';
-                    $rules['location'] = 'required|max:150';
+                    $rules['company_name'] = 'required|max:50';
+                    $rules['designation'] = 'required|max:50';
+                    $rules['specialization'] = 'required|max:20';
+                    $rules['total_it_experience'] = 'required|integer|max:2';
+                    $rules['total_experience'] = 'required|integer|max:2';
+                    $rules['location'] = 'required|max:50';
                 }
             }elseif($type=='password'){
                 $rules = array(
-                    'current_password' => 'required||min:5|max:30',
-                    'password' => 'required|confirmed|min:5',
+                    'current_password' => 'required|max:30',
+                    'password' => 'required|confirmed|max:30',
                 );
             }
-            return Validator::make($data, $rules);
+            $messages = array(
+                'phone_no.regex' => 'Phone number should be number and in between 8 to 12 digits',
+                'mobile_no.regex' => 'Mobile number should be number and it should be 10 digits',
+            );
+            return Validator::make($data, $rules,$messages);
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }

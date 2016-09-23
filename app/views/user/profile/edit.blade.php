@@ -14,6 +14,11 @@
                                 <h1>Edit Profile</h1>
                                 <div class="form-group">
                                     <label>First Name:</label>
+                                    <input type='file' id="user_image" />
+                                    <img id="user_image_preview" src="#" alt="your image" />
+                                </div>
+                                <div class="form-group">
+                                    <label>First Name:</label>
                                     <input type="text" name="first_name" class="form-control" placeholder="First Name" required="" value="{{$user->first_name}}"/>
                                 </div>
                                 <div class="form-group">
@@ -98,6 +103,7 @@
                                 @endif
                                 <div>
                                     <button class="btn btn-primary submit" type="submit">Update</button>
+                                    <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
                                 </div>
 
                                 <div class="clearfix"></div>
@@ -130,6 +136,7 @@
                                 </div>
                                 <div>
                                     <button class="btn btn-primary submit" type="submit">Update</button>
+                                    <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
                                 </div>
                             </form>
                         </section>
@@ -139,4 +146,22 @@
         </div>
     </div>
 </div>
+@endsection
+@section('page-script')
+    <script type="application/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#user_image_preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#user_image").change(function(){
+            readURL(this);
+        });
+    </script>
 @endsection

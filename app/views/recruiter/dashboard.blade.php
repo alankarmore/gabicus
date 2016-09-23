@@ -2,7 +2,10 @@
 @section('content')
     <div>
         <div class="login_wrapper">
-            <div style="height:500px;">Welcome {{Auth::user()->first_name}}</div>
+            <div>Welcome {{Auth::user()->first_name}}</div>
+            <div>
+                <img src="{{asset('assets/img/recruiter-dashboard.png')}}" />
+            </div>
         </div>
     </div>
 @endsection

@@ -43,7 +43,7 @@ class AuthController extends \BaseController
 				if('recruiter'==$user->user_type){
 					return Redirect::to('recruiter/dashboard');
 				}elseif('student' == $user->user_type || 'employee' == $user->user_type || 'none' == $user->user_type){
-					return Redirect::to('user/profile/edit');
+					return Redirect::route('user.profile.view');
 				}else{
 					return Redirect::to('/');
 				}

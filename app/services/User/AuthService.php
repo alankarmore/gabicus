@@ -32,16 +32,14 @@ class AuthService
             $user = User::create($data);
 
             if('student'==$data['user_type']){
-                $data['location'] = $data['student_location'];
                 $data['user_id'] = $user->id;
                 Student::create($data);
             }
             if('employee'==$data['user_type']){
-                $data['location'] = $data['employee_location'];
                 $data['user_id'] = $user->id;
                 Employee::create($data);
             }
-            if('recruiter'==$data['user_type']){
+            if('recruiter' == $data['user_type']){
                 $role = Role::where('name','recruiter')->first();
             }else{
                 $role = Role::where('name','user')->first();
@@ -73,32 +71,12 @@ class AuthService
         try {
             if($for==NULL){
                 $rules = array(
-                    'first_name' => 'required|max:150',
-                    'last_name' => 'required|max:150',
+                    'first_name' => 'required|max:30',
+                    'last_name' => 'required|max:30',
                     'email' => 'required|email|max:150|unique:users,email',
-                    'password' => 'required',
-                    'gender' => 'required',
-                    'birth_date' => 'required',
-                    'state' => 'required|max:150',
-                    'city' => 'required|max:150',
-                    'phone_no' => 'integer',
-                    'mobile_no' => 'required|integer',
+                    'password' => 'required|max:30',
                     'user_type' => 'required',
                 );
-                if($data['user_type']=='student'){
-                    $rules['college_name'] = 'required|max:150';
-                    $rules['education'] = 'required|max:150';
-                    $rules['year'] = 'required|max:10';
-                    $rules['student_location'] = 'required|max:150';
-                }
-                if($data['user_type']=='employee'){
-                    $rules['company_name'] = 'required|max:150';
-                    $rules['designation'] = 'required|max:150';
-                    $rules['specialization'] = 'required|max:10';
-                    $rules['total_it_experience'] = 'required|max:150';
-                    $rules['total_experience'] = 'required|max:150';
-                    $rules['employee_location'] = 'required|max:150';
-                }
             }
             if($for == 'login') {
                 $rules = array(
