@@ -9,7 +9,7 @@
                     <div class="login_wrapper">
                         <div id="" class="form">
                             <section class="login_content">
-                                <form action="{{url('forum/create')}}" method="POST" role="form">
+                                <form action="{{route('forum.create')}}" method="POST" role="form">
                                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                     <h1>Add New Question</h1>
                                     <div class="form-group">
