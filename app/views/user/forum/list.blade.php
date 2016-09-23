@@ -23,7 +23,7 @@
                 <tr>
                     <td class="text-center">Category</td>
                     <td>
-                        <h4><a href="/forum/view/{{$forum->id}}">@if(strlen($forum->question) > 80){{ substr($forum->question,0,80)}}...@else {{ $forum->question }} @endif</a>
+                        <h4><a href="{{route('forum.view',array('id'=>$forum->id))}}">@if(strlen($forum->question) > 80){{ substr($forum->question,0,80)}}...@else {{ $forum->question }} @endif</a>
                         <br><small>@if(strlen($forum->description) > 80){{ substr($forum->description,0,100)}}@else {{ $forum->description }} @endif</small></h4>
                         <h4><small>@if(strlen($forum->description) > 80){{ substr($forum->description,100,200)}}...@else {{ $forum->description }} @endif</small></h4>
                     </td>
