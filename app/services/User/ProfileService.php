@@ -68,8 +68,8 @@ class ProfileService
                     $rules['company_name'] = 'required|max:50';
                     $rules['designation'] = 'required|max:50';
                     $rules['specialization'] = 'required|max:20';
-                    $rules['total_it_experience'] = 'required|integer|max:2';
-                    $rules['total_experience'] = 'required|integer|max:2';
+                    $rules['total_it_experience'] = 'required|regex:/^\d{2}$/';
+                    $rules['total_experience'] = 'required|regex:/^\d{2}$/';
                     $rules['location'] = 'required|max:50';
                 }
             }elseif($type=='password'){
@@ -82,6 +82,8 @@ class ProfileService
                 'phone_no.regex' => 'Phone number should be number and in between 8 to 12 digits',
                 'mobile_no.regex' => 'Mobile number should be number and it should be 10 digits',
                 'year.regex' => 'Year should be number and it should be 4 digits',
+                'total_it_experience.regex' => 'Total IT Exp should be number and it should be 2 digits',
+                'total_experience.regex' => 'Total Exp should be number and it should be 2 digits',
             );
             return Validator::make($data, $rules,$messages);
         } catch (\Exception $ex) {
