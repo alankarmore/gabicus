@@ -59,7 +59,7 @@ return array(
 //			'database'  => 'mysqlnew1',
 			'database'  => 'gabicus',
 			'username'  => 'root',
-			'password'  => 'root',
+			'password'  => '',
 //                        'username'  => 'rootnew1',
 //			'password'  => 'rootnew1',
 			'charset'   => 'utf8',

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 class Role extends \Eloquent
-{
+    {
 
     /**
      * The database table used by the model.

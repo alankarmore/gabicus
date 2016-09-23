@@ -1,11 +1,11 @@
-@extends('layouts.main')
+@extends('layouts.account')
 @section('title', "$metaTitle")
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1" id="logout">
                 <div class="page-header">
-                    <h3 class="reviews">User Dashboard</h3>
+                    <h3 class="reviews">Dashboard</h3>
                 </div>
                 <div class="comment-tabs">
                     <ul class="nav nav-tabs" role="tablist">
