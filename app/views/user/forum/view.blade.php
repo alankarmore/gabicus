@@ -45,7 +45,7 @@
                             <div class="login_wrapper">
                                 <div id="" class="form">
                                     <section class="login_content">
-                                        <form action="{{url('forum/comment/'.Route::current()->getParameter('id'))}}" method="POST" role="form">
+                                        <form action="{{route('forum.comment',array('id'=>Route::current()->getParameter('id')))}}" method="POST" role="form">
                                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                             <h1>Add Comment</h1>
                                             <div class="form-group">

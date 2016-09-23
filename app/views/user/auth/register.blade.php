@@ -7,7 +7,7 @@
                 <div id="" class="form">
                     @include('partials.error')
                     <section class="login_content">
-                        <form action="{{url('user/sign-up')}}" method="POST">
+                        <form action="{{route('user.signup')}}" method="POST">
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                             <h1>Create Account</h1>
                             <div class="form-group">
