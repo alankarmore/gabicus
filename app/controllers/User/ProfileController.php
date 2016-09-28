@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 use App\Services\User\ProfileService;
+use App\Models\College;
+use App\Models\EducationDegree;
+use App\Models\EducationCourseType;
+use App\Models\Month;
+use App\Models\Year;
+use App\Models\State;
 
 class ProfileController extends \BaseController {
 
@@ -36,7 +42,13 @@ class ProfileController extends \BaseController {
 			$metaKeyword = 'user, profile, edit';
 			$metaDescription = 'User Profile Edit';
 			$user = $this->user;
-			return View::make('user.profile.edit')->with(compact('metaTitle','metaKeyword','metaDescription','user'));
+			$colleges = College::all();
+			$degrees = EducationDegree::all();
+			$courseTypes = EducationCourseType::all();
+			$months = Month::all();
+			$years = Year::all();
+			$states = State::all();
+			return View::make('user.profile.edit')->with(compact('metaTitle','metaKeyword','metaDescription','user','colleges','degrees','courseTypes','months','years','states'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}

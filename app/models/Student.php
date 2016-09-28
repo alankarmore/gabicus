@@ -12,7 +12,7 @@ class Student extends \Eloquent
      */
     protected $table = 'students';
 
-    protected $fillable = array('college_name','education','year','location','user_id');
+    protected $fillable = array('year','location','user_id','month','college_id','education_degree_id','education_course_type_id');
 
     public function user(){
         return $this->belongsTo('App\Models\User');

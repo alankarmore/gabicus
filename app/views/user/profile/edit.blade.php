@@ -45,7 +45,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>State:</label>
-                                    <input type="text" name="state" id="state" class="form-control" required="required" placeholder="State" value="{{$user->state}}"/>
+                                    <select class="form-control" required="required" name="state_id" id="state_id">
+                                        <option value="">Select State</option>
+                                        @foreach($states as $state)
+                                            @if($user->state_id == $state->id)
+                                                <?php $selected = 'selected="selected"'; ?>
+                                            @else
+                                                <?php $selected = ''; ?>
+                                            @endif
+                                            <option value="{{$state->id}}" {{$selected}}>{{$state->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>City:</label>
@@ -63,15 +73,73 @@
                                 @if($user->user_type=='student')
                                     <div class="form-group">
                                         <label>College Name:</label>
-                                        <input type="text" name="college_name" id="college" class="form-control" required="required" placeholder="College name" value="{{$user->student->college_name}}"/>
+                                        <select class="form-control" required="required" name="college_id" id="college_id">
+                                            <option value="">Select College</option>
+                                            @foreach($colleges as $college)
+                                                @if($user->student->college_id == $college->id)
+                                                    <?php $selected = 'selected="selected"'; ?>
+                                                @else
+                                                    <?php $selected = ''; ?>
+                                                @endif
+                                                <option value="{{$college->id}}" {{$selected}}>{{$college->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Education:</label>
-                                        <input type="text" name="education" id="education" class="form-control" required="required" placeholder="Education (for eg: engineering)" value="{{$user->student->education}}"/>
+                                        <label>Degree Name:</label>
+                                        <select class="form-control" required="required" name="education_degree_id" id="education_degree_id">
+                                            <option value="">Select Degree</option>
+                                            @foreach($degrees as $degree)
+                                                @if($user->student->education_degree_id == $degree->id)
+                                                    <?php $selected = 'selected="selected"'; ?>
+                                                @else
+                                                    <?php $selected = ''; ?>
+                                                @endif
+                                                <option value="{{$degree->id}}" {{$selected}}>{{$degree->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Year:</label>
-                                        <input type="text" name="year" id="year" class="form-control" required="required" placeholder="Year (for eg: 2013)" value="{{$user->student->year}}"/>
+                                        <label>Course Type/Branch Name:</label>
+                                        <select class="form-control" required="required" name="education_course_type_id" id="education_course_type_id">
+                                            <option value="">Select Branch</option>
+                                            @foreach($courseTypes as $courseType)
+                                                @if($user->student->education_course_type_id == $courseType->id)
+                                                    <?php $selected = 'selected="selected"'; ?>
+                                                @else
+                                                    <?php $selected = ''; ?>
+                                                @endif
+                                                <option value="{{$courseType->id}}" {{$selected}}>{{$courseType->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Academic Month:</label>
+                                        <select class="form-control" required="required" name="month" id="month">
+                                            <option value="">Select Month</option>
+                                            @foreach($months as $month)
+                                                @if($user->student->month == $month->name)
+                                                    <?php $selected = 'selected="selected"'; ?>
+                                                @else
+                                                    <?php $selected = ''; ?>
+                                                @endif
+                                                <option value="{{$month->name}}" {{$selected}}>{{ucwords($month->name)}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Academic Year:</label>
+                                        <select class="form-control" required="required" name="year" id="year">
+                                            <option value="">Select year</option>
+                                            @foreach($years as $year)
+                                                @if($user->student->year == $year->name)
+                                                    <?php $selected = 'selected="selected"'; ?>
+                                                @else
+                                                    <?php $selected = ''; ?>
+                                                @endif
+                                                <option value="{{$year->name}}" {{$selected}}>{{$year->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Location:</label>
