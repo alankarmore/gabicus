@@ -52,7 +52,7 @@ class ForumController extends \BaseController {
 			$metaDescription = 'Forum List';
 			$user = $this->user;
 			$forums = Forum::orderBy('created_at','desc')->paginate(5);
-			return View::make('user.forum.list')->with(compact('metaTitle','metaKeyword','metaDescription','user','forums'));
+			return View::make('user.forum.listing')->with(compact('metaTitle','metaKeyword','metaDescription','user','forums'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}
@@ -83,6 +83,25 @@ class ForumController extends \BaseController {
 				return Redirect::to("forum/view/$id")->with('success','Comment added to forum successfully!');
 			}
 			return Redirect::to("forum/view/$id")->with('error','Something went wrong!');
+		} catch (\Exception $ex) {
+			throw new \Exception($ex->getMessage(), $ex->getCode());
+		}
+	}
+
+	public function listData(){
+		try {
+			{
+				$data = [
+				[
+					"Tiger Nixon",
+					"System Architect",
+					"Edinburgh",
+					"5421",
+					"2011/04/25"
+				]
+			];
+				return json_encode($data);
+		}
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}

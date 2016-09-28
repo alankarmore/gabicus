@@ -122,6 +122,7 @@ Route::group(array('prefix' => 'forum'), function(){
     Route::get('lists', array('as' => 'forum.list','uses' => 'App\Controllers\User\ForumController@lists'));
     Route::get('view/{id}', array('as' => 'forum.view','uses' => 'App\Controllers\User\ForumController@view'));
     Route::post('comment/{id}', array('as' => 'forum.comment','uses' => 'App\Controllers\User\ForumController@comment'));
+    Route::get('lists/data', array('as' => 'forum.list.data','uses' => 'App\Controllers\User\ForumController@listData'));
 });
 
 Route::group(array('prefix' => 'recruiter'), function(){
