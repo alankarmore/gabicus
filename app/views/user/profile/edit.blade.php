@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Birthdate:</label>
-                                    <input name="birth_date" data-autoclose="true" id="birth_date" class="form-control" required="required" value="{{$user->birth_date}}" data-provide="datepicker" readonly="readonly" data-date-format="yyyy-mm-dd"/>
+                                    <input name="birth_date" data-autoclose="true" id="birth_date" class="datepicker form-control" required="required" value="{{$user->birth_date}}" data-provide="datepicker" readonly="readonly" data-date-format="yyyy-mm-dd"/>
                                 </div>
                                 <div class="form-group">
                                     <label>State:</label>

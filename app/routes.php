@@ -100,6 +100,7 @@ Route::group(array('prefix' => 'user'), function()
     Route::get('sign-in', array('before'=>'guest','as' => 'user.signin', 'uses' => 'App\Controllers\Auth\AuthController@show'));
     Route::post('sign-in', array('as' => 'user.login', 'uses' => 'App\Controllers\Auth\AuthController@login'));
     Route::get('logout', array('before'=>'auth','as' => 'user.logout', 'uses' => 'App\Controllers\Auth\AuthController@logout'));
+    Route::get('confirm', array('before'=>'guest','as' => 'user.confirm.email', 'uses' => 'App\Controllers\User\RegistrationController@confirmEmail'));
     /* User Profile */
     Route::group(array('prefix' => 'profile'), function(){
         Route::get('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@edit'));

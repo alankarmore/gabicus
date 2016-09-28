@@ -51,7 +51,7 @@ class ForumController extends \BaseController {
 			$metaKeyword = 'forum, list';
 			$metaDescription = 'Forum List';
 			$user = $this->user;
-			$forums = Forum::paginate(5);
+			$forums = Forum::orderBy('created_at','desc')->paginate(5);
 			return View::make('user.forum.list')->with(compact('metaTitle','metaKeyword','metaDescription','user','forums'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());

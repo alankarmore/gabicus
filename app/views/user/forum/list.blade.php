@@ -3,10 +3,9 @@
 @section('content')
     <div class="container" style="margin-top: 35px">
         <div class="page-header page-heading">
-            <h1 class="pull-left">Forums</h1>
+            <h1 class="pull-left">Gabicus Edutech India Technical Forum </h1>
             <div class="clearfix"></div>
         </div>
-        <p class="lead">This is the right place to discuss any ideas, critics, feature requests and all the ideas regarding our website. Please follow the forum rules and always check FAQ before posting to prevent duplicate posts.</p>
         <table class="table forum table-striped">
             <thead>
             <tr>

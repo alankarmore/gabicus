@@ -71,4 +71,18 @@ class RegistrationController extends \BaseController {
 		}
 	}
 
+	public function confirmEmail(){
+		try {
+			$data = Input::all();
+			$user  =User::where('email',$data['email'])->count();
+			if($user){
+				echo "false";
+			}else{
+				echo "true";
+			}
+		} catch (\Exception $ex) {
+			throw new \Exception($ex->getMessage(), $ex->getCode());
+		}
+	}
+
 }

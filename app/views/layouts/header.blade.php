@@ -13,15 +13,11 @@
                 <a href="{{route('user.signin')}}" class="margin-right10"> Login</a> | <a href="{{route('user.signup')}}" class="margin-left10 margin-right10">SignUp</a>
             @else
                 @if('recruiter'!==Auth::user()->user_type)
-                <span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Forum <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('forum.create')}}">Create</a></li>
-                        <li><a href="{{route('forum.list')}}">List</a></li>
-                    </ul>
-                </span> |
-                <a href="{{route('user.profile.view')}}" class="margin-left10 margin-right10">Profile</a> |
+                    <a href="{{route('forum.list')}}" class="margin-left10 margin-right10">Forums</a>|
+                    <a href="{{route('forum.create')}}" class="margin-left10 margin-right10">New Question</a>|
+                    <a href="{{route('user.profile.view')}}" class="margin-left10 margin-right10">Profile</a>|
                 @endif
-                <a href="{{route('user.logout')}}" class="margin-right10"> Logout</a>
+                <a href="{{route('user.logout')}}" class="margin-right10">Logout</a>
             @endif
         </div>
     </div>
