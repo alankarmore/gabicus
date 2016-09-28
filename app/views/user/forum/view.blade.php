@@ -15,7 +15,7 @@
                                  width="50" alt="Generic placeholder image">
                             <br>
                             <small class="btn-group btn-group-xs">
-                                <strong><a href="javascript:void(0)">{{ucwords($answer->user->first_name." ".$answer->user->last_name)}}</a></strong>
+                                <strong><a href="{{route('user.profile.public',array('id'=>$answer->user->id))}}">{{ucwords($answer->user->first_name." ".$answer->user->last_name)}}</a></strong>
                                 {{--<a class="btn btn-default"><i class="fa fa-thumbs-o-up"></i></a>--}}
                                 {{--<a class="btn btn-default"><i class="fa fa-thumbs-o-down"></i></a>--}}
                                 {{--<strong class="btn btn-success">+451</strong>--}}
@@ -38,46 +38,32 @@
             @endif
         </ul>
         @if(!Auth::guest())
-            @if($user->id!=$forum->user_id)
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div>
-                            <div class="login_wrapper">
-                                <div id="" class="form">
-                                    <section class="login_content">
-                                        <form action="{{route('forum.comment',array('id'=>Route::current()->getParameter('id')))}}" method="POST" role="form">
-                                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                                            <h1>Add Comment</h1>
-                                            <div class="form-group">
-                                                <textarea class="form-control" name="answers" rows="5" placeholder="Description" required=""></textarea>
-                                            </div>
-                                            <div>
-                                                <button class="btn btn-primary submit" type="submit">Add</button>
-                                                <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
-                                            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div>
+                        <div class="login_wrapper">
+                            <div id="" class="form">
+                                <section class="login_content">
+                                    <form action="{{route('forum.comment',array('id'=>Route::current()->getParameter('id')))}}" method="POST" role="form">
+                                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                        <h1>Add Comment</h1>
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="answers" rows="5" placeholder="Description" required=""></textarea>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-primary submit" type="submit">Add</button>
+                                            <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
+                                        </div>
 
-                                            <div class="clearfix"></div>
+                                        <div class="clearfix"></div>
 
-                                        </form>
-                                    </section>
-                                </div>
+                                    </form>
+                                </section>
                             </div>
                         </div>
                     </div>
                 </div>
-            @else
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-4">
-                        <div>
-                            <div class="login_wrapper">
-                                <div class="media-body media well">
-                                    <p>You can't comment on your own forum</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
+            </div>
         @else
             <div class="row">
                 <div class="col-md-8 col-md-offset-4">

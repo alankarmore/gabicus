@@ -107,6 +107,7 @@ Route::group(array('prefix' => 'user'), function()
         Route::get('view', array('before'=>'auth|authUser','as' => 'user.profile.view', 'uses' => 'App\Controllers\User\ProfileController@view'));
         Route::post('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@update'));
         Route::post('password', array('before'=>'auth|authUser','as' => 'user.password', 'uses' => 'App\Controllers\User\ProfileController@passwordUpdate'));
+        Route::get('public/{id}', array('as' => 'user.profile.public', 'uses' => 'App\Controllers\User\ProfileController@publicProfile'));
     });
 });
 

@@ -21,6 +21,7 @@
                     <th>Office</th>
                     <th>Comments</th>
                     <th>Posted By</th>
+                    <th>Posted</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -30,6 +31,7 @@
                     <th>Office</th>
                     <th>Comments</th>
                     <th>Posted By</th>
+                    <th>Posted</th>
                 </tr>
                 </tfoot>
             </table>
@@ -40,9 +42,12 @@
     <script type="application/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            var x = "{{route('forum.list.data')}}";
+            var url = "{{route('forum.list.data')}}";
             $('#example').DataTable( {
-                "ajax": x,
+                "aLengthMenu": [[15, 30, 45], [15, 30, 45]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": url,
             } );
         } );
     </script>

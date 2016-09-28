@@ -15,7 +15,7 @@ class ForumAnswer extends \Eloquent
     protected $fillable = array('answers','forum_id','user_id');
 
     public function forum(){
-        return $this->belongsTo('App\Models\Forum');
+        return $this->belongsTo('App\Models\Forum','id');
     }
 
     public function user(){
