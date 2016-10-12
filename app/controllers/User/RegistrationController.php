@@ -20,7 +20,9 @@ class RegistrationController extends \BaseController {
 			$metaTitle = 'User Registration';
 			$metaKeyword = 'user, registration';
 			$metaDescription = 'User Registration';
-			return View::make('user.auth.register',compact('metaTitle','metaKeyword','metaDescription'));
+                        $states = $this->service->getStates();
+                        
+			return View::make('user.auth.register',compact('metaTitle','metaKeyword','metaDescription','states'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}

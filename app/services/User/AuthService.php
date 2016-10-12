@@ -7,15 +7,21 @@ use Carbon\Carbon;
 use Hash;
 use Illuminate\Support\Facades\Mail;
 use Validator;
+use App\Models\Role;
 use App\Models\User;
+use App\Models\State;
 use App\Models\Student;
 use App\Models\Employee;
-use App\Models\Role;
 use App\Models\UserRoleAssociation;
 
 class AuthService
 {
 
+    public function getStates()
+    {
+        return State::where('status','=',\DB::raw(1))->orderBy('name','ASC')->get();
+    }
+    
     public function register($data)
     {
         try {
@@ -74,6 +80,9 @@ class AuthService
                     'email' => 'required|email|max:255|unique:users,email',
                     'password' => 'required|max:30',
                     'user_type' => 'required',
+                    'state' => 'required',
+                    'city' => 'required',
+                    'mobile_no' => 'required|min:10:max:12',
                 );
             }
             if ($for == 'login') {
@@ -95,6 +104,11 @@ class AuthService
                 'password.required' => 'Password is missing',
                 'password.max' => 'Password must be less than 30 characters',
                 'user_type.required' => 'Select your profession',
+                'state.required' => 'Select your state',
+                'city.required' => 'Select your city',
+                'mobile_no.required' => 'Mobile number is missing',
+                'mobile_no.min' => 'Mobile number must not be less than 10 digits',
+                'mobile_no.max' => 'Mobile number must be less than 12 digits',
             );
 
             return Validator::make($data, $rules, $messages);
