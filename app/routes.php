@@ -26,6 +26,7 @@ Route::get('/teach-with-us', array('as' => 'teach-with-us', 'uses' => 'EnrollCon
 Route::post('/teach-with-us', array('as' => 'post-teach-with-us', 'uses' => 'EnrollController@postTeachWithUs'));
 Route::get('/resume/{file}', array('as' => 'file.download', 'uses' => 'EnrollController@downloadResume'));
 Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => '\BaseController@getImage'));
+Route::post('get-cities', array('as' => 'get-cities', 'uses' => 'App\Controllers\User\RegistrationController@getCities'));
 
 Route::get('admin/sign-up', 'App\Controllers\Admin\AuthController@register');
 Route::post('register', array('as' => 'admin.signup', 'uses' => 'App\Controllers\Admin\AuthController@postRegister'));
@@ -100,12 +101,14 @@ Route::group(array('prefix' => 'user'), function()
     Route::get('sign-in', array('before'=>'guest','as' => 'user.signin', 'uses' => 'App\Controllers\Auth\AuthController@show'));
     Route::post('sign-in', array('as' => 'user.login', 'uses' => 'App\Controllers\Auth\AuthController@login'));
     Route::get('logout', array('before'=>'auth','as' => 'user.logout', 'uses' => 'App\Controllers\Auth\AuthController@logout'));
+    Route::get('confirm', array('before'=>'guest','as' => 'user.confirm.email', 'uses' => 'App\Controllers\User\RegistrationController@confirmEmail'));
     /* User Profile */
     Route::group(array('prefix' => 'profile'), function(){
         Route::get('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@edit'));
         Route::get('view', array('before'=>'auth|authUser','as' => 'user.profile.view', 'uses' => 'App\Controllers\User\ProfileController@view'));
         Route::post('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@update'));
         Route::post('password', array('before'=>'auth|authUser','as' => 'user.password', 'uses' => 'App\Controllers\User\ProfileController@passwordUpdate'));
+        Route::get('public/{id}', array('as' => 'user.profile.public', 'uses' => 'App\Controllers\User\ProfileController@publicProfile'));
     });
 });
 
@@ -121,6 +124,7 @@ Route::group(array('prefix' => 'forum'), function(){
     Route::get('lists', array('as' => 'forum.list','uses' => 'App\Controllers\User\ForumController@lists'));
     Route::get('view/{id}', array('as' => 'forum.view','uses' => 'App\Controllers\User\ForumController@view'));
     Route::post('comment/{id}', array('as' => 'forum.comment','uses' => 'App\Controllers\User\ForumController@comment'));
+    Route::get('lists/data', array('as' => 'forum.list.data','uses' => 'App\Controllers\User\ForumController@listData'));
 });
 
 Route::group(array('prefix' => 'recruiter'), function(){

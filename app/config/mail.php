@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'infogabicus@gmail.com', 'name' => 'Gabicus India Team'),
+	'from' => array('address' => 'alankar.more@gmail.com', 'name' => 'Alankar More'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'infogabicus@gmail.com',
+	'username' => 'alankar.more@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'info@gabicus',
+	'password' => 'spartens@300',
 
 	/*
 	|--------------------------------------------------------------------------

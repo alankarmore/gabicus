@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\City;
 use Auth;
 use Carbon\Carbon;
 use Hash;
@@ -79,6 +80,12 @@ class AuthService
                     'last_name' => 'required|max:255',
                     'email' => 'required|email|max:255|unique:users,email',
                     'password' => 'required|max:30',
+                    'gender' => 'required',
+                    'birth_date' => 'required',
+                    'state' => 'required|max:150',
+                    'city' => 'required|max:150',
+                    'phone_no' => 'regex:/^\d{8,12}$/',
+                    'mobile_no' => 'required|regex:/^\d{10}$/',
                     'user_type' => 'required',
                     'state' => 'required',
                     'city' => 'required',
@@ -100,7 +107,7 @@ class AuthService
                 'email.required' => 'Email address is missing',
                 'email.email' => 'Enter valid email address',
                 'email.max' => 'Email must be less than 255 characters',
-                'email.unique' => 'Email adrress already being used',
+                'email.unique' => 'Email address already being used',
                 'password.required' => 'Password is missing',
                 'password.max' => 'Password must be less than 30 characters',
                 'user_type.required' => 'Select your profession',
@@ -117,4 +124,19 @@ class AuthService
         }
     }
 
+    /**
+     * Get cities by state id
+     *
+     * @param integer $stateId
+     * @return App\City | boolean
+     */
+    public function getCitiesByState($stateId)
+    {
+        $cities = City::where('states_id','=',$stateId)->get();
+        if(!empty($cities) && $cities->count() > 0) {
+            return $cities;
+        }
+
+        return false;
+    }
 }

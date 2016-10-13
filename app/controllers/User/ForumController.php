@@ -5,6 +5,7 @@ use App\Services\User\ForumService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use App\Models\Forum;
 
@@ -51,7 +52,7 @@ class ForumController extends \BaseController {
 			$metaKeyword = 'forum, list';
 			$metaDescription = 'Forum List';
 			$user = $this->user;
-			$forums = Forum::paginate(5);
+			$forums = Forum::orderBy('created_at','desc')->paginate(5);
 			return View::make('user.forum.list')->with(compact('metaTitle','metaKeyword','metaDescription','user','forums'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
@@ -83,6 +84,32 @@ class ForumController extends \BaseController {
 				return Redirect::to("forum/view/$id")->with('success','Comment added to forum successfully!');
 			}
 			return Redirect::to("forum/view/$id")->with('error','Something went wrong!');
+		} catch (\Exception $ex) {
+			throw new \Exception($ex->getMessage(), $ex->getCode());
+		}
+	}
+
+	public function listData(){
+		try {
+				$data = array(
+					[
+						"Tiger Nixon",
+						"System Architect",
+						"Edinburgh",
+						"5421",
+						"2011/04/25",
+						"2011/04/25"
+					],
+					[
+						"Tiger Nixon",
+						"System Architect",
+						"Edinburgh",
+						"5421",
+						"2011/04/25",
+						"2011/04/25"
+					]
+				);
+				return Response::json($data);
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}

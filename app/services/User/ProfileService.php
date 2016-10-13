@@ -17,11 +17,11 @@ class ProfileService
     public function update($user)
     {
         try {
-            $userData = Input::only('first_name','last_name','birth_date','state','city','phone_no','mobile_no','gender','birth_date');
+            $userData = Input::only('first_name','last_name','birth_date','state_id','city','phone_no','mobile_no','gender','birth_date');
             User::where('id',$user->id)->update($userData);
 
             if($user->user_type=='student'){
-                $studentData = Input::only('college_name','education','year','location');
+                $studentData = Input::only('year','location','month','college_id','education_degree_id','education_course_type_id');
                 Student::where('user_id',$user->id)->update($studentData);
             }
             if($user->user_type=='employee'){
@@ -53,15 +53,17 @@ class ProfileService
                     'first_name' => 'required|max:30',
                     'last_name' => 'required|max:30',
                     'birth_date' => 'required',
-                    'state' => 'required|max:150',
+                    'state_id' => 'required',
                     'city' => 'required|max:150',
                     'phone_no' => 'regex:/^\d{8,12}$/',
                     'mobile_no' => 'required|regex:/^\d{10}$/'
                 );
                 if($for=='student'){
-                    $rules['college_name'] = 'required|max:50';
-                    $rules['education'] = 'required|max:50';
-                    $rules['year'] = 'required|regex:/^\d{4}$/';
+                    $rules['college_id'] = 'required';
+                    $rules['education_degree_id'] = 'required';
+                    $rules['education_course_type_id'] = 'required';
+                    $rules['month'] = 'required';
+                    $rules['year'] = 'required';
                     $rules['location'] = 'required|max:50';
                 }
                 if($for=='employee'){

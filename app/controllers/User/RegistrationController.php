@@ -73,4 +73,37 @@ class RegistrationController extends \BaseController {
 		}
 	}
 
+	public function confirmEmail(){
+		try {
+			$data = Input::all();
+			$user  =User::where('email',$data['email'])->count();
+			if($user){
+				echo "false";
+			}else{
+				echo "true";
+			}
+		} catch (\Exception $ex) {
+			throw new \Exception($ex->getMessage(), $ex->getCode());
+		}
+	}
+
+    public function getCities()
+    {
+        $response = array('valid' => 0, 'response' => null);
+        $state = Input::get('stateId');
+        if(!empty($state) && (int) $state > 0) {
+            $cities = $this->service->getCitiesByState($state);
+            if($cities) {
+                $optionString = "<option value=''>Select City</option>";
+                foreach($cities as $city) {
+                    $optionString .=  '<option value="'.$city->id.'">'.ucfirst($city->name).'</option>';
+                }
+
+                $response['valid'] = 1;
+                $response['response'] = $optionString;
+            }
+        }
+
+        return json_encode($response);
+    }
 }
