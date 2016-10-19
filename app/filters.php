@@ -95,7 +95,7 @@ Route::filter('authAdmin', function() {
 Route::filter('authUser', function() {
     $role = Role::where('name','user')->first();
     $user = Auth::user();
-    if (!$user->role->role_id==$role->id) {
+    if (!$user->role->role_id == $role->id) {
         Auth::logout();
         Session::flush();
         return Redirect::to('/user/sign-in');

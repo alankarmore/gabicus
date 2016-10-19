@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\User;
 
 use App\Services\User\ForumService;
@@ -9,109 +10,102 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use App\Models\Forum;
 
-class ForumController extends \BaseController {
+class ForumController extends \BaseController
+{
 
-	public function __construct()
-	{
-		$this->service = new ForumService();
-		$this->user = Auth::user();
-	}
+    public function __construct()
+    {
+        $this->service = new ForumService();
+        $this->user = Auth::user();
+    }
 
-	public function index(){
-		try {
-			$metaTitle = 'Create Forum';
-			$metaKeyword = 'forum, create';
-			$metaDescription = 'Create Forum';
-			$user = $this->user;
-			return View::make('user.forum.create')->with(compact('metaTitle','metaKeyword','metaDescription','user'));
-		} catch (\Exception $ex) {
-			throw new \Exception($ex->getMessage(), $ex->getCode());
-		}
-	}
+    public function index()
+    {
+        try {
+            $metaTitle = 'Create Forum';
+            $metaKeyword = 'forum, create';
+            $metaDescription = 'Create Forum';
+            $user = $this->user;
+            $forumCategories = $this->service->getForumCategories();
+            if(false == $forumCategories) {
+                $forumCategories = null;
+            }
+            
+            return View::make('user.forum.create')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forumCategories'));
+        } catch (\Exception $ex) {
+            throw new \Exception($ex->getMessage(), $ex->getCode());
+        }
+    }
 
-	public function create(){
-		try {
-			$data = Input::all();
-			$validation = $this->service->validate($data,'create');
-			if ($validation->fails()) {
-				return Redirect::back()->withInput()->withErrors($validation->messages());
-			}
-			$result = $this->service->create($this->user,$data);
-			if ($result) {
-				return Redirect::route('forum.create')->with('success','Question added to forum successfully!');
-			}
-			return Redirect::route('forum.create')->with('error','Something went wrong!');
-		} catch (\Exception $ex) {
-			throw new \Exception($ex->getMessage(), $ex->getCode());
-		}
-	}
+    public function create()
+    {
+        try {
+            $data = Input::all();
+            $validation = $this->service->validate($data, 'create');
+            if ($validation->fails()) {
+                return Redirect::back()->withInput()->withErrors($validation->messages());
+            }
+            $result = $this->service->create($this->user, $data);
+            if ($result) {
+                return Redirect::route('forum.create')->with('success', 'Question added to forum successfully!');
+            }
+            
+            return Redirect::route('forum.create')->with('error', 'Something went wrong!');
+        } catch (\Exception $ex) {
+            return Redirect::route('forum.create')->with('error', 'Something went wrong!');
+        }
+    }
 
-	public function lists(){
-		try {
-			$metaTitle = 'Forum Lists';
-			$metaKeyword = 'forum, list';
-			$metaDescription = 'Forum List';
-			$user = $this->user;
-			$forums = Forum::orderBy('created_at','desc')->paginate(5);
-			return View::make('user.forum.list')->with(compact('metaTitle','metaKeyword','metaDescription','user','forums'));
-		} catch (\Exception $ex) {
-			throw new \Exception($ex->getMessage(), $ex->getCode());
-		}
-	}
+    public function lists()
+    {
+        try {
+            $metaTitle = 'Forum Lists';
+            $metaKeyword = 'forum, list';
+            $metaDescription = 'Forum List';
+            $user = $this->user;
+            $forums = $this->service->getAllForums();
+            
+            return View::make('user.forum.list')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forums'));
+            
+        } catch (\Exception $ex) {
+            $forums = false;
+            return View::make('user.forum.list')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forums'));
+        }
+    }
 
-	public function view($id){
-		try {
-			$forum = Forum::findOrFail($id);
-			$metaTitle = "$forum->question";
-			$metaKeyword = 'forum, details';
-			$metaDescription = "$forum->description";
-			$user = $this->user;
-			return View::make('user.forum.view')->with(compact('metaTitle','metaKeyword','metaDescription','user','forum'));
-		} catch (\Exception $ex) {
-			throw new \Exception($ex->getMessage(), $ex->getCode());
-		}
-	}
+    public function view($id)
+    {
+        try {
+            
+            $forum = Forum::findOrFail($id);
+            $metaTitle = "$forum->question";
+            $metaKeyword = 'forum, details';
+            $metaDescription = "$forum->description";
+            $user = $this->user;
+            
+            return View::make('user.forum.view')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forum'));
+        } catch (\Exception $ex) {
+            throw new \Exception($ex->getMessage(), $ex->getCode());
+        }
+    }
 
-	public function comment($id){
-		try {
-			$data = Input::all();
-			$validation = $this->service->validate($data,'comment');
-			if ($validation->fails()) {
-				return Redirect::back()->withInput()->withErrors($validation->messages());
-			}
-			$result = $this->service->comment($this->user,$data,$id);
-			if ($result) {
-				return Redirect::to("forum/view/$id")->with('success','Comment added to forum successfully!');
-			}
-			return Redirect::to("forum/view/$id")->with('error','Something went wrong!');
-		} catch (\Exception $ex) {
-			throw new \Exception($ex->getMessage(), $ex->getCode());
-		}
-	}
+    public function comment($id)
+    {
+        try {
+            $data = Input::all();
+            $validation = $this->service->validate($data, 'comment');
+            if ($validation->fails()) {
+                return Redirect::back()->withInput()->withErrors($validation->messages());
+            }
+            $result = $this->service->comment($this->user, $data, $id);
+            if ($result) {
+                return Redirect::to("forum/view/$id")->with('success', 'Comment added to forum successfully!');
+            }
+            
+            return Redirect::to("forum/view/$id")->with('error', 'Something went wrong!');
+        } catch (\Exception $ex) {
+            return Redirect::to("forum/view/$id")->with('error', 'Something went wrong!');
+        }
+    }
 
-	public function listData(){
-		try {
-				$data = array(
-					[
-						"Tiger Nixon",
-						"System Architect",
-						"Edinburgh",
-						"5421",
-						"2011/04/25",
-						"2011/04/25"
-					],
-					[
-						"Tiger Nixon",
-						"System Architect",
-						"Edinburgh",
-						"5421",
-						"2011/04/25",
-						"2011/04/25"
-					]
-				);
-				return Response::json($data);
-		} catch (\Exception $ex) {
-			throw new \Exception($ex->getMessage(), $ex->getCode());
-		}
-	}
 }

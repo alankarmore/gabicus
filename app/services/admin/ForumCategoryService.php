@@ -6,8 +6,9 @@ use URL;
 use Input;
 use Validator;
 use App\Models\ForumCategory;
+use App\Services\BaseService;
 
-class ForumCategoryService
+class ForumCategoryService extends BaseService
 {
 
     public function __construct()
@@ -31,8 +32,9 @@ class ForumCategoryService
             if (!empty($search)) {
                 $query->where('category_name', 'LIKE', '%' . Input::get('search') . '%');
             }
-
-            $categories = $query->orderBy(Input::get('sort'), Input::get('order'))
+            $sort = Input::get('sort')?Input::get('sort'):"ID";
+            $order = Input::get('order')?Input::get('order'):"DESC";
+            $categories = $query->orderBy($sort,$order)
                     ->skip(Input::get('offset'))->take(Input::get('limit'))
                     ->get();
             if (!empty($search)) {
@@ -40,6 +42,7 @@ class ForumCategoryService
             }
 
             foreach ($categories as $category) {
+                $category->category_name = ucwords($category->category_name); 
                 $category->action = '<a href="' . URL::route('admin.forumcategories.edit', array('id' => $category->id)) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
                 if ($category->forums->count() == 0) {
                     $category->action .= ' <a href="' . URL::route('admin.forumcategories.delete', array('id' => $category->id)) . '" title="delete" class="deleteRecord"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
@@ -71,7 +74,7 @@ class ForumCategoryService
 
             $category = new ForumCategory();
             $category->category_name = trim($data['category_name']);
-            $category->slug = strtolower(str_replace(" ","-",$category->category_name)) ;
+            $category->slug = self::slugify($category->category_name) ;
             $category->status = 1;
             $category->created_at = date("Y-m-d H:i:s");
             $category->updated_at = date("Y-m-d H:i:s");

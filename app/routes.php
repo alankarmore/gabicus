@@ -53,6 +53,14 @@ Route::group(array('before' => 'authAdmin', 'prefix' => 'admin'), function() {
     Route::post('categories/update/{id}', array('as' => 'admin.categories.update', 'uses' => 'App\Controllers\Admin\CategoryController@update'));
     Route::get('categories/delete/{id}', array('as' => 'admin.categories.delete', 'uses' => 'App\Controllers\Admin\CategoryController@destroy'));
 
+    Route::get('forum-categories', array('as' => 'admin.forumcategories', 'uses' => 'App\Controllers\Admin\ForumCategoryController@index'));
+    Route::post('forum-categories', array('as' => 'admin.forumcategories', 'uses' => 'App\Controllers\Admin\ForumCategoryController@getData'));
+    Route::get('forum-categories/create', array('as' => 'admin.forumcategories.create', 'uses' => 'App\Controllers\Admin\ForumCategoryController@create'));
+    Route::post('forum-categories/save', array('as' => 'save-forum-category', 'uses' => 'App\Controllers\Admin\ForumCategoryController@store'));
+    Route::get('forum-categories/edit/{id}', array('as' => 'admin.forumcategories.edit', 'uses' => 'App\Controllers\Admin\ForumCategoryController@edit'));
+    Route::post('forum-categories/update/{id}', array('as' => 'admin.forumcategories.update', 'uses' => 'App\Controllers\Admin\ForumCategoryController@update'));
+    Route::get('forum-categories/delete/{id}', array('as' => 'admin.forumcategories.delete', 'uses' => 'App\Controllers\Admin\ForumCategoryController@destroy'));
+
     Route::get('courses', array('as' => 'admin.courses', 'uses' => 'App\Controllers\Admin\CourseController@index'));
     Route::post('courses', array('as' => 'admin.course.list', 'uses' => 'App\Controllers\Admin\CourseController@getData'));
     Route::get('courses/create', array('as' => 'admin.courses.create', 'uses' => 'App\Controllers\Admin\CourseController@create'));
@@ -122,6 +130,7 @@ Route::group(array('prefix' => 'forum'), function(){
     Route::get('create', array('before'=>'auth|authUser','as' => 'forum.create','uses' => 'App\Controllers\User\ForumController@index'));
     Route::post('create', array('before'=>'auth|authUser','as' => 'forum.create','uses' => 'App\Controllers\User\ForumController@create'));
     Route::get('lists', array('as' => 'forum.list','uses' => 'App\Controllers\User\ForumController@lists'));
+    Route::post('lists', array('as' => 'forum.list','uses' => 'App\Controllers\User\ForumController@getData'));
     Route::get('view/{id}', array('as' => 'forum.view','uses' => 'App\Controllers\User\ForumController@view'));
     Route::post('comment/{id}', array('as' => 'forum.comment','uses' => 'App\Controllers\User\ForumController@comment'));
     Route::get('lists/data', array('as' => 'forum.list.data','uses' => 'App\Controllers\User\ForumController@listData'));

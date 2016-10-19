@@ -35,6 +35,12 @@
                             <li><a href="{{route('admin.categories.create')}}">Add Category</a></li>
                         </ul>
                     </li>
+                    <li><a><i class="fa fa-table"></i> Forum Categories <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" id="forum-categories">
+                            <li><a href="{{route('admin.forumcategories')}}">Categories</a></li>
+                            <li><a href="{{route('admin.forumcategories.create')}}">Add Category</a></li>
+                        </ul>
+                    </li>
                     <li><a><i class="fa fa-table"></i> Courses<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu"  id="courses">
                             <li><a href="{{route('admin.courses')}}">Courses</a></li>

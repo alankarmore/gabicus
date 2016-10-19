@@ -12,7 +12,7 @@ class Forum extends \Eloquent
      */
     protected $table = 'forums';
 
-    protected $fillable = array('question','description','views','user_id');
+    protected $fillable = array('question','description','views','user_id','category_id');
 
     public function user(){
         return $this->belongsTo('App\Models\User');
@@ -22,4 +22,7 @@ class Forum extends \Eloquent
         return $this->hasMany('App\Models\ForumAnswer','forum_id');
     }
 
+    public function forumCategory(){
+        return $this->belongsTo('App\Models\ForumCategory','category_id','id');
+    }    
 }
