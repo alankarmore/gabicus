@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', "$metaTitle")
 @section('content')
-<div class="container">
+<div class="container userprofile">
 {{--    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="toplinks">
             <p>You are here :</p>

@@ -28,38 +28,52 @@ class AuthService
         try {
             $timeStamp = Carbon::now();
             $token = $data['_token'];
-            $data['state_id'] = $data['state'];
-            unset($data['state']);
-            $data['city_id'] = $data['city'];
-            unset($data['city']);
-            $data['remember_token'] = $token . strtotime($timeStamp);
-            $data['password'] = Hash::make($data['password']);
-            $data['created_at'] = $timeStamp;
-            $data['updated_at'] = $timeStamp;
-            $user = User::create($data);
+            $data['remember_token'] = $token;
+            $user = new User();
+            $user->first_name = $data['first_name'];
+            $user->last_name = $data['last_name'];
+            $user->user_type = $data['user_type'];
+            $user->email = $data['email'];
+            $user->state_id = $data['state'];
+            $user->city_id = $data['city'];
+            $user->password = Hash::make($data['password']);
+            $user->remember_token = $token.strtotime($timeStamp);
+            $user->created_at = $timeStamp;
+            $user->updated_at = $timeStamp;
+            $user->save();
+
+            unset($data['_token']);
+
             Mail::send('emails.user.welcome', $data, function($message) use ($data) {
                 $message->to($data['email'], $data['first_name'] . " " . $data['last_name'])->subject('Welcome!');
             });
 
+            unset($data['remember_token']);
             if ('student' == $data['user_type']) {
-                $data['user_id'] = $user->id;
-                Student::create($data);
+                $student = new Student();
+                $student->user_id = $user->id;
+                $student->save();
             }
+
             if ('employee' == $data['user_type']) {
-                $data['user_id'] = $user->id;
-                Employee::create($data);
+                $employee = new Employee();
+                $employee->user_id = $user->id;
+                $employee->save();
             }
+
             if ('recruiter' == $data['user_type']) {
                 $role = Role::where('name', 'recruiter')->first();
             } else {
                 $role = Role::where('name', 'user')->first();
             }
+
             $userRoleAssociationData = array(
                 'user_id' => $user->id,
                 'role_id' => $role->id,
                 'created_at' => $timeStamp,
                 'updated_at' => $timeStamp,
             );
+
             UserRoleAssociation::create($userRoleAssociationData);
             return true;
         } catch (\Exception $ex) {
