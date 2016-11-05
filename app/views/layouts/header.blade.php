@@ -13,6 +13,7 @@
                 <a href="{{route('user.signin')}}" class="margin-right10"> Login</a> | <a href="{{route('user.signup')}}" class="margin-left10 margin-right10">SignUp</a>|<a href="{{route('forum.list')}}" class="margin-left10 margin-right10">Forums</a>
             @else
                 @if('recruiter'!==Auth::user()->user_type)
+                    <a href="{{route('forum.list')}}" class="margin-left10 margin-right10">Forums</a>
                     <a href="{{route('forum.create')}}" class="margin-left10 margin-right10">New Question</a>|
                     <a href="{{route('user.profile.view')}}" class="margin-left10 margin-right10">Profile</a>|
                 @endif
