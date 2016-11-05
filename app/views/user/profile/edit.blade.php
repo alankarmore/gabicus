@@ -4,219 +4,225 @@
     <link href="{{asset('assets/plugins/datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet">
 @endsection
 @section('content')
-<div class="container">
-    <div class="row">
+    <div class="container userprofile">
+{{--        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="toplinks">
+                <p>You are here :</p>
+                <ul>
+                    <li class="first"><a href="{{route('/')}}">Home</a></li>
+                    <li ><a href="{{route('user.profile.view')}}">Profile</a></li>
+                    <li >Edit Profile</li>
+                </ul>
+            </div>
+        </div>--}}
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1" id="logout">
+                <div class="page-header">
+                    <h3 class="reviews">Update Your Profile</h3>
+                </div>
+            </div>
+        </div>
         @include('partials.error')
-        <div class="col-md-4 col-md-offset-2">
-            <div>
-                <div class="login_wrapper">
-                    <div id="" class="form">
-                        <section class="login_content">
-                            <form action="{{route('user.profile.edit')}}" method="POST" role="form">
-                                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                                <h1>Edit Profile</h1>
-                                {{--<div class="form-group">--}}
-                                    {{--<label>Profile Image:</label>--}}
-                                    {{--<input type='file' id="user_image" />--}}
-                                    {{--<img id="user_image_preview" src="#" alt="your image" />--}}
-                                {{--</div>--}}
-                                <div class="form-group">
-                                    <label>First Name:</label>
-                                    <input type="text" name="first_name" class="form-control" placeholder="First Name" required="" value="{{$user->first_name}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Last Name:</label>
-                                    <input type="text" name="last_name" class="form-control" placeholder="Last Name" required="" value="{{$user->last_name}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email:</label>
-                                    <input type="email" class="form-control" placeholder="Email" readonly value="{{$user->email}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Gender:</label>
-                                    <select class="form-control" id="gender" name="gender" required="required">
-                                        <option value="male" @if('male' == $user->gender) selected='selected' @endif>Male</option>
-                                        <option value="female" @if('female' == $user->gender) selected='selected' @endif>Female</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Birthdate:</label>
-                                    <input name="birth_date" data-autoclose="true" id="birth_date" class="datepicker form-control" required="required" value="{{$user->birth_date}}" data-provide="datepicker" readonly="readonly" data-date-format="yyyy-mm-dd"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>State:</label>
-                                    <select class="form-control" required="required" name="state_id" id="state_id">
-                                        <option value="">Select State</option>
+        <form action="{{route('user.profile.edit')}}" method="POST" id="signupForm">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="" for="exampleInputEmail3">First Name</label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" tabindex="1" value="{{$user->first_name}}">
+                                @if($errors->first('first_name'))<p class="error">{{$errors->first('first_name')}}</p>@endif
+                            </div>
+                            <div class="form-group">
+                                <label class="" for="email">Email</label>
+                                <input type="email" class="form-control" id="email"  name="email" placeholder="Email" tabindex="3" value="{{$user->email}}">
+                                @if($errors->first('email'))<p class="error">{{$errors->first('email')}}</p>@endif
+                            </div>
+                            <div class="form-group">
+                                <label class="" for="state">State</label>
+                                <select class="form-control" id="state" name="state" tabindex="5">
+                                    <option value="">Select State</option>
+                                    @if($states)
                                         @foreach($states as $state)
-                                            @if($user->state_id == $state->id)
-                                                <?php $selected = 'selected="selected"'; ?>
-                                            @else
-                                                <?php $selected = ''; ?>
-                                            @endif
-                                            <option value="{{$state->id}}" {{$selected}}>{{$state->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>City:</label>
-                                    <input type="text" name="city" id="city" class="form-control" required="required" placeholder="City" value="{{$user->city}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Phone Number:</label>
-                                    <input type="text" name="phone_no" id="phone_no" class="form-control" placeholder="Phone Number" value="{{$user->phone_no}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Mobile Number:</label>
-                                    <input type="text" name="mobile_no" id="mobile_no" class="form-control" required="required" placeholder="Mobile Number" value="{{$user->mobile_no}}"/>
-                                </div>
-
-                                @if($user->user_type=='student')
-                                    <div class="form-group">
-                                        <label>College Name:</label>
-                                        <select class="form-control" required="required" name="college_id" id="college_id">
-                                            <option value="">Select College</option>
-                                            @foreach($colleges as $college)
-                                                @if($user->student->college_id == $college->id)
-                                                    <?php $selected = 'selected="selected"'; ?>
-                                                @else
-                                                    <?php $selected = ''; ?>
-                                                @endif
-                                                <option value="{{$college->id}}" {{$selected}}>{{$college->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Degree Name:</label>
-                                        <select class="form-control" required="required" name="education_degree_id" id="education_degree_id">
-                                            <option value="">Select Degree</option>
-                                            @foreach($degrees as $degree)
-                                                @if($user->student->education_degree_id == $degree->id)
-                                                    <?php $selected = 'selected="selected"'; ?>
-                                                @else
-                                                    <?php $selected = ''; ?>
-                                                @endif
-                                                <option value="{{$degree->id}}" {{$selected}}>{{$degree->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Course Type/Branch Name:</label>
-                                        <select class="form-control" required="required" name="education_course_type_id" id="education_course_type_id">
-                                            <option value="">Select Branch</option>
-                                            @foreach($courseTypes as $courseType)
-                                                @if($user->student->education_course_type_id == $courseType->id)
-                                                    <?php $selected = 'selected="selected"'; ?>
-                                                @else
-                                                    <?php $selected = ''; ?>
-                                                @endif
-                                                <option value="{{$courseType->id}}" {{$selected}}>{{$courseType->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Academic Month:</label>
-                                        <select class="form-control" required="required" name="month" id="month">
-                                            <option value="">Select Month</option>
-                                            @foreach($months as $month)
-                                                @if($user->student->month == $month->name)
-                                                    <?php $selected = 'selected="selected"'; ?>
-                                                @else
-                                                    <?php $selected = ''; ?>
-                                                @endif
-                                                <option value="{{$month->name}}" {{$selected}}>{{ucwords($month->name)}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Academic Year:</label>
-                                        <select class="form-control" required="required" name="year" id="year">
-                                            <option value="">Select year</option>
-                                            @foreach($years as $year)
-                                                @if($user->student->year == $year->name)
-                                                    <?php $selected = 'selected="selected"'; ?>
-                                                @else
-                                                    <?php $selected = ''; ?>
-                                                @endif
-                                                <option value="{{$year->name}}" {{$selected}}>{{$year->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Location:</label>
-                                        <input type="text" name="location" id="location" class="form-control" required="required" placeholder="Location" value="{{$user->student->location}}"/>
-                                    </div>
+                                            <option value="{{$state->id}}" @if($state->id == $user->state_id) selected='selected' @endif>{{ucfirst($state->name)}}</option>
+                                            @@endforeach
+                                    @endif
+                                </select>
+                                @if($errors->first('state'))<p class="error">{{$errors->first('state')}}</p>@endif
+                            </div>
+                            <div class="form-group">
+                                <label>Birth Date:</label>
+                                <input tabindex="7" name="birth_date" data-autoclose="true" id="birth_date" class="form-control" required="required" value="{{$user->birth_date}}" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" />
+                            </div>
+                            @if($errors->first('birth_date'))<p class="error">{{$errors->first('birth_date')}}</p>@endif
+                            <div class="form-group">
+                                <label>Phone Number:</label>
+                                <input type="text" name="phone_no" id="phone_no" class="form-control" placeholder="Phone Number" value="{{$user->phone_no}}" tabindex="9"/>
+                            </div>
+                            @if($errors->first('phone_no'))<p class="error">{{$errors->first('phone_no')}}</p>@endif
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="" for="exampleInputPassword3">Last Name</label>
+                                <input type="text" class="form-control" id="last_name"  name="last_name" placeholder="Last Name"  tabindex="2" value="{{$user->last_name}}">
+                                @if($errors->first('last_name'))<p class="error">{{$errors->first('last_name')}}</p>@endif
+                            </div>
+                            <div class="form-group">
+                                <label class="" for="gender">Select Gender</label>
+                                <select class="form-control" id="gender" name="gender" tabindex="4">
+                                    <option value="">Select Gender</option>
+                                    <option value="male"  @if($user->gender == 'male') selected='selected' @endif>Male</option>
+                                    <option value="female" @if($user->gender == 'female') selected='selected' @endif>Female</option>
+                                </select>
+                                @if($errors->first('gender'))<p class="error">{{$errors->first('gender')}}</p>@endif
+                            </div>
+                            <div class="form-group">
+                                <label class="" for="city">City</label>
+                                <select class="form-control" id="city" name="city" tabindex="6">
+                                    <option value="">Select City</option>
+                                    @if($cities)
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}" @if($city->id == $user->city_id) selected='selected' @endif>{{ucfirst($city->name)}}</option>
+                                            @@endforeach
+                                    @endif
+                                </select>
+                                @if($errors->first('city'))<p class="error">{{$errors->first('city')}}</p>@endif
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Number:</label>
+                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" required="required" placeholder="Mobile Number" value="{{$user->mobile_no}}" tabindex="8"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Profile Avatar:</label>
+                                <input type="file" name="image" id="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="{{$user->profile_image}}" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                            </div>
+                            <div id="uploadwrapper">
+                                @if($user->profile_image != NULL)
+                                    <img src="{{asset('uploads/user')}}/{{$user->profile_image}}" />
+                                    <a class="removeuploadmedia" href="javascript:void(0);" title="Remove Profile Picture"><i class="glyphicon glyphicon-remove-sign"></i></a>
                                 @endif
-                                @if($user->user_type=='employee')
-                                    <div class="form-group">
-                                        <label>Company Name:</label>
-                                        <input type="text" name="company_name" id="company" class="form-control" required="required" placeholder="Company Name" value="{{$user->employee->company_name}}"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Designation:</label>
-                                        <input type="text" name="designation" id="designation" class="form-control" required="required" placeholder="designation" value="{{$user->employee->designation}}"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Specialization:</label>
-                                        <input type="text" name="specialization" id="specialization" class="form-control" required="required" placeholder="specialization" value="{{$user->employee->specialization}}"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Total It Experience:</label>
-                                        <input type="text" name="total_it_experience" id="total_it_experience" class="form-control" required="required" placeholder="total it experience" value="{{$user->employee->total_it_experience}}"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Total Experience:</label>
-                                        <input type="text" name="total_experience" id="total_experience" class="form-control" required="required" placeholder="total experience" value="{{$user->employee->total_experience}}"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Location:</label>
-                                        <input type="text" name="location" id="location" class="form-control" required="required" placeholder="Location" value="{{$user->employee->location}}"/>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-sm-offset-1" id="logout">
+                <div class="page-header">
+                    <h3 class="reviews">Academic Information</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="" for="state">College State</label>
+                        <select class="form-control" id="college_state" name="college_state" tabindex="9">
+                            <option value="">Select State</option>
+                            @if($states)
+                                @foreach($states as $state)
+                                    <option value="{{$state->id}}" @if($state->id == $user->student->college_state_id) selected='selected' @endif>{{ucfirst($state->name)}}</option>
+                                    @@endforeach
+                            @endif
+                        </select>
+                        @if($errors->first('state'))<p class="error">{{$errors->first('state')}}</p>@endif
+                    </div>
+                    <div class="form-group">
+                        <label>University Name:</label>
+                        <input type="text" name="university_name" id="university_name" class="form-control" required="required" placeholder="University Name" value="{{$user->student->university_name}}" tabindex="11"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Degree Name:</label>
+                        <select class="form-control" required="required" name="education_degree_id" id="education_degree_id" tabindex="13">
+                            <option value="">Select Degree</option>
+                            @foreach($degrees as $degree)
+                                @if(isset($user->student) && $user->student->education_degree_id == $degree->id)
+                                    <?php $selected = 'selected="selected"'; ?>
+                                @else
+                                    <?php $selected = ''; ?>
                                 @endif
-                                <div>
-                                    <button class="btn btn-primary submit" type="submit">Update</button>
-                                    <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
-                                </div>
-
-                                <div class="clearfix"></div>
-
-                            </form>
-                        </section>
+                                <option value="{{$degree->id}}" {{$selected}}>{{$degree->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Academic Month:</label>
+                        <select class="form-control" required="required" name="month" id="month" tabindex="15">
+                            <option value="">Select Month</option>
+                            @foreach($months as $month)
+                                <option value="{{$month}}" @if(isset($user->student) && $user->student->passing_month == $month) selected = 'selected' @endif>{{$month}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="" for="city">College City</label>
+                        <select class="form-control" id="college_city" name="college_city" tabindex="10">
+                            <option value="">Select City</option>
+                            @if($cities)
+                                @foreach($cities as $city)
+                                    <option value="{{$city->id}}" @if(isset($user->student) && $city->id == $user->student->college_city_id) selected='selected' @endif>{{ucfirst($city->name)}}</option>
+                                    @@endforeach
+                            @endif
+                        </select>
+                        @if($errors->first('city'))<p class="error">{{$errors->first('city')}}</p>@endif
+                    </div>
+                    <div class="form-group">
+                        <label>College Name:</label>
+                        <input type="text" class="form-control" id="college_name"  name="college_name" placeholder="College Name" value="{{$user->student->college_name}}" tabindex="12">
+                    </div>
+                    @if($errors->first('college_name'))<p class="error">{{$errors->first('college_name')}}</p>@endif
+                    <div class="form-group">
+                        <label>Course Type/Branch Name:</label>
+                        <select class="form-control" required="required" name="education_course_type_id" id="education_course_type_id" tabindex="14">
+                            <option value="">Select Branch</option>
+                            @foreach($courseTypes as $courseType)
+                                @if(isset($user->student) && $user->student->education_course_type_id == $courseType->id)
+                                    <?php $selected = 'selected="selected"'; ?>
+                                @else
+                                    <?php $selected = ''; ?>
+                                @endif
+                                <option value="{{$courseType->id}}" {{$selected}}>{{$courseType->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Academic Year:</label>
+                        <?php $year = date('Y');?>
+                        <select class="form-control" required="required" name="year" id="year" tabindex="16">
+                            <option value="">Select Passing Year</option>
+                            @for($index = $year; $index >= 1940; $index--)
+                                <option value="{{$index}}" @if(isset($user->student) && $index == $user->student->passing_year) selected='selected' @endif>{{$index}}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    @if($errors->first('year'))<p class="error">{{$errors->first('year')}}</p>@endif
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 action-row">
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input type="submit" class="btn btn-block btn-primary text-uppercase" value="Save" tabindex="17">
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="change_link">
+                            <a href="{{route('user.profile.view')}}" class="btn btn-block btn-primary text-uppercase" tabindex="18"> Cancel </a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-md-offset-2">
-            <div>
-                <div class="login_wrapper">
-                    <div id="" class="form">
-                        <section class="login_content">
-                            <form action="{{url('user/profile/password')}}" method="POST" role="form">
-                                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                                <h1>Change Password</h1>
-                                <div class="form-group">
-                                    <label>Current Password:</label>
-                                    <input type="password" name="current_password" class="form-control" placeholder="Current Password" required="required"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>New Password:</label>
-                                    <input type="password" name="password" class="form-control" placeholder="New Password" required="required"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Password Confirm:</label>
-                                    <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" required="required"/>
-                                </div>
-                                <div>
-                                    <button class="btn btn-primary submit" type="submit">Update</button>
-                                    <a href="{{ URL::previous() }}" ><input type="button" class="btn btn-danger btn-circle text-uppercase" value="Cancel"></a>
-                                </div>
-                            </form>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
-</div>
 @endsection
 @section('page-script')
     <script src="{{asset('assets/plugins/datepicker/bootstrap-datepicker.min.js')}}"></script>
@@ -237,6 +243,84 @@
         });
     </script>
     <script>
-        $('.datepicker').datepicker();
+        $(function(){
+            $("#first_name").focus();
+            $('#birth_date').datepicker({
+                endDate: '-1Y'
+            });
+            var route = '{{route("get-cities")}}';
+            $(document).on("change","#state",function(){
+                $.ajax({
+                    url:route,
+                    type:"POST",
+                    data:{'stateId':$(this).val()},
+                    dataType:"JSON",
+                    beforeSend:function(){
+
+                    },
+                    success:function(msg){
+                        res = msg;
+                    },
+                    complete:function() {
+                        if(res.valid && res.response != null) {
+                            $("#city").html(res.response);
+                        } else {
+                            $("#city").html('<option value="">Select City</option>');
+                        }
+
+                        $("#city").focus();
+                    }
+                });
+            });
+            $(document).on("change","#college_state",function(){
+                $.ajax({
+                    url:route,
+                    type:"POST",
+                    data:{'stateId':$(this).val()},
+                    dataType:"JSON",
+                    beforeSend:function(){
+
+                    },
+                    success:function(msg){
+                        res = msg;
+                    },
+                    complete:function() {
+                        if(res.valid && res.response != null) {
+                            $("#college_city").html(res.response);
+                        } else {
+                            $("#college_city").html('<option value="">Select City</option>');
+                        }
+
+                        $("#college_city").focus();
+                    }
+                });
+            });
+
+            var collegeRoute = '{{route("get-colleges")}}';
+            $(document).on("change","#college_city",function(){
+                $.ajax({
+                    url:collegeRoute,
+                    type:"POST",
+                    data:{'stateId':$("#college_state").val(),'cityId':$("#college_city").val()},
+                    dataType:"JSON",
+                    beforeSend:function(){
+
+                    },
+                    success:function(msg){
+                        res = msg;
+                    },
+                    complete:function() {
+                        if(res.valid && res.response != null) {
+                            $("#college_id").html(res.response);
+                        } else {
+                            $("#college_id").html('<option value="">Select College</option>');
+                        }
+
+                        $("#College_id").focus();
+                    }
+                });
+            });
+
+        });
     </script>
 @endsection

@@ -1,8 +1,9 @@
 <?php
 namespace App\Controllers\User;
 
+use App\Models\City;
+use Cache;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -11,8 +12,6 @@ use App\Services\User\ProfileService;
 use App\Models\College;
 use App\Models\EducationDegree;
 use App\Models\EducationCourseType;
-use App\Models\Month;
-use App\Models\Year;
 use App\Models\State;
 use App\Models\Forum;
 
@@ -21,7 +20,7 @@ class ProfileController extends \BaseController {
 	public function __construct()
 	{
 		$this->service = new ProfileService();
-		$this->user = Auth::user();
+        parent::__construct();
 	}
 
 	public function view()
@@ -31,6 +30,7 @@ class ProfileController extends \BaseController {
 			$metaKeyword = 'user, profile, view';
 			$metaDescription = 'User Profile View';
 			$user = $this->user;
+
 			return View::make('user.profile.view')->with(compact('metaTitle','metaKeyword','metaDescription','user'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
@@ -44,13 +44,33 @@ class ProfileController extends \BaseController {
 			$metaKeyword = 'user, profile, edit';
 			$metaDescription = 'User Profile Edit';
 			$user = $this->user;
-			$colleges = College::all();
-			$degrees = EducationDegree::all();
-			$courseTypes = EducationCourseType::all();
-			$months = Month::all();
-			$years = Year::all();
-			$states = State::all();
-			return View::make('user.profile.edit')->with(compact('metaTitle','metaKeyword','metaDescription','user','colleges','degrees','courseTypes','months','years','states'));
+            $months = array('January','February','March','April','May','June','July','August','September','October','November','December');
+            Cache::forget('colleges');Cache::forget('degrees');Cache::forget('courseTypes');
+            if(Cache::has('degrees')) {
+                $degrees = Cache::get('degrees');
+            } else {
+                $degrees = EducationDegree::orderBy('name','ASC')->get();
+                Cache::put('degrees',$degrees,120);
+            }
+
+            if(Cache::has('courseTypes')) {
+                $courseTypes = Cache::get('courseTypes');
+            } else {
+                $courseTypes = EducationCourseType::orderBy('name','ASC')->get();
+                Cache::put('courseTypes',$courseTypes,120);
+            }
+
+            if(Cache::has('states')) {
+                $states = Cache::get('states');
+            } else {
+                $states = State::all();
+                Cache::put('states',$states,120);
+            }
+
+            $cities = City::getCitiesByState($this->user->state_id);
+	    $collegeCities = City::getCitiesByState($this->user->state_id);
+
+			return View::make('user.profile.edit')->with(compact('metaTitle','metaKeyword','metaDescription','user','colleges','degrees','courseTypes','states','cities','months','collegeCities'));
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}
@@ -60,17 +80,13 @@ class ProfileController extends \BaseController {
 	{
 		try {
 			$data = Input::all();
-			if($this->user->user_type=='student'){
-				$validation = $this->service->validate($data,'student','profile');
-			}elseif($this->user->user_type=='employee'){
-				$validation = $this->service->validate($data,'employee','profile');
-			}else{
-				$validation = $this->service->validate($data,'none','profile');
-			}
+            $validation = $this->service->validate($data,$this->user->user_type,'profile');
 			if ($validation->fails()) {
 				return Redirect::back()->withInput()->withErrors($validation->messages());
 			}
-			$update = $this->service->update($this->user);
+
+			$update = $this->service->update($data);
+
 			if ($update) {
 				return Redirect::route('user.profile.edit')->with('success','Profile updated successfully!');
 			}
@@ -112,4 +128,25 @@ class ProfileController extends \BaseController {
 			throw new \Exception($ex->getMessage(), $ex->getCode());
 		}
 	}
+
+    public function getColleges()
+    {
+        $response = array('valid' => 0, 'response' => null);
+        $state = Input::get('stateId');
+        $city = Input::get('cityId');
+        if(!empty($state) && (int) $state > 0 && !empty($city) && (int) $city > 0) {
+            $colleges = $this->service->getCollegesByStateAndCity($state,$city);
+            if($colleges) {
+                $optionString = "<option value=''>Select College</option>";
+                foreach($colleges as $college) {
+                    $optionString .=  '<option value="'.$college->id.'">'.ucfirst($college->name).'</option>';
+                }
+
+                $response['valid'] = 1;
+                $response['response'] = $optionString;
+            }
+        }
+
+        return json_encode($response);
+    }
 }

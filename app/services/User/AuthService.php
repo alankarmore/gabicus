@@ -27,14 +27,19 @@ class AuthService
     {
         try {
             $timeStamp = Carbon::now();
-            $data['remember_token'] = $data['_token'] . strtotime($timeStamp);
+            $token = $data['_token'];
+            $data['state_id'] = $data['state'];
+            unset($data['state']);
+            $data['city_id'] = $data['city'];
+            unset($data['city']);
+            $data['remember_token'] = $token . strtotime($timeStamp);
             $data['password'] = Hash::make($data['password']);
             $data['created_at'] = $timeStamp;
             $data['updated_at'] = $timeStamp;
+            $user = User::create($data);
             Mail::send('emails.user.welcome', $data, function($message) use ($data) {
                 $message->to($data['email'], $data['first_name'] . " " . $data['last_name'])->subject('Welcome!');
             });
-            $user = User::create($data);
 
             if ('student' == $data['user_type']) {
                 $data['user_id'] = $user->id;
@@ -81,15 +86,12 @@ class AuthService
                     'email' => 'required|email|max:255|unique:users,email',
                     'password' => 'required|max:30',
                     'gender' => 'required',
-                    'birth_date' => 'required',
-                    'state' => 'required|max:150',
-                    'city' => 'required|max:150',
-                    'phone_no' => 'regex:/^\d{8,12}$/',
-                    'mobile_no' => 'required|regex:/^\d{10}$/',
+                    //'phone_no' => 'regex:/^\d{8,12}$/',
+                    //'mobile_no' => 'required|regex:/^\d{10}$/',
                     'user_type' => 'required',
                     'state' => 'required',
                     'city' => 'required',
-                    'mobile_no' => 'required|min:10:max:12',
+                    //'mobile_no' => 'required|min:10:max:12',
                 );
             }
             if ($for == 'login') {
@@ -108,14 +110,14 @@ class AuthService
                 'email.email' => 'Enter valid email address',
                 'email.max' => 'Email must be less than 255 characters',
                 'email.unique' => 'Email address already being used',
-                'password.required' => 'Password is missing',
+                'password.required' => 'Set your password credentials',
                 'password.max' => 'Password must be less than 30 characters',
                 'user_type.required' => 'Select your profession',
                 'state.required' => 'Select your state',
                 'city.required' => 'Select your city',
-                'mobile_no.required' => 'Mobile number is missing',
-                'mobile_no.min' => 'Mobile number must not be less than 10 digits',
-                'mobile_no.max' => 'Mobile number must be less than 12 digits',
+                //'mobile_no.required' => 'Mobile number is missing',
+                //'mobile_no.min' => 'Mobile number must not be less than 10 digits',
+                //'mobile_no.max' => 'Mobile number must be less than 12 digits',
             );
 
             return Validator::make($data, $rules, $messages);
@@ -132,11 +134,6 @@ class AuthService
      */
     public function getCitiesByState($stateId)
     {
-        $cities = City::where('states_id','=',$stateId)->get();
-        if(!empty($cities) && $cities->count() > 0) {
-            return $cities;
-        }
-
-        return false;
+        return City::getCitiesByState($stateId);
     }
 }

@@ -1,13 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\FileHelper;
 use App\Services\CourseService;
 use App\Services\Admin\SEOService;
 
 class BaseController extends Controller
 {
-
     protected $service;
+    protected $user = null;
 
     /**
      * Setup the layout used by the controller.
@@ -23,6 +24,7 @@ class BaseController extends Controller
 
     public function __construct()
     {
+        $this->user = Auth::user();
         $courseService = new CourseService();
         $courses = $courseService->getAllCourses();
 
@@ -71,8 +73,17 @@ class BaseController extends Controller
     public function removeTempImage()
     {
         $response = array('valid' => false);
-        $fileName = Input::get('file');
-        if (!empty($fileName)) {
+        if(!Auth::guest()) {
+            $userImage = Auth::user()->profile_image;
+            $filePath = public_path('uploads/user/').$userImage;
+        } else {
+            if (!empty($fileName)) {
+                $filePath = public_path('uploads/temp/').$fileName;
+            }
+        }
+
+        if(file_exists($filePath)) {
+            @unlink($filePath);
             $response['valid'] = true;
         }
 

@@ -28,7 +28,7 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
      */
     protected $hidden = array('password');
 
-    protected $fillable = array('remember_token','first_name', 'last_name','email','password','gender','birth_date','state_id','city','phone_no','mobile_no','user_type');
+    protected $fillable = array('remember_token','first_name', 'last_name','email','password','gender','birth_date','state_id','city_id','phone_no','mobile_no','user_type');
 
 
     public function role(){
@@ -47,5 +47,15 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
 
     public function forumAnswer(){
         return $this->hasMany('App\Models\User','user_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo('App\Models\State','state_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City','city_id');
     }
 }

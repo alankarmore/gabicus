@@ -27,6 +27,7 @@ Route::post('/teach-with-us', array('as' => 'post-teach-with-us', 'uses' => 'Enr
 Route::get('/resume/{file}', array('as' => 'file.download', 'uses' => 'EnrollController@downloadResume'));
 Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => '\BaseController@getImage'));
 Route::post('get-cities', array('as' => 'get-cities', 'uses' => 'App\Controllers\User\RegistrationController@getCities'));
+Route::post('get-colleges', array('as' => 'get-colleges', 'uses' => 'App\Controllers\User\ProfileController@getColleges'));
 
 Route::get('admin/sign-up', 'App\Controllers\Admin\AuthController@register');
 Route::post('register', array('as' => 'admin.signup', 'uses' => 'App\Controllers\Admin\AuthController@postRegister'));
@@ -130,7 +131,6 @@ Route::group(array('prefix' => 'forum'), function(){
     Route::get('create', array('before'=>'auth|authUser','as' => 'forum.create','uses' => 'App\Controllers\User\ForumController@index'));
     Route::post('create', array('before'=>'auth|authUser','as' => 'forum.create','uses' => 'App\Controllers\User\ForumController@create'));
     Route::get('lists', array('as' => 'forum.list','uses' => 'App\Controllers\User\ForumController@lists'));
-    Route::post('lists', array('as' => 'forum.list','uses' => 'App\Controllers\User\ForumController@getData'));
     Route::get('view/{id}', array('as' => 'forum.view','uses' => 'App\Controllers\User\ForumController@view'));
     Route::post('comment/{id}', array('as' => 'forum.comment','uses' => 'App\Controllers\User\ForumController@comment'));
     Route::get('lists/data', array('as' => 'forum.list.data','uses' => 'App\Controllers\User\ForumController@listData'));

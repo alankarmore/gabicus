@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<div class="container">
+<div class="container userprofile">
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1" id="logout">
             <div class="page-header">
@@ -14,7 +14,7 @@
             <form action="{{route('user.login')}}" method="POST" novalidate>
                 <div class="form-group">
                     <label class="sr-only" for="exampleInputEmail3">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Email" required="" />
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" required="" />
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="exampleInputPassword3">Password</label>
@@ -36,4 +36,12 @@
 
     </div>
 </div>
+@include('partials.feedback')
+@section('page-script')
+<script>
+    $(function(){
+        $("#email").focus();
+    });
+</script>
+@endsection
 @endsection

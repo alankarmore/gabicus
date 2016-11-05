@@ -63,15 +63,20 @@ class ForumController extends \BaseController
             $metaKeyword = 'forum, list';
             $metaDescription = 'Forum List';
             $user = $this->user;
-            $forums = $this->service->getAllForums();
-            
-            return View::make('user.forum.list')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forums'));
+            $forumCategories = $this->service->getForumCategories(true);
+            $cat = Input::get('cat')?trim(Input::get('cat')):null;
+            $sort = Input::get('sort')?trim(Input::get('sort')):'latest';
+            $limit = Input::get('pagesize')?trim(Input::get('pagesize')):10;
+            $forums = $this->service->getAllForums($cat,$sort,$limit);
+
+            return View::make('user.forum.list1')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forums', 'forumCategories','cat','sort','limit'));
             
         } catch (\Exception $ex) {
             $forums = false;
-            return View::make('user.forum.list')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forums'));
+            return View::make('user.forum.list1')->with(compact('metaTitle', 'metaKeyword', 'metaDescription', 'user', 'forums'));
         }
     }
+
 
     public function view($id)
     {

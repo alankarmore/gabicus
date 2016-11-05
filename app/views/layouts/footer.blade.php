@@ -60,6 +60,15 @@ _gaq.push(['_trackPageview']);
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="{{asset('assets/slick/slick.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/jquery.easy-autocomplete.min.js')}}"></script>
+<script src="{{asset('admin/fileupload/jquery.ui.widget.js')}}"></script>
+<script src="{{asset('admin/fileupload/jquery.iframe-transport.js')}}"></script>
+<script src="{{asset('admin/fileupload/jquery.fileupload.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/js/common.js')}}"></script>
+<script type="text/javascript">
+    var fileTempUpload = '{{route("file.temp.upload")}}';
+    var removeRoute = '{{route("file.temp.remove")}}';
+    var tempPath = '{{asset("uploads/temp")}}/';
+</script>
 <script>
 $(document).ready(function () {
     var Accordion = function (el, multiple) {

@@ -8,8 +8,7 @@
             <div class="col-md-6">
                 <div class="media well">
                     <div class="pull-left user-info" href="#">
-                        <img class="avatar img-circle img-thumbnail" src="http://snipplicious.com/images/guest.png"
-                             width="500" alt="Generic placeholder image">
+                        <img class="avatar img-circle img-thumbnail" src="{{asset('uploads/user')}}/{{$user->profile_image}}" width="500" alt="Generic placeholder image">
                         <br>
                         <small class="btn-group btn-group-xs">
                             <strong><a href=""></a></strong>
@@ -23,12 +22,13 @@
                         </div>
                         <!-- Post Info Buttons END -->
                         <!-- Post Text -->
-                        <p>{{$user->first_name." ".$user->last_name}}</p>
+                        <p>{{ucwords($user->first_name." ".$user->last_name)}}</p>
                         <!-- Post Text EMD -->
                     </div>
                 </div>
             </div>
         </div>
+        @if($forums->getTotal() > 0)
         <div class="col-md-8">
             <table class="table forum table-striped">
                 <thead>
@@ -60,5 +60,6 @@
                 <?php echo $forums->links(); ?>
             </div>
         </div>
+        @endif
     </div>
 @endsection

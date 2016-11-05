@@ -1,199 +1,171 @@
 @extends('layouts.account')
 @section('title', "$metaTitle")
 @section('content')
-    <div class="container">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/inner.css')}}">
+    <div class="container userprofile">
+{{--        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="toplinks">
+                <p>You are here :</p>
+                <ul>
+                    <li class="first"><a href="{{route('/')}}">Home</a></li>
+                    <li>Profile</li>
+                </ul>
+            </div>
+        </div>--}}
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-1" id="logout">
-                <div class="page-header">
-                    <h3 class="reviews">Dashboard</h3>
-                </div>
-                <div class="comment-tabs">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#account-settings" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Personal Details</h4></a></li>
-                        @if($user->user_type=='employee')
-                            <li><a href="#employee-settings" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Employee Details</h4></a></li>
-                        @endif
-                        @if($user->user_type=='student')
-                            <li><a href="#student-settings" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Student Details</h4></a></li>
-                        @endif
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="account-settings">
-                            <form action="#" method="post" class="form-horizontal" id="accountSetForm" role="form">
-                                <div class="form-group">
-                                    <label for="avatar" class="col-sm-2 control-label">Avatar</label>
-                                    <div class="col-sm-10">
-                                        <div class="custom-input-file">
-                                            <label class="uploadPhoto">
-
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Name:</label>
-                                    <div class="col-md-4">
-                                        <label class="col-md-10 control-label pull-left">{{ucwords($user->first_name." ".$user->last_name)}}</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Email:</label>
-                                    <div class="col-md-4">
-                                        <label class="col-md-10 control-label pull-left">{{$user->email}}</label>
-                                    </div>
-                                </div>
-                                @if($user->gender!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Gender:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->gender}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->birth_date!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Birthdate:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->birth_date}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->state!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">State:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->state}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->phone_no!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Phone No:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->phone_no}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->mobile_no!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Mobile No:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->mobile_no}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <a href="{{route('user.profile.edit')}}" ><input type="button" class="btn btn-primary btn-circle text-uppercase" value="Edit"></a>
-                                    </div>
-                                </div>
-                            </form>
+            <div class="col-md-10 col-sm-10 col-xs-10 margin-bottom20 nopadding-right">
+                    <div class="page-header">
+                        <h3 class="reviews">Basic Information</h3>
+                    </div>
+                    <span class="pull-right"><a class="btn btn-default" href="{{route('user.profile.edit')}}">Edit</a></span>
+            </div>
+        </div>
+        @include('partials.error')
+        <form action="{{route('user.profile.edit')}}" method="POST" id="signupForm">
+            <div class="row">
+                <div class="col-md-10 col-sm-10 col-xs-10 margin-bottom20 nopadding-right">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            @if($user->profile_image != null)
+                            <img class="profile-image" src="{{asset('uploads/user')}}/{{$user->profile_image}}">
+                            @else
+                                <img class="profile-image" src="{{asset('uploads/user/default.png')}}">
+                            @endif
                         </div>
-                        @if($user->user_type=='employee')
-                        <div class="tab-pane" id="employee-settings">
-                            <form action="#" class="form-horizontal">
-                                @if($user->employee->company_name!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Company Name:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->employee->company_name}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->designation!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Designation:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->designation}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->employee->specialization!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Specialization:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->employee->specialization}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->employee->total_it_experience!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Total IT Experience:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->employee->total_it_experience}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->employee->total_experience!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Total Experience:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->employee->total_experience}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($user->employee->location!=NULL)
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Location:</label>
-                                        <div class="col-md-4">
-                                            <label class="col-md-10 control-label pull-left">{{$user->employee->location}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <a href="{{route('user.profile.edit')}}" ><input type="button" class="btn btn-primary btn-circle text-uppercase" value="Edit"></a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        @endif
-                        @if($user->user_type=='student')
-                            <div class="tab-pane" id="student-settings">
-                                <form action="#" class="form-horizontal">
-                                    @if($user->student->college_name!=NULL)
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">College Name:</label>
-                                            <div class="col-md-4">
-                                                <label class="col-md-10 control-label pull-left">{{$user->student->college_name}}</label>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if($user->student->education!=NULL)
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">Education:</label>
-                                            <div class="col-md-4">
-                                                <label class="col-md-10 control-label pull-left">{{$user->student->education}}</label>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if($user->student->year!=NULL)
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">Year:</label>
-                                            <div class="col-md-4">
-                                                <label class="col-md-10 control-label pull-left">{{$user->student->year}}</label>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if($user->student->location!=NULL)
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">Location:</label>
-                                            <div class="col-md-4">
-                                                <label class="col-md-10 control-label pull-left">{{$user->student->location}}</label>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <a href="{{route('user.profile.edit')}}" ><input type="button" class="btn btn-primary btn-circle text-uppercase" value="Edit"></a>
-                                        </div>
-                                    </div>
-                                </form>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Name:</label>
+                                <label class="col-md-10 control-label pull-left">{{ucwords($user->first_name." ".$user->last_name)}}</label>
                             </div>
-                        @endif
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Email:</label>
+                                <label class="col-md-10 control-label pull-left">{{$user->email}}</label>
+                            </div>
+                            @if($user->gender != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Gender:</label>
+                                <label class="col-md-10 control-label pull-left">{{strtoupper($user->gender)}}</label>
+                            </div>
+                            @endif
+                            @if($user->birth_date != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">DOB:</label>
+                                <label class="col-md-10 control-label pull-left">{{date("d F Y", strtotime($user->birth_date))}}</label>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="col-md-6">
+                            @if($user->phone_no!=NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Phone:</label>
+                                    <label class="col-md-10 control-label pull-left">{{$user->phone_no}}</label>
+                                </div>
+                            @endif
+                            @if($user->mobile_no != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Mobile:</label>
+                                    <label class="col-md-10 control-label pull-left">{{$user->mobile_no}}</label>
+                                </div>
+                            @endif
+                            @if($user->brith_date != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Birth Date:</label>
+                                    <label class="col-md-10 control-label pull-left">{{date("d F Y", strtotime($user->birth_date))}}</label>
+                                </div>
+                            @endif
+                            @if($user->state_id != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">State:</label>
+                                    <label class="col-md-10 control-label pull-left">{{ucwords($user->state->name)}}</label>
+                                </div>
+                            @endif
+                                @if($user->city_id != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">City:</label>
+                                    <label class="col-md-10 control-label pull-left">{{ucwords($user->city->name)}}</label>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-10 col-sm-10 col-xs-10 nopadding-right">
+                    <div class="page-header">
+                        <h3 class="reviews">Academic Information</h3>
+                    </div>
+                    <span class="pull-right"><a class="btn btn-default" href="{{route('user.profile.edit')}}">Edit</a></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-sm-10 col-xs-10 margin-bottom20 nopadding-right">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            @if($user->student->college_state_id != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">State:</label>
+                                    <label class="col-md-10 control-label pull-left">{{ucwords($user->student->state->name)}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                            @if($user->student->university_name != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">University:</label>
+                                    <label class="col-md-10 control-label pull-left">{{ucwords($user->student->university_name)}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                            @if($user->student->education_degree_id != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Degree:</label>
+                                    <label class="col-md-10 control-label pull-left">{{ucwords($user->student->degree->name)}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                            @if($user->student->passing_month != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Month:</label>
+                                    <label class="col-md-10 control-label pull-left">{{$user->student->passing_month}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                        </div>
+                        <div class="col-md-6">
+                            @if($user->student->college_city_id != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">City:</label>
+                                    <label class="col-md-10 control-label pull-left">{{ucwords($user->student->city->name)}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                            @if($user->student->college_name != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">College:</label>
+                                    <label class="col-md-10 control-label pull-left">{{ucwords($user->student->college_name)}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                            @if($user->student->education_course_type_id != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Degree:</label>
+                                    <label class="col-md-9 pull-left">{{ucwords($user->student->course->name)}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                            @if($user->student->passing_year != NULL)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Year:</label>
+                                    <label class="col-md-10 control-label pull-left">{{$user->student->passing_year}}</label>
+                                </div>
+                                <div class="clearfix"></div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
     </div>
 @endsection

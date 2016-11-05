@@ -16,6 +16,7 @@
         </div>
     </div>
 </div>
+<div class="clearfix"></div>
 <!-- Header Section End -->
 <div class="section-breadcrumb">
     <div class="container">

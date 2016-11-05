@@ -147,7 +147,7 @@
         </div>
     </section>
     <!-- Skills Section End -->
-
+        @include('partials.feedback')
     <!-- Testimonial Section Start -->
     <!--
     <section id="testimonial">

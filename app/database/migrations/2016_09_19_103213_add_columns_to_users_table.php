@@ -16,9 +16,9 @@ class AddColumnsToUsersTable extends Migration {
 		{
 			$table->string('gender')->after('remember_token')->nullable();
 			$table->date('birth_date')->after('gender')->nullable();
-			$table->string('state',255)->after('birth_date')->nullable();
-			$table->string('city',255)->after('state')->nullable();
-			$table->string('phone_no',255)->after('city')->nullable();
+			$table->integer('state_id')->after('birth_date')->nullable();
+			$table->integer('city_id')->after('state_id')->nullable();
+			$table->string('phone_no',255)->after('city_id')->nullable();
 			$table->string('mobile_no',255)->after('phone_no')->nullable();
 			$table->string('user_type',255)->after('mobile_no')->nullable();
 		});
@@ -35,8 +35,8 @@ class AddColumnsToUsersTable extends Migration {
 		{
 			$table->dropColumn('mobile_no');
 			$table->dropColumn('phone_no');
-			$table->dropColumn('city');
-			$table->dropColumn('state');
+			$table->dropColumn('city_id');
+			$table->dropColumn('state_id');
 			$table->dropColumn('birth_date');
 			$table->dropColumn('gender');
 			$table->dropColumn('user_type');

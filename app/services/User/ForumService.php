@@ -13,9 +13,22 @@ use App\Models\ForumCategory;
 class ForumService extends BaseService
 {
 
-    public function getForumCategories()
+    public function getForumCategories($withCount = false)
     {
-        $forums = ForumCategory::where('status', '=', \DB::raw(1))->orderBy('category_name', 'ASC')->get();
+        $query = ForumCategory::select('*');
+        if($withCount) {
+            $query = ForumCategory::select('forum_categories.id','forum_categories.category_name','forum_categories.slug',\DB::raw('COUNT(forums.id) as cnt'))
+                                    ->leftJoin('forums','forum_categories.id','=','forums.category_id')
+                                    ->groupBy('id')
+                                    ->orderBy('cnt', 'DESC');
+        } else {
+            $query->orderBy('forum_categories.category_name', 'ASC');
+        }
+
+        $forums = $query->where('forum_categories.status', '=', \DB::raw(1))
+
+                                ->get();
+
         if (isset($forums) && $forums->count() > 0) {
             return $forums;
         }
@@ -39,40 +52,25 @@ class ForumService extends BaseService
         }
     }
     
-    public function getAllForums()
+    public function getAllForums($cat = null,$sort = 'latest',$limit = 10)
     {
-        try {
-            $response = array('total' => 0, 'rows' => '');
-            $allForums = Forum::select(\DB::raw('COUNT(*) as cnt'))->where('status','=',\DB::raw(1))->first();
-            $response['total'] = $allForums->cnt;
-            $query = Forum::select('id', 'category_name');
-            $search = Input::get('search');
-            if (!empty($search)) {
-                $query->where('category_name', 'LIKE', '%' . Input::get('search') . '%');
+        $query = Forum::where('status','=',\DB::raw(1));
+        if($cat) {
+            $category = ForumCategory::where('slug','=',$cat)->first();
+            if($category) {
+                $query = $query->where('category_id','=',$category->id);
             }
-            $sort = Input::get('sort') ? Input::get('sort') : "created_at";
-            $order = Input::get('order') ? Input::get('order') : "DESC";
-            $forums = $query->where('status','=',\DB::raw(1))
-                    ->orderBy($sort, $order)
-                    ->skip(Input::get('offset'))->take(Input::get('limit'))
-                    ->get();
-            if (!empty($search)) {
-                $response['total'] = $forums->count();
-            }
-
-            foreach ($forums as $forum) {
-                $forum->question = ucwords($forum->question);
-                $response['rows'][] = $forum;
-            }
-            
-            return json_encode($response);
-        } catch (\Exception $ex) {
-            throw new \Exception($ex->getMessage(), $ex->getCode());
         }
-        
-        /*return Forum::where('status','=',\DB::raw(1))
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(2);*/
+
+        if($sort == 'latest') {
+            $query->orderBy('created_at', 'DESC');
+        } else if($sort == 'oldest') {
+            $query->orderBy('created_at', 'ASC');
+        } else {
+            $query->orderBy('id', 'DESC');
+        }
+
+        return $query->paginate($limit);
     }
 
     public function comment($user, $data, $id)
