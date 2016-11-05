@@ -28,7 +28,6 @@ class AuthService
         try {
             $timeStamp = Carbon::now();
             $token = $data['_token'];
-            $data['remember_token'] = $token;
             $user = new User();
             $user->first_name = $data['first_name'];
             $user->last_name = $data['last_name'];
@@ -43,7 +42,7 @@ class AuthService
             $user->save();
 
             unset($data['_token']);
-
+            $data['remember_token'] = $user->remember_token;
             Mail::send('emails.user.welcome', $data, function($message) use ($data) {
                 $message->to($data['email'], $data['first_name'] . " " . $data['last_name'])->subject('Welcome!');
             });
