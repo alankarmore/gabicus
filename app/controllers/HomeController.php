@@ -20,7 +20,7 @@ class HomeController extends BaseController
       |	Route::get('/', 'HomeController@showWelcome');
       |
      */
-    
+
     public function index()
     {
         $courseService = new CourseService();
@@ -28,13 +28,23 @@ class HomeController extends BaseController
 
         return View::make('index',array('popularCourses' => $popularCourses));
     }
-    
+
+    public function recruiter()
+    {
+        return View::make('enroll.recruiter');
+    }
+
+    public function events()
+    {
+        return View::make('enroll.events');
+    }
+
     public function getCourses()
     {
         $courseService = new CourseService();
         $phrase = trim(Input::get('phrase'));
         $courses =  $courseService->getCourses($phrase);
-        
+
         return json_encode($courses);
     }
 

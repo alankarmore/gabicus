@@ -12,7 +12,7 @@ class Forum extends \Eloquent
      */
     protected $table = 'forums';
 
-    protected $fillable = array('question','description','views','user_id','category_id');
+    protected $fillable = array('question','description','views','user_id','category_id','status');
 
     public function user(){
         return $this->belongsTo('App\Models\User');

@@ -11,8 +11,10 @@
                                  <img src="{{asset('assets/img/logo.png')}}" alt="logo"></a>
                          </div>-->
                         <div class="pull-right wow fadeInDown animated" data-wow-delay=".2">
+{{--
                             <a href="{{route('teach-with-us')}}" class="margin-right10">Teach With Us</a> <span class="margin-right10">| </span>
                             <a href="{{route('corporate-training')}}" class="margin-right10">Corporate Training</a> <span class="margin-right10"> </span>                        
+--}}
                             <div id="menu" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body">
                                 <span>Menu</span>
                             </div>

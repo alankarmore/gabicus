@@ -12,6 +12,9 @@
  */
 
 Route::get('/', array('as' => '/', 'uses' => 'HomeController@index'));
+Route::get('/recruiter', array('as' => 'recruiter', 'uses' => 'HomeController@recruiter'));
+Route::get('/events', array('as' => 'events', 'uses' => 'HomeController@events'));
+Route::get('/', array('as' => '/', 'uses' => 'HomeController@index'));
 Route::post('/getcourse', array('as' => 'getcourses', 'uses' => 'HomeController@getCourses'));
 Route::get('/course/{name}', array('as' => 'courses.show', 'uses' => 'CourseController@show'));
 Route::get('/about-us', array('as' => 'about-us', 'uses' => 'HomeController@aboutUs'));

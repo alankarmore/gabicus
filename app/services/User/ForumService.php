@@ -43,6 +43,7 @@ class ForumService extends BaseService
             $data['category_id'] = $data['forum_category'];
             unset($data['forum_category']);
             $data['user_id'] = $user->id;
+            $data['status'] = 1;
             $data['slug'] = self::slugify($data['question']);
             $data['created_at'] = $timeStamp;
             
