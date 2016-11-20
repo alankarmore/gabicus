@@ -44,7 +44,7 @@ class ForumCategoryService extends BaseService
             foreach ($categories as $category) {
                 $category->category_name = ucwords($category->category_name); 
                 $category->action = '<a href="' . URL::route('admin.forumcategories.edit', array('id' => $category->id)) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
-                if (isset($category->forums) && $category->forums->count() > 0) {
+                if ($category->forums->count() > 0) {
                     $category->action .= ' <a href="javascript:void(0);" title="Not allowed to delete as courses are bind to this category"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>';
                 } else {
                     $category->action .= ' <a href="' . URL::route('admin.forumcategories.delete', array('id' => $category->id)) . '" title="delete" class="deleteRecord"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';

@@ -1,6 +1,6 @@
 <div class="logindiv">
     <div class="container">
-        <div class="float-left">  
+        <div class="float-left">
             <a href="{{route('/')}}">
                 <img src="{{asset('assets/img/logo.png')}}" alt="logo">
             </a>
@@ -11,11 +11,19 @@
             @if(Auth::guest())
                 <a href="{{route('user.signin')}}" class="margin-left10 margin-right10"> Login</a> | <a href="{{route('user.signup')}}" class="margin-left10 margin-right10">SignUp</a>
             @else
-                @if('recruiter'!==Auth::user()->user_type)
-                    <a href="{{route('forum.create')}}" class="margin-left10 margin-right10">New Question</a>|
-                    <a href="{{route('user.profile.view')}}" class="margin-left10 margin-right10">Profile</a>|
-                @endif
-                <a href="{{route('user.logout')}}" class="margin-right10">Logout</a>
+                <div class="dropdown">
+                    <a href="javascript:void(0);">{{ucfirst(Auth::user()->first_name ." ".Auth::user()->last_name)}}
+                        <i class="glyphicon glyphicon-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{route('user.profile.view')}}">Profile</a>
+                        <a href="{{route('user.change-password')}}">Change Password</a>
+                        @if('recruiter'!== Auth::user()->user_type)
+                            <a href="{{route('forum.create')}}">New Question</a>
+                        @endif
+                        <a href="{{route('user.logout')}}">Logout</a>
+                    </div>
+                </div>
             @endif
         </div>
     </div>

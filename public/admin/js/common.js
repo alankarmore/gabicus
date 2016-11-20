@@ -29,6 +29,14 @@ $(function () {
     $(document).on('click', ".removeuploadmedia", function () {
         removeUploadedMedia(removeRoute);
     });
+
+    $(document).on('click', ".deleteRecord", function (event) {
+        if(confirm('Are you sure?')) {
+            return true;
+        } else {
+            event.preventDefault();
+        }
+    });
 });
 
 function generateTable(tableId, route, sortColumn, sortOrder)

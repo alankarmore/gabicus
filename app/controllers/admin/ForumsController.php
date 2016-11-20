@@ -37,7 +37,7 @@ class ForumsController extends \BaseController
      */
     public function getData()
     {
-        return $this->service->getAllCategories();
+        return $this->service->getAllForums();
     }
     
     /**

@@ -23,12 +23,18 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 <ul class="nav side-menu">
+                    <li><a><i class="fa fa-table"></i>User Management <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" id="users">
+                            <li><a href="{{route('admin.user.list')}}">Users</a></li>
+                            <li><a href="{{route('admin.user.create')}}">Add User</a></li>
+                        </ul>
+                    </li>                    
                     <li><a><i class="fa fa-table"></i>CMS Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" id="menus">
                             <li><a href="{{route('admin.menu.list')}}">Menu Content</a></li>
                             <li><a href="{{route('admin.menu.create')}}">Add Menu</a></li>
                         </ul>
-                    </li>                    
+                    </li>
                     <li><a><i class="fa fa-table"></i> Categories <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" id="categories">
                             <li><a href="{{route('admin.categories')}}">Categories</a></li>
@@ -39,6 +45,12 @@
                         <ul class="nav child_menu" id="forum-categories">
                             <li><a href="{{route('admin.forumcategories')}}">Categories</a></li>
                             <li><a href="{{route('admin.forumcategories.create')}}">Add Category</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-table"></i>Forum Management <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" id="forums">
+                            <li><a href="{{route('admin.forums.list')}}">Forums</a></li>
+                            <li><a href="{{route('admin.forums.create')}}">Add Forum</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-table"></i> Courses<span class="fa fa-chevron-down"></span></a>

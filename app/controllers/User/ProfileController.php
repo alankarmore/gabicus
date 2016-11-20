@@ -95,6 +95,10 @@ class ProfileController extends \BaseController {
 		}
 	}
 
+    public function changePassword()
+    {
+        return View::make('user.profile.change-password');
+    }
 	public function passwordUpdate()
 	{
 		try {
@@ -108,7 +112,7 @@ class ProfileController extends \BaseController {
 			}
 			$update = $this->service->passwordUpdate($this->user,$data['password']);
 			if ($update) {
-				return Redirect::route('user.profile.edit')->with('success','Password updated successfully!');
+				return Redirect::route('user.change-password')->with('success','Password updated successfully!');
 			}
 		} catch (\Exception $ex) {
 			throw new \Exception($ex->getMessage(), $ex->getCode());

@@ -13,13 +13,10 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('RoleTableSeeder');
 		$this->call('CollegeTableSeeder');
-		$this->call('CollegeTableSeeder');
 		$this->call('EducationDegreeTableSeeder');
 		$this->call('EducationCourseTypeTableSeeder');
-		$this->call('MonthTableSeeder');
-		$this->call('YearTableSeeder');
 		$this->call('StateTableSeeder');
-
+		$this->call('CityTableSeeder');
 	}
 
 }

@@ -40,6 +40,15 @@ Route::post('file/temp/upload', array('as' => 'file.temp.upload', 'uses' => '\Ba
 Route::post('file/temp/remove', array('as' => 'file.temp.remove', 'uses' => '\BaseController@removeTempImage'));
 
 Route::group(array('before' => 'authAdmin', 'prefix' => 'admin'), function() {
+    Route::get('user/list', ['as' => 'admin.user.list', 'uses' => 'App\Controllers\Admin\UserController@index']);
+    Route::post('user/list', ['as' => 'admin.user.list', 'uses' => 'App\Controllers\Admin\UserController@getData']);
+    Route::get('user/create', ['as' => 'admin.user.create', 'uses' => 'App\Controllers\Admin\UserController@create']);
+    Route::post('user/save', ['as' => 'admin.user.save', 'uses' => 'App\Controllers\Admin\UserController@store']);
+    Route::get('user/edit/{id}', ['as' => 'admin.user.edit', 'uses' => 'App\Controllers\Admin\UserController@edit']);
+    Route::post('user/update/{id}', ['as' => 'admin.user.update', 'uses' => 'App\Controllers\Admin\UserController@update']);
+    Route::get('user/show/{id}', ['as' => 'admin.user.show', 'uses' => 'App\Controllers\Admin\UserController@show']);
+    Route::get('user/destroy/{id}', ['as' => 'admin.user.destroy', 'uses' => 'App\Controllers\Admin\UserController@destroy']);
+
     Route::get('menu/list', ['as' => 'admin.menu.list', 'uses' => 'App\Controllers\Admin\CMSMenuController@index']);
     Route::post('menu/list', ['as' => 'admin.menu.list', 'uses' => 'App\Controllers\Admin\CMSMenuController@getData']);
     Route::get('menu/create', ['as' => 'admin.menu.create', 'uses' => 'App\Controllers\Admin\CMSMenuController@create']);
@@ -64,6 +73,15 @@ Route::group(array('before' => 'authAdmin', 'prefix' => 'admin'), function() {
     Route::get('forum-categories/edit/{id}', array('as' => 'admin.forumcategories.edit', 'uses' => 'App\Controllers\Admin\ForumCategoryController@edit'));
     Route::post('forum-categories/update/{id}', array('as' => 'admin.forumcategories.update', 'uses' => 'App\Controllers\Admin\ForumCategoryController@update'));
     Route::get('forum-categories/delete/{id}', array('as' => 'admin.forumcategories.delete', 'uses' => 'App\Controllers\Admin\ForumCategoryController@destroy'));
+
+    Route::get('forums/list', ['as' => 'admin.forums.list', 'uses' => 'App\Controllers\Admin\ForumsController@index']);
+    Route::post('forums/list', ['as' => 'admin.forums.list', 'uses' => 'App\Controllers\Admin\ForumsController@getData']);
+    Route::get('forums/create', ['as' => 'admin.forums.create', 'uses' => 'App\Controllers\Admin\ForumsController@create']);
+    //Route::post('forums/save', ['as' => 'admin.forums.save', 'uses' => 'App\Controllers\Admin\ForumsController@store']);
+    Route::get('forums/edit/{id}', ['as' => 'admin.forums.edit', 'uses' => 'App\Controllers\Admin\ForumsController@edit']);
+    //Route::post('forums/update/{id}', ['as' => 'admin.forums.update', 'uses' => 'App\Controllers\Admin\ForumsController@update']);
+    Route::get('forums/show/{id}', ['as' => 'admin.forums.show', 'uses' => 'App\Controllers\Admin\ForumsController@show']);
+    Route::get('forums/destroy/{id}', ['as' => 'admin.forums.destroy', 'uses' => 'App\Controllers\Admin\ForumsController@destroy']);
 
     Route::get('courses', array('as' => 'admin.courses', 'uses' => 'App\Controllers\Admin\CourseController@index'));
     Route::post('courses', array('as' => 'admin.course.list', 'uses' => 'App\Controllers\Admin\CourseController@getData'));
@@ -119,6 +137,7 @@ Route::group(array('prefix' => 'user'), function()
         Route::get('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@edit'));
         Route::get('view', array('before'=>'auth|authUser','as' => 'user.profile.view', 'uses' => 'App\Controllers\User\ProfileController@view'));
         Route::post('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@update'));
+        Route::get('change-password', array('before'=>'auth|authUser','as' => 'user.change-password', 'uses' => 'App\Controllers\User\ProfileController@changePassword'));
         Route::post('password', array('before'=>'auth|authUser','as' => 'user.password', 'uses' => 'App\Controllers\User\ProfileController@passwordUpdate'));
         Route::get('public/{id}', array('as' => 'user.profile.public', 'uses' => 'App\Controllers\User\ProfileController@publicProfile'));
     });

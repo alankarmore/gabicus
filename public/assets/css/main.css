@@ -1498,6 +1498,34 @@ a.red-box{
     padding: 0;
 }
 
+/* header user menu drop down */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 5px 5px;
+    text-decoration: none;
+    border-bottom: 1px solid #2C4257;
+    display: block;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* END */
 @media only screen and (max-width: 768px) {
 
     .margin-right30{
