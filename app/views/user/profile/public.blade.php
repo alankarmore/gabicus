@@ -6,28 +6,87 @@
         <h1>{{$user->first_name." ".$user->last_name}}'s Profile</h1>
         <div class="col-md-4">
             <div class="col-md-6">
-                <div class="media well">
-                    <div class="pull-left user-info" href="#">
-                        <img class="avatar img-circle img-thumbnail" src="{{asset('uploads/user')}}/{{$user->profile_image}}" width="500" alt="Generic placeholder image">
-                        <br>
-                        <small class="btn-group btn-group-xs">
-                            <strong><a href=""></a></strong>
-                        </small>
-                    </div>
-                    <div class="media-body">
-                        <!-- Post Info Buttons -->
-                        <div class="forum-post-panel btn-group btn-group-xs">
-
-                            {{--<a href="#" class="btn btn-danger"><i class="fa fa-warning"></i> Report post</a>--}}
-                        </div>
-                        <!-- Post Info Buttons END -->
-                        <!-- Post Text -->
-                        <p>{{ucwords($user->first_name." ".$user->last_name)}}</p>
-                        <!-- Post Text EMD -->
+                <div class="media">
+                    <div class="pull-left">
+                        @if($user->profile_image != null)
+                            <img class="profile-image" src="{{asset('uploads/user')}}/{{$user->profile_image}}">
+                        @else
+                            <img class="profile-image" src="{{asset('uploads/user/default.png')}}">
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+        @if($user->student)
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom20 nopadding-right">
+                <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                <div class="row">
+                    <div class="col-md-6">
+                        @if($user->student->college_state_id != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">State:</label>
+                                <label class="col-md-10 control-label pull-left">{{ucwords($user->student->state->name)}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                        @if($user->student->university_name != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">University:</label>
+                                <label class="col-md-10 control-label pull-left">{{ucwords($user->student->university_name)}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                        @if($user->student->education_degree_id != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Degree:</label>
+                                <label class="col-md-10 control-label pull-left">{{ucwords($user->student->degree->name)}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                        @if($user->student->passing_month != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Month:</label>
+                                <label class="col-md-10 control-label pull-left">{{$user->student->passing_month}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                    </div>
+                    <div class="col-md-6">
+                        @if($user->student->college_city_id != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">City:</label>
+                                <label class="col-md-10 control-label pull-left">{{ucwords($user->student->city->name)}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                        @if($user->student->college_name != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">College:</label>
+                                <label class="col-md-10 control-label pull-left">{{ucwords($user->student->college_name)}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                        @if($user->student->education_course_type_id != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Degree:</label>
+                                <label class="col-md-9 pull-left">{{ucwords($user->student->course->name)}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                        @if($user->student->passing_year != NULL)
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Year:</label>
+                                <label class="col-md-10 control-label pull-left">{{$user->student->passing_year}}</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         @if($forums->getTotal() > 0)
         <div class="col-md-8">
             <table class="table forum table-striped">

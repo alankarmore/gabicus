@@ -23,7 +23,6 @@
                                 <label>User Type</label>
                                 <select name="user_type" id="user_type" class="form-control">
                                     <option value="student">Student</option>
-                                    <option value="user">Normal User</option>
                                     <option value="recruiter">Recruiter</option>
                                 </select>
                             </div>                            

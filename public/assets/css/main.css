@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,900,300,900italic);
 html,body {
     width:100%;
-    overflow-x:hidden;    <- Don't like this one, would rather have it visible
+    overflow-x:hidden;
 }
 body {
     font-family: 'Lato', sans-serif;
@@ -1508,6 +1508,7 @@ a.red-box{
     display: none;
     position: absolute;
     min-width: 160px;
+    background-color: white;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }

@@ -17,6 +17,8 @@ use App\Models\UserRoleAssociation;
 class UserService
 {
     CONST USER_STUDENT = 'student';
+    CONST USER_RECRUITER = 'recruiter';
+
     /**
      * Get all menus
      * 
@@ -97,35 +99,35 @@ class UserService
         if($saved) {
             if(self::USER_STUDENT  == $user->user_type) {
                 $student = new Student();
-                if($id) {
-                 $student = $user->student();
+                if ($id) {
+                    $student = $user->student();
                 }
 
                 $student->user_id = $user->id;
                 $student->save();
+            }
 
-                if($id == null) {
-                    $data['password'] = $password;
-                    $data['remember_token'] = $user->remember_token;
-                    Mail::send('emails.admin.welcome', $data, function($message) use ($data) {
-                        $message->to($data['email'], $data['first_name'] . " " . $data['last_name'])->subject('Welcome!');
-                    });
+            if($id == null) {
+                $data['password'] = $password;
+                $data['remember_token'] = $user->remember_token;
+                Mail::send('emails.admin.welcome', $data, function($message) use ($data) {
+                    $message->to($data['email'], $data['first_name'] . " " . $data['last_name'])->subject('Welcome!');
+                });
 
-                    if ('recruiter' ==  $user->user_type) {
-                        $role = Role::where('name', 'recruiter')->first();
-                    } else {
-                        $role = Role::where('name', 'user')->first();
-                    }
-
-                    $userRoleAssociationData = array(
-                        'user_id' => $user->id,
-                        'role_id' => $role->id,
-                        'created_at' => $timeStamp,
-                        'updated_at' => $timeStamp,
-                    );
-
-                    UserRoleAssociation::create($userRoleAssociationData);
+                if (self::USER_RECRUITER  ==  $user->user_type) {
+                    $role = Role::where('name',self::USER_RECRUITER)->first();
+                } else {
+                    $role = Role::where('name', 'user')->first();
                 }
+
+                $userRoleAssociationData = array(
+                    'user_id' => $user->id,
+                    'role_id' => $role->id,
+                    'created_at' => $timeStamp,
+                    'updated_at' => $timeStamp,
+                );
+
+                UserRoleAssociation::create($userRoleAssociationData);
             }
 
             return $user;

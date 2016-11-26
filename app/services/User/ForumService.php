@@ -19,7 +19,7 @@ class ForumService extends BaseService
         if($withCount) {
             $query = ForumCategory::select('forum_categories.id','forum_categories.category_name','forum_categories.slug',\DB::raw('COUNT(forums.id) as cnt'))
                                     ->leftJoin('forums','forum_categories.id','=','forums.category_id')
-                                    ->groupBy('id')
+                                    ->groupBy('forum_categories.id')
                                     ->orderBy('cnt', 'DESC');
         } else {
             $query->orderBy('forum_categories.category_name', 'ASC');

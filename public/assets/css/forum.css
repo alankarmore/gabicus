@@ -175,7 +175,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background:#f3f3f3 url(../images/select-arrow.png) no-repeat top 8px right 8px;
+    background:#f3f3f3 url(../img/select-arrow.png) no-repeat top 8px right 8px;
     line-height:24px;
 }
 .result .page-size{

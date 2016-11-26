@@ -58,4 +58,15 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
     {
         return $this->belongsTo('App\Models\City','city_id');
     }
+
+    public function jobs()
+    {
+        return $this->hasMany('App\Models\Job','recruiter_id');
+    }
+
+    public function userJobs()
+    {
+        return $this->hasMany('App\Models\UserJobs','user_id');
+    }
+
 }

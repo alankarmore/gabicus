@@ -139,6 +139,7 @@ Route::group(array('prefix' => 'user'), function()
         Route::post('edit', array('before'=>'auth|authUser','as' => 'user.profile.edit', 'uses' => 'App\Controllers\User\ProfileController@update'));
         Route::get('change-password', array('before'=>'auth|authUser','as' => 'user.change-password', 'uses' => 'App\Controllers\User\ProfileController@changePassword'));
         Route::post('password', array('before'=>'auth|authUser','as' => 'user.password', 'uses' => 'App\Controllers\User\ProfileController@passwordUpdate'));
+        Route::get('jobs', array('before'=>'auth|authUser','as' => 'user.applied.jobs', 'uses' => 'App\Controllers\User\ProfileController@appliedJobs'));
         Route::get('public/{id}', array('as' => 'user.profile.public', 'uses' => 'App\Controllers\User\ProfileController@publicProfile'));
     });
 });
@@ -158,12 +159,23 @@ Route::group(array('prefix' => 'forum'), function(){
     Route::get('lists/data', array('as' => 'forum.list.data','uses' => 'App\Controllers\User\ForumController@listData'));
 });
 
+Route::group(array('prefix' => 'job'), function(){
+    Route::get('create', array('before'=>'auth|authUser','as' => 'job.create','uses' => 'App\Controllers\User\JobController@index'));
+    Route::post('create', array('before'=>'auth|authUser','as' => 'job.create','uses' => 'App\Controllers\User\JobController@create'));
+    Route::get('lists', array('as' => 'jobs.list','uses' => 'App\Controllers\User\JobController@lists'));
+    Route::get('view/{id}', array('as' => 'jobs.view','uses' => 'App\Controllers\User\JobController@view'));
+    Route::post('job/apply', array('as' => 'job.apply','uses' => 'App\Controllers\User\JobController@apply'));
+    //Route::get('lists/data', array('as' => 'forum.list.data','uses' => 'App\Controllers\User\ForumController@listData'));
+});
+
 Route::group(array('prefix' => 'recruiter'), function(){
-    Route::get('dashboard', array('before'=>'auth',function(){
+    Route::get('dashboard', array('before'=>'auth|authUser',function(){
         $metaTitle = 'Recruiter Dashboard';
         $metaKeyword = 'recruiter';
         $metaDescription = 'Recruiter Dashboard';
         return View::make('recruiter.dashboard',compact('metaTitle','metaKeyword','metaDescription'));
     }));
+
+    Route::get('job/lists', array('as' => 'myjobs.list','uses' => 'App\Controllers\User\JobController@myPostedJobs'));
 });
 

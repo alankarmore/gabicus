@@ -90,6 +90,8 @@
                     </div>
                 </div>
             </div>
+
+            @if($user->role->role_id == 3)
             <div class="row">
                 <div class="col-md-10 col-sm-10 col-xs-10 nopadding-right">
                     <div class="page-header">
@@ -166,6 +168,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
+            @endif
         </form>
     </div>
 @endsection

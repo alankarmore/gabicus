@@ -51,16 +51,32 @@
                                 </select>
                                 @if($errors->first('state'))<p class="error">{{$errors->first('state')}}</p>@endif
                             </div>
+                            @if($user->role->role_id == 3)
                             <div class="form-group">
                                 <label>Birth Date:</label>
                                 <input tabindex="7" name="birth_date" data-autoclose="true" id="birth_date" class="form-control" required="required" value="{{$user->birth_date}}" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" />
                             </div>
                             @if($errors->first('birth_date'))<p class="error">{{$errors->first('birth_date')}}</p>@endif
+                            @endif
                             <div class="form-group">
                                 <label>Phone Number:</label>
                                 <input type="text" name="phone_no" id="phone_no" class="form-control" placeholder="Phone Number" value="{{$user->phone_no}}" tabindex="9"/>
                             </div>
                             @if($errors->first('phone_no'))<p class="error">{{$errors->first('phone_no')}}</p>@endif
+                            @if($user->role->role_id == 2)
+                            <div class="form-group">
+                                <label>Profile Avatar:</label>
+                                <input type="file" name="image" id="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="{{$user->profile_image}}" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                            </div>
+                            <div id="uploadwrapper">
+                                @if($user->profile_image != NULL)
+                                    <img src="{{asset('uploads/user')}}/{{$user->profile_image}}" />
+                                    <a class="removeuploadmedia" href="javascript:void(0);" title="Remove Profile Picture"><i class="glyphicon glyphicon-remove-sign"></i></a>
+                                @endif
+                            </div>
+                            @endif
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
@@ -91,8 +107,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Mobile Number:</label>
-                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" required="required" placeholder="Mobile Number" value="{{$user->mobile_no}}" tabindex="8"/>
+                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" placeholder="Mobile Number" value="{{$user->mobile_no}}" tabindex="8"/>
                             </div>
+                            @if($user->role->role_id == 3)
                             <div class="form-group">
                                 <label>Profile Avatar:</label>
                                 <input type="file" name="image" id="image" />
@@ -105,10 +122,13 @@
                                     <a class="removeuploadmedia" href="javascript:void(0);" title="Remove Profile Picture"><i class="glyphicon glyphicon-remove-sign"></i></a>
                                 @endif
                             </div>
+                            @endif
                         </div>
                     </div>
             </div>
         </div>
+
+        @if($user->role->role_id == 3)
         <div class="row">
             <div class="col-sm-12 col-sm-offset-1" id="logout">
                 <div class="page-header">
@@ -207,6 +227,7 @@
             </div>
             </div>
         </div>
+        @endif
         <div class="row">
             <div class="col-md-8 col-md-offset-2 action-row">
                 <div class="form-group">

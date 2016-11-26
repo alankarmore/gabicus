@@ -22,9 +22,8 @@
                                 <div class="form-group">
                                     <label>User Type</label>
                                     <select name="user_type" id="user_type" class="form-control">
-                                        <option value="student">Student</option>
-                                        <option value="user">Normal User</option>
-                                        <option value="recruiter">Recruiter</option>
+                                        <option value="student" @if($user->user_type == 'student') selected = "selected" @endif>Student</option>
+                                        <option value="recruiter"  @if($user->user_type == 'recruiter') selected = "selected" @endif>Recruiter</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

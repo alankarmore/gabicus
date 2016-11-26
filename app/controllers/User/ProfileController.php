@@ -76,6 +76,13 @@ class ProfileController extends \BaseController {
 		}
 	}
 
+    public function appliedJobs()
+    {
+        $appliedJobs = $this->user->userJobs;
+
+        return View::make('user.list',array('jobs' => $appliedJobs));
+    }
+
 	public function update()
 	{
 		try {

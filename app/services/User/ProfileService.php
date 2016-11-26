@@ -21,7 +21,10 @@ class ProfileService
             $user = Auth::user();
             $user->first_name = trim($data['first_name']);
             $user->last_name = trim($data['last_name']);
-            $user->birth_date = date("Y-m-d",strtotime($data['birth_date']));
+            if ($user->role->role_id == 3){
+                $user->birth_date = date("Y-m-d", strtotime($data['birth_date']));
+            }
+
             $user->state_id = trim($data['state']);
             $user->city_id = trim($data['city']);
             $user->phone_no = trim($data['phone_no']);
@@ -72,6 +75,8 @@ class ProfileService
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
+
+        return $user;
     }
 
     public function passwordUpdate($user,$password)
@@ -107,7 +112,6 @@ class ProfileService
                 $rules = array(
                     'first_name' => 'required|max:30',
                     'last_name' => 'required|max:30',
-                    'birth_date' => 'required',
                     'state_id' => 'required',
                     'profile_image' => 'mimes:jpg,jpeg,png',
                     'city' => 'required|max:150',
@@ -115,6 +119,7 @@ class ProfileService
                     'mobile_no' => 'required|regex:/^\d{10}$/'
                 );
                 if($for=='student'){
+                    $rules['birth_date'] = 'required';
                     $rules['college_state'] = 'required';
                     $rules['college_city'] = 'required';
                     $rules['education_degree_id'] = 'required';
