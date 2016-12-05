@@ -51,7 +51,7 @@
                                     <h4 class="list-heading">{{substr($forum->question,0,80)}}...</h4>
                                 </a>
                                 <p class="border-bottom">{{substr($forum->description,0,246)}}...</p>
-                                <span class="category-date-para"> By <strong>{{ucwords($forum->user->first_name." ".$forum->user->last_name)}}</strong> | {{$forum->created_at->toDayDateTimeString()}} | @if(isset($forum->answers) && $forum->answers != null){{$forum->answers->count()}} @else0 @endifAnswers</span>
+                                <span class="category-date-para"> By <strong>{{ucwords($forum->user->first_name." ".$forum->user->last_name)}}</strong> | {{$forum->created_at->toDayDateTimeString()}} | @if(isset($forum->answers) && $forum->answers != null){{$forum->answers->count()}} @else 0 @endif Answers</span>
                             </div>
                         @endforeach
                         <div>
